@@ -1,0 +1,49 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row register-form">
+        <div class="col-md-8 offset-md-2">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="custom-form">
+                <h1>@ViewData["Title"]</h1>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" asp-for="Input.Email">Email </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" asp-for="Input.Password">Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input asp-for="Input.Password" type="password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" asp-for="Input.ConfirmPassword">Repeat Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button style="background-color:rgb(60,175,87);" type="submit" class="btn btn-light submit-button">Register</button>
+            </form>
+        </div>
+    </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

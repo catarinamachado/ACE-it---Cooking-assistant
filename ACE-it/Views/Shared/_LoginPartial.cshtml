@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" style="color: #ffffff;"><i class="fa fa-book"></i>&nbsp;Recipes</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" style="color: #ffffff;"><i class="fa fa-calendar-o"></i>&nbsp;Planner</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" style="color: #ffffff;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-user"></i>&nbsp;User</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+                        <button type="submit" class="nav-link btn btn-link" style="color: #ffffff;"><i class="fa fa-sign-out"></i>&nbsp;Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="color:#ffffff;"><i class="fa fa-user"></i>&nbsp;Login</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register" style="color:#ffffff;"><i class="fa fa-sign-in"></i>&nbsp;Register</a></li>
+            </ul>
+        </div>
+    }
+</ul>

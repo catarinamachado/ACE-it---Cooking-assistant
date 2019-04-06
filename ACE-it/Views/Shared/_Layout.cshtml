@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+    <title>@ViewData["Title"] - ACE it: Cooking Assistant</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700">
+    <link rel="stylesheet" href="/css/Animated-Pretty-Product-List-v12.css">
+    <link rel="stylesheet" href="/css/Article-Dual-Column.css">
+    <link rel="stylesheet" href="/css/Article-List.css">
+    <link rel="stylesheet" href="/css/Dark-NavBar.css">
+    <link rel="stylesheet" href="/css/Features-Boxed.css">
+    <link rel="stylesheet" href="/css/Features-Clean.css">
+    <link rel="stylesheet" href="/css/Filter.css">
+    <link rel="stylesheet" href="/css/Footer-Basic.css">
+    <link rel="stylesheet" href="/css/Highlight-Clean.css">
+    <link rel="stylesheet" href="/css/Highlight-Phone.css">
+    <link rel="stylesheet" href="/css/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="/css/Map-Clean.css">
+    <link rel="stylesheet" href="/css/Responsive-Youtube-Embed.css">
+    <link rel="stylesheet" href="/css/Social-Icons.css">
+    <link rel="stylesheet" href="/css/Steps-Progressbar.css">
+    <link rel="stylesheet" href="/css/Testimonials.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-md sticky-top bg-success navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand" style="font-size: 15px;">&nbsp;
+            <img src="/img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" width="55" height="55">&nbsp;ACE it - Cooking Assistant
+        </a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <partial name="_LoginPartial"/>
+    </div>
+</nav>
+
+<div class="container" style="min-width: 100%;">
+    <partial name="_CookieConsentPartial"/>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<div class="footer-basic" style="padding-bottom:0px;padding-top:0px;">
+        <footer style="background-color:rgb(60,175,87);margin:0;height:200px;padding:0;">
+            <div class="social" style="padding-top:20px;"><div><a href="https://www.milaneza.pt"><img src="/img/milaneza-logo.png" /></a></div></div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="/">Home</a></li>
+                <li class="list-inline-item"><a>Services</a></li>
+                <li class="list-inline-item"><a>About</a></li>
+                <li class="list-inline-item"><a>Terms</a></li>
+                <li class="list-inline-item"><a>Privacy Policy</a></li>
+            </ul>
+            <p class="copyright">CGJP - Software House © 2019</p>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+
+</html>
