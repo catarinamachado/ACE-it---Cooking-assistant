@@ -21,6 +21,21 @@ namespace ACE_it.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            SetManyToManyRelationships(modelBuilder);
+            SeedDatabase(modelBuilder);
+        }
+
+        private static void SeedDatabase(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Fish"});
+
+            modelBuilder.Entity<Recipe>().HasData(
+                new Recipe {Id = 1, Name = "Pasta with Tuna"});
+        }
+
+        private static void SetManyToManyRelationships(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<RecipeInstruction>()
                 .HasKey(ri => new { ri.RecipeId, ri.InstructionId});
             modelBuilder.Entity<RecipeInstruction>()
