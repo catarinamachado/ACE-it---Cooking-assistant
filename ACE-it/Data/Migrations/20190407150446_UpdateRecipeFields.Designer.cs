@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACE_it.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190407124442_AddNameAndImageToRecipe")]
-    partial class AddNameAndImageToRecipe
+    [Migration("20190407150446_UpdateRecipeFields")]
+    partial class UpdateRecipeFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,10 +129,15 @@ namespace ACE_it.Data.Migrations
 
                     b.Property<int>("DefaultDuration");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
                     b.Property<int>("Difficulty");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(45);
 
                     b.Property<int>("NumberOfPeople");
 

@@ -2,7 +2,7 @@
 
 namespace ACE_it.Data.Migrations
 {
-    public partial class AddNameAndImageToRecipe : Migration
+    public partial class UpdateRecipeFields : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,16 @@ namespace ACE_it.Data.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
+                name: "Description",
+                table: "Recipes",
+                maxLength: 1000,
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
                 name: "Name",
                 table: "Recipes",
+                maxLength: 45,
                 nullable: false,
                 defaultValue: "");
         }
@@ -23,6 +31,10 @@ namespace ACE_it.Data.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Base64Image",
+                table: "Recipes");
+
+            migrationBuilder.DropColumn(
+                name: "Description",
                 table: "Recipes");
 
             migrationBuilder.DropColumn(
