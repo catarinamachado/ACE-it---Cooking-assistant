@@ -7,6 +7,9 @@ namespace ACE_it.Models
     {
         public int Id { get; set; }
 
+        [Required] public string Name { get; set; }
+        [Required] public string Base64Image { get; set; }
+
         public int DefaultDuration { get; set; }
         public int NumberOfPeople { get; set; }
 
