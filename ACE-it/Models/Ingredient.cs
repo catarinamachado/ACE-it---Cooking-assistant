@@ -9,13 +9,16 @@ namespace ACE_it.Models
 
         [Required, MaxLength(45)] public string Name { get; set; }
 
-        public int Calories { get; set; }
-        public int TotalFat { get; set; }
-        public int SaturedFat { get; set; }
-        public int Sodium { get; set; }
-        public int Sugar { get; set; }
-        public int Protein { get; set; }
-        public int TotalCarbohydrate { get; set; }
+        public double Calories { get; set; }
+        public double TotalFat { get; set; }
+        public double SaturedFat { get; set; }
+        public double Sodium { get; set; }
+        public double Sugar { get; set; }
+        public double Protein { get; set; }
+        public double TotalCarbohydrate { get; set; }
+
+        public int Quantity { get; set; }
+        public string Unit { get; set; }
 
         [Required] public List<RecipeIngredient> RecipeIngredients { get; set; }
         [Required] public List<UserFavouriteIngredient> UserFavouriteIngredients { get; set; }

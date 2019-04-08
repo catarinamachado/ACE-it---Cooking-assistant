@@ -2,7 +2,6 @@
 ACE-it/bin
 ACE-it/out
 ACE-it/wwwroot/lib
-Data/Migrations/ApplicationDbContextModelSnapshot.cs
 
 # Created by https://www.gitignore.io/api/linux,macos,intellij,aspnetcore
 # Edit at https://www.gitignore.io/?templates=linux,macos,intellij,aspnetcore

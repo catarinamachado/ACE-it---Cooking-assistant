@@ -10,6 +10,6 @@ namespace ACE_it.Models
         public int IngredientId { get; set; }
         [Required] public Ingredient Ingredient { get; set; }
 
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }

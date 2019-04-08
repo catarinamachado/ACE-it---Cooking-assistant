@@ -11,5 +11,13 @@ namespace ACE_it.Models
 
         [Required] public List<Recipe> Recipes { get; set; }
 
+        public Category()
+        {
+        }
+
+        public Category(int id)
+        {
+            Id = id;
+        }
     }
 }

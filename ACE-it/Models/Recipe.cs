@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ACE_it.Models
 {
@@ -15,7 +16,9 @@ namespace ACE_it.Models
         public int NumberOfPeople { get; set; }
 
         [Required] public Difficulty Difficulty { get; set; }
-        [Required] public Category Category { get; set; }
+
+        public int CategoryId { get; set; }
+        [Required, ForeignKey("CategoryId")] public Category Category { get; set; }
 
         [Required] public List<RecipeInstruction> RecipeInstructions { get; set; }
         [Required] public List<RecipeIngredient> RecipeIngredients { get; set; }
