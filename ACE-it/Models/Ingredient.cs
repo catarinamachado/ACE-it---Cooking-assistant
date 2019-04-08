@@ -16,6 +16,7 @@ namespace ACE_it.Models
         public double Sugar { get; set; }
         public double Protein { get; set; }
         public double TotalCarbohydrate { get; set; }
+        public double Fiber { get; set; }
 
         public int Quantity { get; set; }
         public string Unit { get; set; }
