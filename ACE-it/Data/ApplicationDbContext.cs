@@ -143,54 +143,54 @@ namespace ACE_it.Data
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
-                Id = 6,
+                Id = 7,
                 Text =
                     "<li>The first step is to make sure you have plenty of water in your pan. Use a large, high sided saucepan and add at least 500ml, or up to 1 litre of water per 100g dried pasta (depending on the capacity of your pan). Make sure there’s still enough room at the top because you don’t want the water to bubble up and overflow.</li>",
                 InstructionTypeId = 9
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 6, RecipeId = 2
-            });
-
-            modelBuilder.Entity<Instruction>().HasData(new Instruction
-            {
-                Id = 7,
-                Text =
-                    "<li>Bring the pan of water to the boil then add your pasta. If you like, or the recipe suggests, salt the water first, or if you prefer, add a splash of olive oil.</li>",
-                InstructionTypeId = 1
-            });
-            modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
-            {
-                InstructionId = 7, ToolId = 1
-            });
-            modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
-            {
-                InstructionId = 7, RecipeId = 2
+                InstructionId = 7, RecipeId = 2, Index = 1
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
                 Id = 8,
                 Text =
-                    "<li>After about 8 mins of boiling carefully fish a piece or strand of pasta out of the pan, allow it to cool and taste it. If it’s ready take the pasta off the heat straight away, if not give it another minute then test again.</li>",
-                InstructionTypeId = 7
+                    "<li>Bring the pan of water to the boil then add your pasta. If you like, or the recipe suggests, salt the water first, or if you prefer, add a splash of olive oil.</li>",
+                InstructionTypeId = 1
+            });
+            modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
+            {
+                InstructionId = 8, ToolId = 1
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 8, RecipeId = 2
+                InstructionId = 8, RecipeId = 2, Index = 2
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
                 Id = 9,
                 Text =
+                    "<li>After about 8 mins of boiling carefully fish a piece or strand of pasta out of the pan, allow it to cool and taste it. If it’s ready take the pasta off the heat straight away, if not give it another minute then test again.</li>",
+                InstructionTypeId = 7
+            });
+            modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
+            {
+                InstructionId = 9, RecipeId = 2, Index = 3
+            });
+
+            modelBuilder.Entity<Instruction>().HasData(new Instruction
+            {
+                Id = 10,
+                Text =
                     "<li>Once the pasta is cooked you need to take it out of the water and allow it to steam dry for a minute or two before mixing it with any sauce or dressing. If the sauce you want to use is too thick, reserve a little of the pasta water to thin it down with.</li>",
                 InstructionTypeId = 5
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 9, RecipeId = 2
+                InstructionId = 10, RecipeId = 2, Index = 4
             });
         }
 
@@ -245,7 +245,7 @@ namespace ACE_it.Data
             {
                 Id = 1,
                 Text =
-                    "<li><span data-how='<a href=\"/recipes/2\"/>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span>al dente in 1.5 liters of water</li>",
+                    "<li><span data-how='<a href=\"/recipes/2\"/>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
                 InstructionTypeId = 1
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
@@ -254,7 +254,7 @@ namespace ACE_it.Data
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 1, RecipeId = 1
+                InstructionId = 1, RecipeId = 1, Index = 1
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
@@ -274,39 +274,37 @@ namespace ACE_it.Data
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 2, RecipeId = 1
+                InstructionId = 2, RecipeId = 1, Index = 2
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
                 Id = 3,
                 Text =
-                    "<li>Add the skin-cleaned tomato and tomato seeds and pulp, letting it cook some more. Join it, wipe it, season with the pepper and let it rinse.</li>",
+                    "<li>Add the skin-cleaned tomato and tomato seeds and pulp, letting it cook some more.</li>",
                 InstructionTypeId = 3
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 3, RecipeId = 1
+                InstructionId = 3, RecipeId = 1, Index = 3
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
-                Id = 4, Text = "<li>Add the cream, stirring constantly to keep from boiling.</li>",
-                InstructionTypeId = 4
-            });
-            modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
-            {
-                InstructionId = 4, ToolId = 3
+                Id = 4,
+                Text =
+                    "<li>Join it, wipe it, season with the pepper and let it rinse.</li>",
+                InstructionTypeId = 3
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 4, RecipeId = 1
+                InstructionId = 4, RecipeId = 1, Index = 4
             });
 
             modelBuilder.Entity<Instruction>().HasData(new Instruction
             {
-                Id = 5, Text = "<li>Finally, add a dough and wrap all ingredients well.</li>",
-                InstructionTypeId = 5
+                Id = 5, Text = "<li>Add the cream, stirring constantly to keep from boiling.</li>",
+                InstructionTypeId = 4
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
             {
@@ -314,7 +312,21 @@ namespace ACE_it.Data
             });
             modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
             {
-                InstructionId = 5, RecipeId = 1
+                InstructionId = 5, RecipeId = 1, Index = 5
+            });
+
+            modelBuilder.Entity<Instruction>().HasData(new Instruction
+            {
+                Id = 6, Text = "<li>Finally, add a dough and wrap all ingredients well.</li>",
+                InstructionTypeId = 5
+            });
+            modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
+            {
+                InstructionId = 6, ToolId = 3
+            });
+            modelBuilder.Entity<RecipeInstruction>().HasData(new RecipeInstruction
+            {
+                InstructionId = 6, RecipeId = 1, Index = 6
             });
         }
 
