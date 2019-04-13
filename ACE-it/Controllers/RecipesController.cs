@@ -77,7 +77,7 @@ namespace ACE_it.Controllers
                       CategoryIsCategory(recipe.Category, category) &&
                       RecipeLikesBetween(
                           (from ucr in _context.UserCompletedRecipes
-                              where ucr.Recipe.Id == recipe.Id && ucr.Reaction == Reaction.LIKE
+                              where ucr.Recipe.Id == recipe.Id && ucr.Reaction == Reaction.Like
                               select ucr).Count(), likes)
                 select recipeIngredients;
 
