@@ -62,54 +62,54 @@ namespace ACE_it.Data
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 1, Name = "Spaghetti", Quantity = 100, Unit = "grams",
-                Calories = 354, TotalFat = 1.8, SaturedFat = 0.4, Fiber = 2.9,
+                Calories = 354, TotalFat = 1.8, SaturatedFat = 0.4, Fiber = 2.9,
                 Sodium = 0.025, Sugar = 5, Protein = 12, TotalCarbohydrate = 71
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 2, Name = "Olive Oil", Quantity = 100, Unit = "ml",
-                Calories = 819, TotalFat = 91, SaturedFat = 15, Fiber = 0,
+                Calories = 819, TotalFat = 91, SaturatedFat = 15, Fiber = 0,
                 Sodium = 0, Sugar = 0, Protein = 0, TotalCarbohydrate = 0
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 3, Name = "Onion", Quantity = 100, Unit = "grams",
-                Calories = 40, TotalFat = 0.1, SaturedFat = 0, Fiber = 1.7,
+                Calories = 40, TotalFat = 0.1, SaturatedFat = 0, Fiber = 1.7,
                 Sodium = 0.004, Sugar = 4.2, Protein = 1.1, TotalCarbohydrate = 9
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 4, Name = "Garlic", Quantity = 5, Unit = "grams",
-                Calories = 5.65, TotalFat = 0.01, SaturedFat = 0, Fiber = 0.22,
+                Calories = 5.65, TotalFat = 0.01, SaturatedFat = 0, Fiber = 0.22,
                 Sodium = 0.00025, Sugar = 0.02, Protein = 0.35, TotalCarbohydrate = 1.2
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 5, Name = "Tomato paste", Quantity = 100, Unit = "grams",
-                Calories = 31, TotalFat = 0.2, SaturedFat = 0.1, Fiber = 1.4,
+                Calories = 31, TotalFat = 0.2, SaturatedFat = 0.1, Fiber = 1.4,
                 Sodium = 1.75, Sugar = 5.7, Protein = 0.9, TotalCarbohydrate = 5.7            });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 6, Name = "Tuna", Quantity = 100, Unit = "grams",
-                Calories = 195, TotalFat = 10, SaturedFat = 1.5, Fiber = 0,
+                Calories = 195, TotalFat = 10, SaturatedFat = 1.5, Fiber = 0,
                 Sodium = 1.5, Sugar = 0, Protein = 26, TotalCarbohydrate = 0
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 7, Name = "Salt", Quantity = 100, Unit = "grams",
-                Calories = 0, TotalFat = 0, SaturedFat = 0, Fiber = 0,
+                Calories = 0, TotalFat = 0, SaturatedFat = 0, Fiber = 0,
                 Sodium = 99.9, Sugar = 0, Protein = 0, TotalCarbohydrate = 0
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 8, Name = "Cream", Quantity = 100, Unit = "ml",
-                Calories = 336, TotalFat = 35, SaturedFat = 24, Fiber = 0,
+                Calories = 336, TotalFat = 35, SaturatedFat = 24, Fiber = 0,
                 Sodium = 0.08, Sugar = 3, Protein = 2, TotalCarbohydrate = 3.2
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 9, Name = "Water", Quantity = 1, Unit = "liter",
-                Calories = 0, TotalFat = 0, SaturedFat = 0, Fiber = 0,
+                Calories = 0, TotalFat = 0, SaturatedFat = 0, Fiber = 0,
                 Sodium = 0.005, Sugar = 0, Protein = 0, TotalCarbohydrate = 0
             });
         }

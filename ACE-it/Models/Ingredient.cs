@@ -11,7 +11,7 @@ namespace ACE_it.Models
 
         public double Calories { get; set; }
         public double TotalFat { get; set; }
-        public double SaturedFat { get; set; }
+        public double SaturatedFat { get; set; }
         public double Sodium { get; set; }
         public double Sugar { get; set; }
         public double Protein { get; set; }

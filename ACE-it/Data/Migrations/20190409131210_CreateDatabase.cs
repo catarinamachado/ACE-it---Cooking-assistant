@@ -73,7 +73,7 @@ namespace ACE_it.Migrations
                     Name = table.Column<string>(maxLength: 45, nullable: false),
                     Calories = table.Column<double>(nullable: false),
                     TotalFat = table.Column<double>(nullable: false),
-                    SaturedFat = table.Column<double>(nullable: false),
+                    SaturatedFat = table.Column<double>(nullable: false),
                     Sodium = table.Column<double>(nullable: false),
                     Sugar = table.Column<double>(nullable: false),
                     Protein = table.Column<double>(nullable: false),
@@ -533,7 +533,7 @@ namespace ACE_it.Migrations
 
             migrationBuilder.InsertData(
                 table: "Ingredients",
-                columns: new[] { "Id", "Calories", "Fiber", "Name", "Protein", "Quantity", "SaturedFat", "Sodium", "Sugar", "TotalCarbohydrate", "TotalFat", "Unit" },
+                columns: new[] { "Id", "Calories", "Fiber", "Name", "Protein", "Quantity", "SaturatedFat", "Sodium", "Sugar", "TotalCarbohydrate", "TotalFat", "Unit" },
                 values: new object[,]
                 {
                     { 9, 0.0, 0.0, "Water", 0.0, 1, 0.0, 0.0050000000000000001, 0.0, 0.0, 0.0, "liter" },

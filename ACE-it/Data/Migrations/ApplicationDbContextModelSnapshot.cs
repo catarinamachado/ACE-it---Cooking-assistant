@@ -94,7 +94,7 @@ namespace ACE_it.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<double>("SaturedFat");
+                    b.Property<double>("SaturatedFat");
 
                     b.Property<double>("Sodium");
 
@@ -119,7 +119,7 @@ namespace ACE_it.Migrations
                             Name = "Spaghetti",
                             Protein = 12.0,
                             Quantity = 100,
-                            SaturedFat = 0.40000000000000002,
+                            SaturatedFat = 0.40000000000000002,
                             Sodium = 0.025000000000000001,
                             Sugar = 5.0,
                             TotalCarbohydrate = 71.0,
@@ -134,7 +134,7 @@ namespace ACE_it.Migrations
                             Name = "Olive Oil",
                             Protein = 0.0,
                             Quantity = 100,
-                            SaturedFat = 15.0,
+                            SaturatedFat = 15.0,
                             Sodium = 0.0,
                             Sugar = 0.0,
                             TotalCarbohydrate = 0.0,
@@ -149,7 +149,7 @@ namespace ACE_it.Migrations
                             Name = "Onion",
                             Protein = 1.1000000000000001,
                             Quantity = 100,
-                            SaturedFat = 0.0,
+                            SaturatedFat = 0.0,
                             Sodium = 0.0040000000000000001,
                             Sugar = 4.2000000000000002,
                             TotalCarbohydrate = 9.0,
@@ -164,7 +164,7 @@ namespace ACE_it.Migrations
                             Name = "Garlic",
                             Protein = 0.34999999999999998,
                             Quantity = 5,
-                            SaturedFat = 0.0,
+                            SaturatedFat = 0.0,
                             Sodium = 0.00025000000000000001,
                             Sugar = 0.02,
                             TotalCarbohydrate = 1.2,
@@ -179,7 +179,7 @@ namespace ACE_it.Migrations
                             Name = "Tomato paste",
                             Protein = 0.90000000000000002,
                             Quantity = 100,
-                            SaturedFat = 0.10000000000000001,
+                            SaturatedFat = 0.10000000000000001,
                             Sodium = 1.75,
                             Sugar = 5.7000000000000002,
                             TotalCarbohydrate = 5.7000000000000002,
@@ -194,7 +194,7 @@ namespace ACE_it.Migrations
                             Name = "Tuna",
                             Protein = 26.0,
                             Quantity = 100,
-                            SaturedFat = 1.5,
+                            SaturatedFat = 1.5,
                             Sodium = 1.5,
                             Sugar = 0.0,
                             TotalCarbohydrate = 0.0,
@@ -209,7 +209,7 @@ namespace ACE_it.Migrations
                             Name = "Salt",
                             Protein = 0.0,
                             Quantity = 100,
-                            SaturedFat = 0.0,
+                            SaturatedFat = 0.0,
                             Sodium = 99.900000000000006,
                             Sugar = 0.0,
                             TotalCarbohydrate = 0.0,
@@ -224,7 +224,7 @@ namespace ACE_it.Migrations
                             Name = "Cream",
                             Protein = 2.0,
                             Quantity = 100,
-                            SaturedFat = 24.0,
+                            SaturatedFat = 24.0,
                             Sodium = 0.080000000000000002,
                             Sugar = 3.0,
                             TotalCarbohydrate = 3.2000000000000002,
@@ -239,7 +239,7 @@ namespace ACE_it.Migrations
                             Name = "Water",
                             Protein = 0.0,
                             Quantity = 1,
-                            SaturedFat = 0.0,
+                            SaturatedFat = 0.0,
                             Sodium = 0.0050000000000000001,
                             Sugar = 0.0,
                             TotalCarbohydrate = 0.0,
