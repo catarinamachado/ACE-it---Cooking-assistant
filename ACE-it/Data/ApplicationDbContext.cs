@@ -11,6 +11,9 @@ namespace ACE_it.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Instruction> Instructions { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
+        public DbSet<UserCompletedRecipe> UserCompletedRecipes { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

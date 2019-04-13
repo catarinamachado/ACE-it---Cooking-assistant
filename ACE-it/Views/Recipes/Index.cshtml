@@ -1,0 +1,134 @@
+@model ACE_it.Helper.RecipeViewModel
+
+@{
+    ViewData["Title"] = "Recipes";
+    var recipes = Model.Recipes;
+    var categories = Model.Categories;
+}
+
+
+<div class="map-clean">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center" style="margin-bottom: 20px;">@Html.ViewData["Title"]</h2>
+            <p class="text-center" style="margin: 0;">Every dish deserves as much love as your main course, so take a look at our lovely suggestions and make every mouthful magical.<br></p>
+        </div>
+    </div>
+</div>
+<div class="filter">
+    <form asp-action="Index" method="get" id="filter-recipe">
+        <input name="SearchString" placeholder="e.g Beef, Vegan or Italian Pasta" value="@ViewData["CurrentFilter"]">
+        <br/>
+        <select onchange="this.form.submit()" name="Category">
+            <option value="">Type</option>
+            @foreach (var item in categories)
+            {
+                if (item.Id.ToString() == ViewData["CurrentCategory"].ToString())
+                {
+                    <option selected value="@item.Id">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+
+        <select onchange="this.form.submit()" name="Time">
+            <option value="">Cooking Time</option>
+            <option selected="@ViewData["CurrentTime"].Equals(0)" value="0">< 10 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals(10)" value="10">10-20 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals(20)" value="20">20-30 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals(30)" value="30">30-45 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals(45)" value="45">45-60 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals(60)" value="60">>= 60 min</option>
+        </select>
+
+        <select onchange="this.form.submit()" name="Difficulty">
+            <option value="">Difficulty</option>
+            <option selected="@ViewData["CurrentDifficulty"].Equals("Easy")"
+                    value="@Difficulty.Easy">@Difficulty.Easy</option>
+            <option selected="@ViewData["CurrentDifficulty"].Equals("Medium")"
+                    value="@Difficulty.Medium">@Difficulty.Medium</option>
+            <option selected="@ViewData["CurrentDifficulty"].Equals("Hard")"
+                    value="@Difficulty.Hard">@Difficulty.Hard</option>
+        </select>
+        <select onchange="this.form.submit()" name="Likes">
+            <option value="">Likes</option>
+            <option selected="@ViewData["CurrentLikes"].Equals(100)" value="100">100+</option>
+            <option selected="@ViewData["CurrentLikes"].Equals(500)" value="500">500+</option>
+            <option selected="@ViewData["CurrentLikes"].Equals(1000)" value="1000">1000+</option>
+        </select>
+    </form>
+</div>
+<div class="container">
+    @if (recipes.Count == 0)
+    {
+        <div class="intro">
+            <h2 class="text-center my-5">No results</h2>
+        </div>
+    }
+
+    <div class="row product-list dev" style="margin-bottom: 50px; margin-top: 20px;">
+        @foreach (var item in recipes)
+        {
+            var duration = item.DefaultDuration / 60 + " min";
+
+            int likes = 0, loves = 0, dislikes = 0;
+            item.UserCompletedRecipes.ForEach(ucr =>
+            {
+                switch (ucr.Reaction)
+                {
+                    case Reaction.LIKE:
+                        likes++;
+                        break;
+                    case Reaction.LOVE:
+                        loves++;
+                        break;
+                    case Reaction.DISLIKE:
+                        dislikes++;
+                        break;
+                }
+            });
+
+            <div class="col-sm-6 col-md-4 product-item animation-element slide-top-left">
+                <div class="product-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="product-image" style="padding-bottom: 10px;">
+                                <img src=@item.Base64Image alt="image">
+                            </a>
+                            <h3 class="name" style="font-size: 18px; font-weight: 900;">
+                                <br>@Html.DisplayFor(modelItem => item.Name)</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="height: 120px; overflow: -webkit-paged-y;">
+                            <p class="product-description" style="margin: 10px 0;">
+                                @Html.DisplayFor(modelItem => item.Description)<br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="font-weight: normal;"><i class="fa fa-heart"></i>&nbsp;@loves</th>
+                                <th style="font-weight: normal;"><i class="fa fa-thumbs-up"></i>&nbsp;@likes</th>
+                                <th style="font-weight: normal;">&nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;@dislikes</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><i class="fa fa-clock-o"></i>&nbsp;@duration</td>
+                                <td><i class="fa fa-sliders"></i>&nbsp;@Html.DisplayFor(modelItem => item.Difficulty)</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary btn-block" asp-action="Details" asp-route-id="@item.Id" style="background-color: rgb(60, 175, 87);">See more</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

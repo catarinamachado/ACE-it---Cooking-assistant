@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
 
     <title>@ViewData["Title"] - ACE it: Cooking Assistant</title>
 
@@ -33,15 +33,19 @@
     <link rel="stylesheet" href="/css/Social-Icons.css">
     <link rel="stylesheet" href="/css/Steps-Progressbar.css">
     <link rel="stylesheet" href="/css/Testimonials.css">
+    <link rel="stylesheet" href="/css/site.css">
 </head>
 
 <body>
-<nav class="navbar navbar-light navbar-expand-md sticky-top bg-success navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
+<nav class="navbar navbar-light navbar-expand-md sticky-top bg-success navigation-clean-button" style="background-color: #37434d; color: #ffffff; height: 80px;">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand" style="font-size: 15px;">&nbsp;
+        <a href="/" class="navbar-brand" style="font-size: 15px;">
+            &nbsp;
             <img src="/img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" width="55" height="55">&nbsp;ACE it - Cooking Assistant
         </a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+        </button>
         <partial name="_LoginPartial"/>
     </div>
 </nav>
@@ -53,22 +57,38 @@
     </main>
 </div>
 
-<div class="footer-basic" style="padding-bottom:0px;padding-top:0px;">
-        <footer style="background-color:rgb(60,175,87);margin:0;height:200px;padding:0;">
-            <div class="social" style="padding-top:20px;"><div><a href="https://www.milaneza.pt"><img src="/img/milaneza-logo.png" /></a></div></div>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="/">Home</a></li>
-                <li class="list-inline-item"><a>Services</a></li>
-                <li class="list-inline-item"><a>About</a></li>
-                <li class="list-inline-item"><a>Terms</a></li>
-                <li class="list-inline-item"><a>Privacy Policy</a></li>
-            </ul>
-            <p class="copyright">CGJP - Software House © 2019</p>
-        </footer>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
-    @RenderSection("Scripts", false)
+<div class="footer-basic" style="padding-bottom: 0px; padding-top: 0px;">
+    <footer style="background-color: rgb(60, 175, 87); height: 200px; margin: 0; padding: 0;">
+        <div class="social" style="padding-top: 20px;">
+            <div>
+                <a href="https://www.milaneza.pt">
+                    <img src="/img/milaneza-logo.png"/>
+                </a>
+            </div>
+        </div>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="list-inline-item">
+                <a>Services</a>
+            </li>
+            <li class="list-inline-item">
+                <a>About</a>
+            </li>
+            <li class="list-inline-item">
+                <a>Terms</a>
+            </li>
+            <li class="list-inline-item">
+                <a>Privacy Policy</a>
+            </li>
+        </ul>
+        <p class="copyright">CGJP - Software House © 2019</p>
+    </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
+@RenderSection("Scripts", false)
 </body>
 
 </html>

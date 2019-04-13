@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" style="color: #ffffff;"><i class="fa fa-book"></i>&nbsp;Recipes</a>
+                    <a asp-controller="Recipes" asp-action="Index" class="nav-link" style="color: #ffffff;"><i class="fa fa-book"></i>&nbsp;Recipes</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" style="color: #ffffff;"><i class="fa fa-calendar-o"></i>&nbsp;Planner</a>
@@ -28,8 +28,12 @@
     {
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="color:#ffffff;"><i class="fa fa-user"></i>&nbsp;Login</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register" style="color:#ffffff;"><i class="fa fa-sign-in"></i>&nbsp;Register</a></li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Login" style="color: #ffffff;"><i class="fa fa-user"></i>&nbsp;Login</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Register" style="color: #ffffff;"><i class="fa fa-sign-in"></i>&nbsp;Register</a>
+                </li>
             </ul>
         </div>
     }
