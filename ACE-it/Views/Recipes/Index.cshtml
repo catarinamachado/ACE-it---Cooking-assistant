@@ -75,7 +75,7 @@
             var duration = item.DefaultDuration / 60 + " min";
 
             int likes = 0, loves = 0, dislikes = 0;
-            item.UserCompletedRecipes.ForEach(ucr =>
+            item.UserReactedToRecipes.ForEach(ucr =>
             {
                 switch (ucr.Reaction)
                 {

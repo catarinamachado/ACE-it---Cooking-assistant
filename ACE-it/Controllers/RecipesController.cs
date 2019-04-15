@@ -8,6 +8,7 @@ using ACE_it.Helper;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ACE_it.Controllers
 {
@@ -51,10 +52,10 @@ namespace ACE_it.Controllers
                 .Include(r => r.RecipeIngredients)
                 .ThenInclude(ri => ri.Ingredient)
                 .Include(r => r.UserCompletedRecipes)
+                .Include(r => r.UserReactedToRecipes)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null) return NotFound();
 
-            Console.WriteLine(recipe.RecipeIngredients.Count);
             return View(recipe);
         }
 
@@ -76,7 +77,7 @@ namespace ACE_it.Controllers
                       RecipeDifficultyIs(recipe.Difficulty, difficulty) &&
                       CategoryIsCategory(recipe.Category, category) &&
                       RecipeLikesBetween(
-                          (from ucr in _context.UserCompletedRecipes
+                          (from ucr in _context.UserReactedToRecipes
                               where ucr.Recipe.Id == recipe.Id && ucr.Reaction == Reaction.Like
                               select ucr).Count(), likes)
                 select recipeIngredients;
@@ -90,6 +91,7 @@ namespace ACE_it.Controllers
             return await _context.Recipes
                 .Where(r => listRecipeIds.Contains(r.Id))
                 .Include(r => r.UserCompletedRecipes)
+                .Include(r => r.UserReactedToRecipes)
                 .ToListAsync();
         }
 

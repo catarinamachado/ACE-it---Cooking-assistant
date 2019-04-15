@@ -25,5 +25,6 @@ namespace ACE_it.Models
         [Required] public List<UserFavouriteRecipe> UserFavouriteRecipes { get; set; }
         [Required] public List<UserCompletedRecipe> UserCompletedRecipes { get; set; }
         [Required] public List<UserWillPrepareRecipe> UserWillPrepareRecipes { get; set; }
+        [Required] public List<UserReactedToRecipe> UserReactedToRecipes { get; set; }
     }
 }

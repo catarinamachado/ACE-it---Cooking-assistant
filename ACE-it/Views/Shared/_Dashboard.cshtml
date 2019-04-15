@@ -1,0 +1,171 @@
+@model ACE_it.Helper.DashboardViewModel
+
+@{
+    var ingredientsUsed = 0;
+    var secondsSpentCooking = 0;
+    float completed = 0;
+
+    Model.UserCompletedRecipes.ForEach(list =>
+    {
+        var enumerator = list.GetEnumerator();
+        enumerator.Reset();
+        while (enumerator.MoveNext())
+        {
+            ingredientsUsed += enumerator.Current.Recipe.RecipeIngredients.Count;
+            secondsSpentCooking += enumerator.Current.Duration;
+            completed++;
+        }
+        enumerator.Dispose();
+    });
+
+    var time = TimeSpan.FromSeconds(secondsSpentCooking);
+    var hoursSpentCooking = time.ToString(@"hh\hmm");
+
+    var averageTime = TimeSpan.FromSeconds(secondsSpentCooking/completed);
+    var averageHours = averageTime.ToString(@"mm\m");
+}
+
+<div class="card" style="border: none">
+    <div class="card-header" style="background-color: rgba(0, 0, 0, 0);">
+        <div class="row">
+            <h3 class="text-center h2" style="padding-top: 30px; width: 100%;">
+                <span class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x text-muted"></i><i class="fa fa-dashboard fa-stack-1x fa-inverse"></i>
+                </span>Your activity
+            </h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center" style="margin-bottom: 30px; margin-top: 10px;">User Level: <span class="text-info" style="color: rgb(40, 167, 69);">@Model.User.Difficulty</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-shopping-basket fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span class="h2">
+                        @ingredientsUsed
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">Ingredients used</span>
+                </p>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-clock-o fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span
+                        class="h2">
+                        @hoursSpentCooking
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">Hours spent cooking</span>
+                </p>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-clock-o fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span
+                        class="h2">
+                        @averageHours
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">Average meal time</span>
+                </p>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-cutlery fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span
+                        class="h2">
+                        @Model.UserCompletedRecipes.Count
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">Recipes completed</span>
+                </p>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-bar-chart-o fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span
+                        class="h2">
+                        @Model.User.NumberOfVisits
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">App visits</span>
+                </p>
+            </div>
+            <div class="col-6 col-sm-4 col-lg-2">
+                <p class="text-center">
+                    <span class="fa-stack">
+                        <i class="fa fa-circle text-primary fa-stack-2x"></i><i class="fa fa-money fa-stack-1x fa-inverse"></i><br>
+                        <br>
+                    </span><br>
+
+                    <span
+                        class="h2">
+                        @Model.User.NumberOfCoupons
+                    </span><br>
+                    <span class="text-uppercase text-muted h6">Coupons earned</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-list mb-5">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center" style="margin-bottom: 0;">Your most cooked meals</h2>
+        </div>
+        <div class="row articles" style="padding-bottom: 0;">
+            @foreach (var item in Model.UserCompletedRecipes)
+            {
+                var recipe = item.ElementAt(0).Recipe;
+                <div class="col-sm-6 col-md-4 item">
+                    <a asp-controller="Recipes" asp-action="Details"
+                       asp-route-id="@recipe.Id" class="product-image" style="padding-bottom: 10px;">
+                        <img style="height: 180px; width: 300px;" src=@recipe.Base64Image alt="image">
+                    </a>
+                    <h3 class="name" style="font-size: 14px;">@recipe.Name</h3>
+                    <p class="description" style="font-size: 12px;">
+                        @recipe.Description<br>
+                    </p>
+                    <p class="description" style="font-size: 12px;">
+                        Executed: @item.Count() times
+                    </p>
+                    <a href="#" class="action">
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (Model.UserCompletedRecipes.Count == 3)
+{
+    <div style="width: 50%; margin: auto;background-color: rgba(241, 247, 252, 0); padding: 0; padding-bottom: 20px;">
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <input style="display: none" name="n" value="9">
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit" style="background-color: rgb(60, 175, 87);">See more</button>
+            </div>
+        </form>
+    </div>
+}
+
