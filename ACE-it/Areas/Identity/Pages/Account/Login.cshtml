@@ -8,11 +8,13 @@
 <div class="login-clean">
     <form method="post" id="account">
         <h2 class="sr-only">@ViewData["Title"]</h2>
-        <div class="illustration"><img src="/img/83af32b2-78fa-4f23-b847-0394b765bbb1.png"></div>
+        <div class="illustration">
+            <img src="/img/83af32b2-78fa-4f23-b847-0394b765bbb1.png">
+        </div>
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="form-group">
-            <input asp-for="Input.Email" class="form-control" type="email" placeholder="Email" />
+            <input asp-for="Input.Email" class="form-control" type="email" placeholder="Email"/>
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
 
@@ -24,7 +26,7 @@
         <div class="form-group">
             <div class="checkbox">
                 <label asp-for="Input.RememberMe">
-                    <input asp-for="Input.RememberMe" />
+                    <input asp-for="Input.RememberMe"/>
                     @Html.DisplayNameFor(m => m.Input.RememberMe)
                 </label>
             </div>
@@ -46,5 +48,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

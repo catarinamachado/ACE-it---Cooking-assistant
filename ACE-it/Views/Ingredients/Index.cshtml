@@ -1,0 +1,95 @@
+@model ACE_it.Helper.PaginatedList<Ingredient>
+
+@{
+    ViewData["Title"] = "Ingredients";
+
+    var prevDisabled = Model.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.HasNextPage ? "" : "disabled";
+}
+
+<h1 class="mt-5" style="text-align: center">@Html.ViewData["Title"]</h1>
+
+<div class="table-responsive my-5 table-centered">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">Name</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["CaloriesSortParam"]">Calories</a></th>
+            <th>Fiber</th>
+            <th>Sugar</th>
+            <th>Sodium</th>
+            <th>Protein</th>
+            <th>Total Fat</th>
+            <th>Satured Fat</th>
+            <th>Total Carbohydrate</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Calories</td>
+                <td>@item.Fiber</td>
+                <td>@item.Sugar</td>
+                <td>@item.Sodium</td>
+                <td>@item.Protein</td>
+                <td>@item.TotalFat</td>
+                <td>@item.SaturatedFat</td>
+                <td>@item.TotalCarbohydrate</td>
+            </tr>
+        }
+    </table>
+
+    <div style="display: flex; justify-content: space-between;">
+        <form style="width: 25%" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" name="SearchString" placeholder="Search by name" value="@ViewData["currentFilter"]">
+            </div>
+            <button type="submit" class="btn btn-primary" style="display: none"></button>
+        </form>
+
+        <nav aria-label="Navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item @prevDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        <<
+                    </a>
+                </li>
+
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@i"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item @nextDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        >>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<div class="map-clean" style="margin-right:50px;margin-bottom:50px;margin-left:50px;overflow: hidden">
+    <div class="mapouter">
+        <div class="gmap_canvas">
+            <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=supermercados%20braga&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        </div>
+    </div>
+</div>

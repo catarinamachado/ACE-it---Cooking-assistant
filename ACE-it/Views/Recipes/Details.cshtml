@@ -1,0 +1,110 @@
+@model Recipe
+
+@{
+    ViewData["Title"] = Model.Name;
+
+    var duration = Model.DefaultDuration / 60 + " min";
+
+    int likes = 0, loves = 0, dislikes = 0;
+    Model.UserCompletedRecipes.ForEach(ucr =>
+    {
+        switch (ucr.Reaction)
+        {
+            case Reaction.Like:
+                likes++;
+                break;
+            case Reaction.Love:
+                loves++;
+                break;
+            case Reaction.Dislike:
+                dislikes++;
+                break;
+        }
+    });
+}
+
+<div class="map-clean">
+    <div class="container recipe-header mt-5">
+        <div class="intro" style="margin-bottom: 0;">
+            <h2 class="text-center" style="margin-bottom: 20px;">@Model.Name</h2>
+            <p class="text-center" style="margin: 0;">
+                @Model.Description<br>
+            </p>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-10 offset-md-1">
+                <div class="intro">
+                    <img class="img-fluid" src="@Model.Base64Image" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="article-dual-column">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-3 offset-md-1" style="margin-bottom: 40px;">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="font-weight: normal;"><i class="fa fa-heart"></i>&nbsp;@loves</th>
+                            <th style="font-weight: normal;"><i class="fa fa-thumbs-up"></i>&nbsp;@likes</th>
+                            <th style="font-weight: normal;">&nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;@dislikes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><i class="fa fa-clock-o"></i>&nbsp;@duration</td>
+                            <td><i class="fa fa-sliders"></i>&nbsp;@Model.Difficulty</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="toc">
+                    <p>INGREDIENTS</p>
+                    <ul class="mb-3">
+                        @foreach (var item in Model.RecipeIngredients)
+                        {
+                            <li>
+                                <a href="/Ingredients?SearchString=@item.Ingredient.Name">
+                                    <strong>@item.Quantity @item.Ingredient.Unit</strong> of @item.Ingredient.Name<br>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div><a asp-controller="Ingredients" asp-action="Index" class="btn btn-outline-success btn-block" type="button" style="margin-top: 10px;">Find where to buy</a>
+            </div>
+            <div class="col-md-10 col-lg-7 offset-md-1 offset-lg-0">
+                <div class="text">
+                    <p>OVERVIEW</p>
+                    <ul class="recipe-instructions">
+                        @foreach (var item in Model.RecipeInstructions)
+                        {
+                            @Html.Raw(item.Instruction.Text)
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary btn-block btn-lg" type="submit" style="background-color: rgb(60, 175, 87); margin-top: 20px;">Start</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="social-icons">
+    <a href="https://twitter.com/intent/tweet?text=I loved the recipe: @Model.Name. Try it now at @Context.Request.Host@Context.Request.Path">
+        <i class="icon ion-social-twitter"></i>
+    </a>
+    <a href="http://www.facebook.com/sharer.php?p[title]=I loved the recipe: @Model.Name. Try it now at @Context.Request.Host@Context.Request.Path">
+        <i class="icon ion-social-facebook"></i>
+    </a>
+    <a href="http://pinterest.com/pin/create/button/?url=@Context.Request.Host@Context.Request.Path&description=I loved the recipe: @Model.Name. Try it now">
+        <i class="icon ion-social-pinterest"></i>
+    </a>
+    <a href="#">
+        <i class="icon ion-social-instagram"></i>
+    </a><a href="#"></a>
+</div>
