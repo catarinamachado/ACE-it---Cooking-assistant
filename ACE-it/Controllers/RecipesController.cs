@@ -95,8 +95,7 @@ namespace ACE_it.Controllers
 
         private static bool NameContains(string name, string searchString)
         {
-            return searchString == null ? true :
-                   name.ToLower().Contains(searchString.Trim().ToLower());
+            return searchString == null || name.ToLower().Contains(searchString.Trim().ToLower());
         }
 
         private static bool RecipeTimeBetween(int duration, string time)
