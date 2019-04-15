@@ -23,7 +23,7 @@ namespace ACE_it.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index(
             string searchString, int? category,
-            int? time, Difficulty? difficulty, int? likes)
+            string time, Difficulty? difficulty, string likes)
         {
             var recipes = GetRecipes(
                 searchString, time, difficulty, likes, category);
@@ -31,10 +31,10 @@ namespace ACE_it.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             ViewData["CurrentCategory"] = category.GetValueOrDefault(-1);
-            ViewData["CurrentTime"] = time.GetValueOrDefault(-1);
+            ViewData["CurrentTime"] = time == null ? "none" : time;
             ViewData["CurrentDifficulty"] = difficulty.HasValue
                 ? difficulty.ToString() : "";
-            ViewData["CurrentLikes"] = likes.GetValueOrDefault(-1);
+            ViewData["CurrentLikes"] = likes == null ? "none" : likes;
 
             return View(new RecipeViewModel(await recipes, await categories));
         }
@@ -61,8 +61,8 @@ namespace ACE_it.Controllers
         // PRIVATE
 
         private async Task<List<Recipe>> GetRecipes(
-            string searchString, int? time, Difficulty? difficulty,
-            int? likes, int? category)
+            string searchString, string time, Difficulty? difficulty,
+            string likes, int? category)
         {
             var query =
                 from recipe in _context.Recipes
@@ -99,47 +99,47 @@ namespace ACE_it.Controllers
                    name.ToLower().Contains(searchString.Trim().ToLower());
         }
 
-        private static bool RecipeTimeBetween(int duration, int? time)
+        private static bool RecipeTimeBetween(int duration, string time)
         {
-            if (!time.HasValue) return true;
+            if (time == null) return true;
 
             switch (time)
             {
-                case 0:
-                    return duration < 10*60;
-                case 10:
-                    return duration >= 10*60 && duration < 20*60;
-                case 20:
-                    return duration >= 20*60 && duration < 30*60;
-                case 30:
-                    return duration >= 30*60 && duration < 45*60;
-                case 45:
-                    return duration >= 45*60 && duration < 60*60;
+                case "very-short":
+                    return duration < 600;
+                case "short":
+                    return duration >= 600 && duration < 1200;
+                case "medium-short":
+                    return duration >= 1200 && duration < 1800;
+                case "medium":
+                    return duration >= 1800 && duration < 2700;
+                case "medium-long":
+                    return duration >= 2700 && duration < 3600;
                 default:
-                    return duration >= 60*60;
+                    return duration >= 3600;
             }
         }
 
         private static bool RecipeDifficultyIs(
             Difficulty recipeDifficulty, Difficulty? requestedDifficulty)
         {
-            return requestedDifficulty.HasValue ? recipeDifficulty == requestedDifficulty : true;
+            return !requestedDifficulty.HasValue || recipeDifficulty == requestedDifficulty;
         }
 
         private static bool CategoryIsCategory(Category rc, int? category)
         {
-            return category.HasValue ? rc.Id == category : true;
+            return !category.HasValue || rc.Id == category;
         }
 
-        private bool RecipeLikesBetween(int countLikes, int? likes)
+        private static bool RecipeLikesBetween(int countLikes, string likes)
         {
-            if (!likes.HasValue) return true;
+            if (likes == null) return true;
 
             switch (likes)
             {
-                case 100:
+                case "few":
                     return countLikes >= 100;
-                case 500:
+                case "some":
                     return countLikes >= 500;
                 default:
                     return countLikes >= 1000;

@@ -36,12 +36,12 @@
 
         <select onchange="this.form.submit()" name="Time">
             <option value="">Cooking Time</option>
-            <option selected="@ViewData["CurrentTime"].Equals(0)" value="0">< 10 min</option>
-            <option selected="@ViewData["CurrentTime"].Equals(10)" value="10">10-20 min</option>
-            <option selected="@ViewData["CurrentTime"].Equals(20)" value="20">20-30 min</option>
-            <option selected="@ViewData["CurrentTime"].Equals(30)" value="30">30-45 min</option>
-            <option selected="@ViewData["CurrentTime"].Equals(45)" value="45">45-60 min</option>
-            <option selected="@ViewData["CurrentTime"].Equals(60)" value="60">>= 60 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("very-short")" value="very-short">< 10 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("short")" value="short">10-20 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("medium-short")" value="medium-short">20-30 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("medium")" value="medium">30-45 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("medium-long")" value="medium-long">45-60 min</option>
+            <option selected="@ViewData["CurrentTime"].Equals("long")" value="long">>= 60 min</option>
         </select>
 
         <select onchange="this.form.submit()" name="Difficulty">
@@ -55,9 +55,9 @@
         </select>
         <select onchange="this.form.submit()" name="Likes">
             <option value="">Likes</option>
-            <option selected="@ViewData["CurrentLikes"].Equals(100)" value="100">100+</option>
-            <option selected="@ViewData["CurrentLikes"].Equals(500)" value="500">500+</option>
-            <option selected="@ViewData["CurrentLikes"].Equals(1000)" value="1000">1000+</option>
+            <option selected="@ViewData["CurrentLikes"].Equals("few")" value="few">100+</option>
+            <option selected="@ViewData["CurrentLikes"].Equals("some")" value="some">500+</option>
+            <option selected="@ViewData["CurrentLikes"].Equals("many")" value="many">1000+</option>
         </select>
     </form>
 </div>
