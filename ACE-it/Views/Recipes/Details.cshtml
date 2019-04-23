@@ -6,7 +6,7 @@
     var duration = Model.DefaultDuration / 60 + " min";
 
     int likes = 0, loves = 0, dislikes = 0;
-    Model.UserCompletedRecipes.ForEach(ucr =>
+    Model.UserReactedToRecipes.ForEach(ucr =>
     {
         switch (ucr.Reaction)
         {

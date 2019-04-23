@@ -1,10 +1,12 @@
-﻿using ACE_it.Models;
+﻿using System;
+using ACE_it.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ACE_it.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> AppUsers { get; set; }
@@ -14,6 +16,7 @@ namespace ACE_it.Data
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public DbSet<UserCompletedRecipe> UserCompletedRecipes { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<UserReactedToRecipe> UserReactedToRecipes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -58,6 +61,59 @@ namespace ACE_it.Data
 
             PastaWithTuna(modelBuilder);
             BoilPasta(modelBuilder);
+
+            SeedUsersAndTheirCompletedRecipes(modelBuilder);
+        }
+
+        private static void SeedUsersAndTheirCompletedRecipes(
+            ModelBuilder modelBuilder)
+        {
+            var hasher = new PasswordHasher<User>();
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = "1",
+                UserName = "user@aceit.com",
+                NormalizedUserName = "user@aceit.com",
+                Email = "user@aceit.com",
+                NormalizedEmail = "user@aceit.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123456"),
+                SecurityStamp = string.Empty
+            });
+
+            modelBuilder.Entity<UserCompletedRecipe>().HasData(
+                new UserCompletedRecipe
+                {
+                    Id = 1, UserId = "1", RecipeId = 1, Duration = 1000,
+                    Difficulties = "none"
+                }
+            );
+            modelBuilder.Entity<UserCompletedRecipe>().HasData(
+                new UserCompletedRecipe
+                {
+                    Id = 2, UserId = "1", RecipeId = 1, Duration = 1000,
+                    Difficulties = "none"
+                }
+            );
+            modelBuilder.Entity<UserCompletedRecipe>().HasData(
+                new UserCompletedRecipe
+                {
+                    Id = 3, UserId = "1", RecipeId = 2, Duration = 500,
+                    Difficulties = "cooking point"
+                }
+            );
+            modelBuilder.Entity<UserReactedToRecipe>().HasData(
+                new UserReactedToRecipe
+                {
+                    UserId = "1", RecipeId = 1, Reaction = Reaction.Like
+                }
+            );
+            modelBuilder.Entity<UserReactedToRecipe>().HasData(
+                new UserReactedToRecipe
+                {
+                    UserId = "1", RecipeId = 2, Reaction = Reaction.Love
+                }
+            );
         }
 
         private static void SeedIngredients(ModelBuilder modelBuilder)
@@ -391,7 +447,7 @@ namespace ACE_it.Data
                 .HasForeignKey(ri => ri.IngredientId);
 
             modelBuilder.Entity<UserCompletedRecipe>()
-                .HasKey(ri => new { ri.UserId, ri.RecipeId});
+                .HasKey(ri => new { ri.Id });
             modelBuilder.Entity<UserCompletedRecipe>()
                 .HasOne(ri => ri.User)
                 .WithMany(r => r.UserCompletedRecipes)
@@ -421,6 +477,17 @@ namespace ACE_it.Data
             modelBuilder.Entity<UserWillPrepareRecipe>()
                 .HasOne(ri => ri.Recipe)
                 .WithMany(ri => ri.UserWillPrepareRecipes)
+                .HasForeignKey(ri => ri.RecipeId);
+
+            modelBuilder.Entity<UserReactedToRecipe>()
+                .HasKey(ri => new { ri.UserId, ri.RecipeId});
+            modelBuilder.Entity<UserReactedToRecipe>()
+                .HasOne(ri => ri.User)
+                .WithMany(r => r.UserReactedToRecipes)
+                .HasForeignKey(ri => ri.UserId);
+            modelBuilder.Entity<UserReactedToRecipe>()
+                .HasOne(ri => ri.Recipe)
+                .WithMany(ri => ri.UserReactedToRecipes)
                 .HasForeignKey(ri => ri.RecipeId);
         }
     }

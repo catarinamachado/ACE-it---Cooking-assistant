@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ACE_it.Data;
+using ACE_it.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,12 +17,14 @@ namespace ACE_it.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly ILogger<LoginModel> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly ApplicationDbContext _context;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger, ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty] public InputModel Input { get; set; }
@@ -57,6 +61,9 @@ namespace ACE_it.Areas.Identity.Pages.Account
                     await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, true);
                 if (result.Succeeded)
                 {
+                    var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
+                    user.NumberOfVisits++;
+                    await _signInManager.UserManager.UpdateAsync(user);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
