@@ -1,0 +1,92 @@
+@model ACE_it.Helper.ConfigurationIngredientViewModel;
+
+@{
+    ViewData["Title"] = "Ingredients";
+
+    var prevDisabled = Model.Ingredients.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.Ingredients.HasNextPage ? "" : "disabled";
+}
+
+<h1 class="mt-5" style="text-align: center">@Html.ViewData["Title"]</h1>
+
+<div class="table-responsive my-5 table-centered">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"><p style="color:#28a745">Name</p></a></th>
+            <th><div align="center"><p style="color:#28a745">Favourite Ingredient</p></div></th>
+            <th><div align="center"><p style="color:#28a745">Unwanted Ingredient</p></div></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td><div align="center">
+                    @if (Model.FavouriteIngredients.Find(r => r.IngredientId == item.Id) == null)
+                    {                        
+                        <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteIngredients" method="post">
+                            <input style="display: none" name="IngredientId" value="@item.Id"/>
+                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                            <button type="submit">Add</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <button>Delete</button>
+                    }
+                </div></td>
+                
+                <td><div align="center">
+                    empty
+                </div></td>
+            </tr>
+        }
+    </table>
+
+    <div style="display: flex; justify-content: space-between;">
+        <form style="width: 25%" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" name="SearchString" placeholder="Search by name" value="@ViewData["currentFilter"]">
+            </div>
+            <button type="submit" class="btn btn-primary" style="display: none"></button>
+        </form>
+
+        <nav aria-label="Navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item @prevDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.Ingredients.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        <<
+                    </a>
+                </li>
+
+                @for (var i = 1; i <= Model.Ingredients.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.Ingredients.PageIndex ? "active" : "")">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@i"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item @nextDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.Ingredients.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        >>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+

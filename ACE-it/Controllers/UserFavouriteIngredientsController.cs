@@ -1,0 +1,26 @@
+using ACE_it.Data;
+using ACE_it.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ACE_it.Controllers
+{
+    public class UserFavouriteIngredientsController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public UserFavouriteIngredientsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpPost]
+        public ActionResult Store(
+            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient)
+        {
+            _context.Add(userFavouriteIngredient);
+            _context.SaveChanges();
+           
+            return RedirectToAction("Index", "ConfigurationIngredients");
+        }
+    }
+}
