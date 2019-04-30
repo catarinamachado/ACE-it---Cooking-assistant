@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using ACE_it.Data;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +19,14 @@ namespace ACE_it.Controllers
         public ActionResult Store(
             [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient)
         {
-            _context.Add(userFavouriteIngredient);
-            _context.SaveChanges();
-           
+            var isAUnwantedIngredient = 
+                _context.UserUnwantedIngredients.Any(r => r.IngredientId == userFavouriteIngredient.IngredientId);
+            
+            if(!isAUnwantedIngredient){
+                _context.Add(userFavouriteIngredient);
+                _context.SaveChanges();
+            }
+            
             return RedirectToAction("Index", "ConfigurationIngredients");
         }
         
