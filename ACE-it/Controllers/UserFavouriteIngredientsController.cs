@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using ACE_it.Data;
 using ACE_it.Models;
@@ -17,26 +16,30 @@ namespace ACE_it.Controllers
 
         [HttpPost]
         public ActionResult Store(
-            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient)
+            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient,
+            int? pageNumber)
         {
             var isAUnwantedIngredient = 
-                _context.UserUnwantedIngredients.Any(r => r.IngredientId == userFavouriteIngredient.IngredientId);
+                _context.UserUnwantedIngredients.Find
+                    (userFavouriteIngredient.UserId, userFavouriteIngredient.IngredientId) != null;
             
-            if(!isAUnwantedIngredient){
+            if(!isAUnwantedIngredient)
+            {
                 _context.Add(userFavouriteIngredient);
                 _context.SaveChanges();
             }
             
-            return RedirectToAction("Index", "ConfigurationIngredients");
+            return RedirectToAction("Index", "ConfigurationIngredients", pageNumber);
         }
         
         public ActionResult Delete(
-            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient)
+            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient,
+            int? pageNumber)
         {
             _context.Remove(userFavouriteIngredient);
             _context.SaveChanges();
            
-            return RedirectToAction("Index", "ConfigurationIngredients");
+            return RedirectToAction("Index", "ConfigurationIngredients", pageNumber);
         }
     }
 }
