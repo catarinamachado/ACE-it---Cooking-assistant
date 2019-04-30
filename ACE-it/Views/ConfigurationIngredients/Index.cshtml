@@ -34,7 +34,11 @@
                     }
                     else
                     {
-                        <button>Delete</button>
+                        <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteIngredients" method="get">
+                            <input style="display: none" name="IngredientId" value="@item.Id"/>
+                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                            <button type="submit">Delete</button>
+                        </form>
                     }
                 </div></td>
                 

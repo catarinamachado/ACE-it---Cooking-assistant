@@ -22,5 +22,14 @@ namespace ACE_it.Controllers
            
             return RedirectToAction("Index", "ConfigurationIngredients");
         }
+        
+        public ActionResult Delete(
+            [Bind("UserId, IngredientId")] UserFavouriteIngredient userFavouriteIngredient)
+        {
+            _context.Remove(userFavouriteIngredient);
+            _context.SaveChanges();
+           
+            return RedirectToAction("Index", "ConfigurationIngredients");
+        }
     }
 }
