@@ -5,11 +5,6 @@ using ACE_it.Helper;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Printing;
-
 
 namespace ACE_it.Controllers
 {
@@ -61,7 +56,6 @@ namespace ACE_it.Controllers
 
         
         // PRIVATE
-        
         
         private IQueryable<Ingredient> Search(
             IQueryable<Ingredient> ingredients, string searchString)
