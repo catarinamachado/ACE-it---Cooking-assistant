@@ -26,12 +26,12 @@ namespace ACE_it.Controllers
             return View(GetCurrentRecipes(user));
         }
 
-        public async Task<IActionResult> Create(int recipeId)
+        public async Task<IActionResult> Create(int recipe)
         {
             var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
             var user = await _context.AppUsers.FindAsync(userId);
-            var recipe = await _context.Recipes.FindAsync(recipeId);
-            var newRecipe = new SessionRecipe {Recipe = recipe};
+            var recipeObj = await _context.Recipes.FindAsync(recipe);
+            var newRecipe = new SessionRecipe {Recipe = recipeObj};
             var session = _context.Sessions.FindAsync(user);
             session.Result.SessionRecipes.Add(newRecipe);
             return RedirectToAction("Show");
