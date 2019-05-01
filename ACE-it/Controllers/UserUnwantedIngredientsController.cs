@@ -29,7 +29,7 @@ namespace ACE_it.Controllers
                 _context.SaveChanges();
             }
            
-            return RedirectToAction("Index", "ConfigurationIngredients", pageNumber);
+            return RedirectToAction("Index", "ConfigurationIngredients", new { pageNumber });
         }
         
         public ActionResult Delete(
@@ -39,7 +39,7 @@ namespace ACE_it.Controllers
             _context.Remove(userUnwantedIngredient);
             _context.SaveChanges();
            
-            return RedirectToAction("Index", "ConfigurationIngredients",pageNumber);
+            return RedirectToAction("Index", "ConfigurationIngredients", new { pageNumber });
         }
     }
 }

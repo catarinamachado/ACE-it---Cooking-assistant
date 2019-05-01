@@ -27,6 +27,7 @@
                     @if (Model.FavouriteIngredients.Find(r => r.IngredientId == item.Id) == null)
                     {                        
                         <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteIngredients" method="post">
+                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
                             <input style="display: none" name="IngredientId" value="@item.Id"/>
                             <input style="display: none" name="UserId" value="@Model.User.Id"/>
                             <button type="submit">Add</button>
@@ -35,6 +36,7 @@
                     else
                     {
                         <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteIngredients" method="get">
+                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
                             <input style="display: none" name="IngredientId" value="@item.Id"/>
                             <input style="display: none" name="UserId" value="@Model.User.Id"/>
                             <button type="submit">Delete</button>
@@ -46,6 +48,7 @@
                     @if (Model.UnwantedIngredients.Find(r => r.IngredientId == item.Id) == null)
                     {                        
                         <form style="width: 25%" asp-action="Store" asp-controller="UserUnwantedIngredients" method="post">
+                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
                             <input style="display: none" name="IngredientId" value="@item.Id"/>
                             <input style="display: none" name="UserId" value="@Model.User.Id"/>
                             <button type="submit">Add</button>
@@ -54,6 +57,7 @@
                     else
                     {
                         <form style="width: 25%" asp-action="Delete" asp-controller="UserUnwantedIngredients" method="get">
+                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
                             <input style="display: none" name="IngredientId" value="@item.Id"/>
                             <input style="display: none" name="UserId" value="@Model.User.Id"/>
                             <button type="submit">Delete</button>
