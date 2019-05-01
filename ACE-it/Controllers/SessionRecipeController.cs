@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ACE_it.Data;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace ACE_it.Controllers
 {
@@ -26,11 +26,12 @@ namespace ACE_it.Controllers
             return View(GetCurrentRecipes(user));
         }
 
-        public async Task<IActionResult> Create(Recipe recipe)
+        public async Task<IActionResult> Create(int recipeId)
         {
             var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
             var user = await _context.AppUsers.FindAsync(userId);
-            var newRecipe = new SessionRecipe(recipe);
+            var recipe = await _context.Recipes.FindAsync(recipeId);
+            var newRecipe = new SessionRecipe {Recipe = recipe};
             var session = _context.Sessions.FindAsync(user);
             session.Result.SessionRecipes.Add(newRecipe);
             return RedirectToAction("Show");
