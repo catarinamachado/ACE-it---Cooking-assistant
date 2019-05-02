@@ -2,34 +2,30 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ACE_it.Data;
 using ACE_it.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace ACE_it.Controllers
 {
     public class SessionRecipeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public SessionRecipeController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public SessionRecipeController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
+            var userId = HttpContext.User;
             var user = await _context.AppUsers.FindAsync(userId);
             return View(GetCurrentRecipes(user));
         }
 
         public async Task<IActionResult> Create(int recipe)
         {
-            var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
-            var user = await _context.AppUsers.FindAsync(userId);
+            var userId = HttpContext.User;
+            var user = await _context.AppUsers.FindAsync("1");
             var recipeObj = await _context.Recipes.FindAsync(recipe);
             var newRecipe = new SessionRecipe {Recipe = recipeObj};
             var session = _context.Sessions.FindAsync(user);
