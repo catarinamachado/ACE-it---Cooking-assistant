@@ -34,7 +34,7 @@ namespace ACE_it.Controllers
             
             var userUnwanted = (from s in _context.UserUnwantedIngredients
                 where s.UserId == user.Id select s)
-                .ToListAsync();;
+                .ToListAsync();
 
             if (searchString != null)
                 pageNumber = 1;

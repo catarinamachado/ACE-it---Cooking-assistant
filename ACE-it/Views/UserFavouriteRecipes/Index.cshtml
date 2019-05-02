@@ -10,40 +10,41 @@
 <h1 class="mt-5" style="text-align: center">@Html.ViewData["Title"]</h1>
 
 <div class="table-responsive my-5 table-centered">
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"><p style="color:#28a745">Name</p></a></th>
-            <th><div align="center"><p style="color:#28a745">Favourite Recipe</p></div></th>
-        </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"><p style="color:#28a745">Name</p></a></th>
+                <th><div align="center"><p style="color:#28a745">Favourite Recipe</p></div></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.Recipes)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td><div align="center">
-                    @if (Model.FavouriteRecipes.Find(r => r.RecipeId == item.Id) == null)
-                    {                        
-                        <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteRecipes" method="post">
-                            <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
-                            <input style="display: none" name="RecipeId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Add</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteRecipes" method="get">
-                            <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
-                            <input style="display: none" name="RecipeId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Delete</button>
-                        </form>
-                    }
-                </div></td>
-            </tr>
-        }
+            @foreach (var item in Model.Recipes)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><div align="center">
+                        @if (Model.FavouriteRecipes.Find(r => r.RecipeId == item.Id) == null)
+                        {                        
+                            <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteRecipes" method="post">
+                                <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
+                                <input style="display: none" name="RecipeId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-primary">Add</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteRecipes" method="get">
+                                <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
+                                <input style="display: none" name="RecipeId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        }
+                    </div></td>
+                </tr>
+            }
+        </tbody>
     </table>
 
     <div style="display: flex; justify-content: space-between;">

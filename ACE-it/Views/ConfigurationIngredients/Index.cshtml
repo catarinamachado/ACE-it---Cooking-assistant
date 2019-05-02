@@ -10,8 +10,8 @@
 <h1 class="mt-5" style="text-align: center">@Html.ViewData["Title"]</h1>
 
 <div class="table-responsive my-5 table-centered">
-    <table class="table">
-        <thead class="thead-light">
+    <table class="table table-striped">
+        <thead>
         <tr>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"><p style="color:#28a745">Name</p></a></th>
             <th><div align="center"><p style="color:#28a745">Favourite Ingredient</p></div></th>
@@ -19,53 +19,54 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model.Ingredients)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td><div align="center">
-                    @if (Model.FavouriteIngredients.Find(r => r.IngredientId == item.Id) == null)
-                    {                        
-                        <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteIngredients" method="post">
-                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
-                            <input style="display: none" name="IngredientId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Add</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteIngredients" method="get">
-                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
-                            <input style="display: none" name="IngredientId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Delete</button>
-                        </form>
-                    }
-                </div></td>
-                
-                <td><div align="center">
-                    @if (Model.UnwantedIngredients.Find(r => r.IngredientId == item.Id) == null)
-                    {                        
-                        <form style="width: 25%" asp-action="Store" asp-controller="UserUnwantedIngredients" method="post">
-                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
-                            <input style="display: none" name="IngredientId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Add</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form style="width: 25%" asp-action="Delete" asp-controller="UserUnwantedIngredients" method="get">
-                            <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
-                            <input style="display: none" name="IngredientId" value="@item.Id"/>
-                            <input style="display: none" name="UserId" value="@Model.User.Id"/>
-                            <button type="submit">Delete</button>
-                        </form>
-                    }
-                </div></td>
-            </tr>
-        }
+            @foreach (var item in Model.Ingredients)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><div align="center">
+                        @if (Model.FavouriteIngredients.Find(r => r.IngredientId == item.Id) == null)
+                        {                        
+                            <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteIngredients" method="post">
+                                <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
+                                <input style="display: none" name="IngredientId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-primary">Add</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteIngredients" method="get">
+                                <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
+                                <input style="display: none" name="IngredientId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        }
+                    </div></td>
+                    
+                    <td><div align="center">
+                        @if (Model.UnwantedIngredients.Find(r => r.IngredientId == item.Id) == null)
+                        {                        
+                            <form style="width: 25%" asp-action="Store" asp-controller="UserUnwantedIngredients" method="post">
+                                <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
+                                <input style="display: none" name="IngredientId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-primary">Add</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form style="width: 25%" asp-action="Delete" asp-controller="UserUnwantedIngredients" method="get">
+                                <input style="display: none" name="pageNumber" value="@Model.Ingredients.PageIndex">
+                                <input style="display: none" name="IngredientId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        }
+                    </div></td>
+                </tr>
+            }
+        </tbody>
     </table>
 
     <div style="display: flex; justify-content: space-between;">
