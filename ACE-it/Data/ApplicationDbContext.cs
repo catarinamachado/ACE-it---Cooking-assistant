@@ -17,7 +17,10 @@ namespace ACE_it.Data
         public DbSet<UserCompletedRecipe> UserCompletedRecipes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserReactedToRecipe> UserReactedToRecipes { get; set; }
-
+        public DbSet<UserFavouriteIngredient> UserFavouriteIngredients { get; set; }
+        public DbSet<UserUnwantedIngredient> UserUnwantedIngredients { get; set; }
+        public DbSet<UserFavouriteRecipe> UserFavouriteRecipes { get; set; }
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -146,7 +149,8 @@ namespace ACE_it.Data
             {
                 Id = 5, Name = "Tomato paste", Quantity = 100, Unit = "grams",
                 Calories = 31, TotalFat = 0.2, SaturatedFat = 0.1, Fiber = 1.4,
-                Sodium = 1.75, Sugar = 5.7, Protein = 0.9, TotalCarbohydrate = 5.7            });
+                Sodium = 1.75, Sugar = 5.7, Protein = 0.9, TotalCarbohydrate = 5.7            
+            });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
                 Id = 6, Name = "Tuna", Quantity = 100, Unit = "grams",

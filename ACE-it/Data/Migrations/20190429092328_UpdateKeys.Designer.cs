@@ -4,14 +4,16 @@ using ACE_it.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACE_it.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190429092328_UpdateKeys")]
+    partial class UpdateKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -808,7 +810,7 @@ namespace ACE_it.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9c560e31-5fd0-4333-8047-c98b277a68a6",
+                            ConcurrencyStamp = "c0b374bf-2ed2-49ea-8f90-f10163d223ad",
                             Difficulty = 0,
                             Email = "user@aceit.com",
                             EmailConfirmed = true,
@@ -817,7 +819,7 @@ namespace ACE_it.Migrations
                             NormalizedUserName = "user@aceit.com",
                             NumberOfCoupons = 0,
                             NumberOfVisits = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEH+8EgUtEoYnKwi77+hrlqO8uko7JhWA6G8SpfA4s//8k6IriPqyQoApfaLxGgW1vw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBFyoRh0vLVbMxscQhNMJZON8PO/dJ5iQjifAbdRRLW0lWOO9HwbtpQlmq0fgZFUcQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -900,7 +902,7 @@ namespace ACE_it.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("UserFavouriteRecipes");
+                    b.ToTable("UserFavouriteRecipe");
                 });
 
             modelBuilder.Entity("ACE_it.Models.UserReactedToRecipe", b =>

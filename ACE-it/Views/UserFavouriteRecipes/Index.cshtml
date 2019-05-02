@@ -1,0 +1,94 @@
+@model ACE_it.Helper.UserFavouriteRecipeViewModel;
+
+@{
+    ViewData["Title"] = "Recipes";
+
+    var prevDisabled = Model.Recipes.HasPreviousPage ? "" : "disabled";
+    var nextDisabled = Model.Recipes.HasNextPage ? "" : "disabled";
+}
+
+<h1 class="mt-5" style="text-align: center">@Html.ViewData["Title"]</h1>
+
+<div class="table-responsive my-5 table-centered">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]"><p style="color:#28a745">Name</p></a></th>
+                <th><div align="center"><p style="color:#28a745">Favourite Recipe</p></div></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Recipes)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><div align="center">
+                        @if (Model.FavouriteRecipes.Find(r => r.RecipeId == item.Id) == null)
+                        {                        
+                            <form style="width: 25%" asp-action="Store" asp-controller="UserFavouriteRecipes" method="post">
+                                <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
+                                <input style="display: none" name="RecipeId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-primary">Add</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form style="width: 25%" asp-action="Delete" asp-controller="UserFavouriteRecipes" method="get">
+                                <input style="display: none" name="pageNumber" value="@Model.Recipes.PageIndex">
+                                <input style="display: none" name="RecipeId" value="@item.Id"/>
+                                <input style="display: none" name="UserId" value="@Model.User.Id"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        }
+                    </div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div style="display: flex; justify-content: space-between;">
+        <form style="width: 25%" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" name="SearchString" placeholder="Search by name" value="@ViewData["currentFilter"]">
+            </div>
+            <button type="submit" class="btn btn-primary" style="display: none"></button>
+        </form>
+
+        <nav aria-label="Navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item @prevDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.Recipes.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        <<
+                    </a>
+                </li>
+
+                @for (var i = 1; i <= Model.Recipes.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.Recipes.PageIndex ? "active" : "")">
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                           asp-route-pageNumber="@i"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="page-link">
+                            @i
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item @nextDisabled">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.Recipes.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="page-link">
+                        >>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+

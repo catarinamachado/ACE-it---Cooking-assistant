@@ -21,8 +21,9 @@
     var time = TimeSpan.FromSeconds(secondsSpentCooking);
     var hoursSpentCooking = time.ToString(@"hh\hmm");
 
-    var averageTime = TimeSpan.FromSeconds(secondsSpentCooking/completed);
-    var averageHours = averageTime.ToString(@"mm\m");
+    var averageTime = completed == 0 ? 0 : secondsSpentCooking / completed;
+    var averageTimeSeconds = TimeSpan.FromSeconds(averageTime);
+    var averageHours = averageTimeSeconds.ToString(@"mm\m");
 }
 
 <div class="card" style="border: none">
