@@ -4,7 +4,7 @@
     ViewData["Title"] = "Rate";
 
     int likes = 0, loves = 0, dislikes = 0;
-    Model.Recipe.UserReactedToRecipes.ForEach(ucr =>
+    Model.UserReactedToRecipes.ForEach(ucr =>
     {
         switch (ucr.Reaction)
         {
@@ -117,5 +117,3 @@
 
     </div>
 </div>
-
-
