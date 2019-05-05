@@ -58,15 +58,15 @@ namespace ACE_it.Controllers
                 UserId = userId, RecipeId = id, Reaction = react
             };
             
-            //if nao tem nenhum fica com esse
-            _context.Add(userReactedToRecipe);
-            _context.SaveChanges();
+            var oldUserReaction = _context.UserReactedToRecipes.Find(userId, id);
             
-            //if tem algum remove o que tem e fica com o novo
-            _context.Recipes.Find()
+            if(oldUserReaction != null)
+            {
+                _context.Remove(oldUserReaction);
+            }
                 
-                
-                
+            _context.Add(userReactedToRecipe);
+            _context.SaveChanges();   
             
             return RedirectToAction("Index", "Rate", new { id });
         }
