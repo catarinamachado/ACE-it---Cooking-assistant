@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ACE_it.Data;
@@ -28,8 +28,47 @@ namespace ACE_it.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null) return NotFound();
             
-            return View(recipe);
+            var user = _context.AppUsers
+                .First(r => r.Email == User.Identity.Name);
+            
+            return View(new RateViewModel(
+                user, recipe));
         }
 
+        public async Task<IActionResult> React(int id, String userId, String reaction)
+        {
+            var react = Reaction.Like;
+            
+            switch (reaction)
+            {
+                case "love":
+                {
+                    react = Reaction.Love;
+                    break;
+                }
+                case "dislike":
+                {
+                    react = Reaction.Dislike;
+                    break;
+                }
+            }
+
+            var userReactedToRecipe = new UserReactedToRecipe
+            {
+                UserId = userId, RecipeId = id, Reaction = react
+            };
+            
+            //if nao tem nenhum fica com esse
+            _context.Add(userReactedToRecipe);
+            _context.SaveChanges();
+            
+            //if tem algum remove o que tem e fica com o novo
+            _context.Recipes.Find()
+                
+                
+                
+            
+            return RedirectToAction("Index", "Rate", new { id });
+        }
     }
 }

@@ -1,10 +1,10 @@
-@model Recipe
+@model ACE_it.Helper.RateViewModel;
 
 @{
     ViewData["Title"] = "Rate";
 
     int likes = 0, loves = 0, dislikes = 0;
-    Model.UserReactedToRecipes.ForEach(ucr =>
+    Model.Recipe.UserReactedToRecipes.ForEach(ucr =>
     {
         switch (ucr.Reaction)
         {
@@ -21,14 +21,77 @@
     });
 }
 
-<div class="table-responsive">
-    <table class="table">
+<div class="map-clean">
+    <div class="container recipe-header mt-5">
+        <div class="intro" style="margin-bottom: 0;">
+            <h1 class="text-center" style="margin-bottom: 20px;">Rate</h1>
+            <h2 class="text-center" style="margin-bottom: 20px;">Recipe: @Model.Recipe.Name</h2>
+        </div>
+    </div>
+    
+    <h4 style="margin-bottom: 20px;">Private Section</h4>
+    
+    
+    Missing difficulties box
+
+    <br><br><br><br><br><br>
+
+    <h4 style="margin-bottom: 20px;">Public Section</h4>
+
+    <div class="container">
         <thead>
-        <tr>
-            <th style="font-weight: normal;"><i class="fa fa-heart"></i>&nbsp;@loves</th>
-            <th style="font-weight: normal;"><i class="fa fa-thumbs-up"></i>&nbsp;@likes</th>
-            <th style="font-weight: normal;">&nbsp;<i class="fa fa-thumbs-down"></i>&nbsp;@dislikes</th>
-        </tr>
-        </thead>
-    </table>
+            <tr>
+                <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                       asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+                       asp-route-reaction="love">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Love)) == null)
+                        {
+                            <i class="fa fa-heart"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@loves&nbsp;&nbsp;
+                </th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                       asp-route-userId="@Model.User.Id" 
+                       asp-route-reaction="like">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Like)) == null)
+                        {
+                            <i class="fa fa-thumbs-up"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-thumbs-up" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@likes&nbsp;&nbsp;
+                </th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                       asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+                       asp-route-reaction="dislike">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Dislike)) == null)
+                        {
+                            <i class="fa fa-thumbs-down"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-thumbs-down" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@dislikes
+                </th>
+            </tr>
+         </thead>
+    </div>
+    
+    <br><br><br><br>
+    Missing comments box
+    
 </div>
