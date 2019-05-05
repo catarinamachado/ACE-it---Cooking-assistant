@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using ACE_it.Data;
@@ -60,12 +61,20 @@ namespace ACE_it.Controllers
             
             var oldUserReaction = _context.UserReactedToRecipes.Find(userId, id);
             
-            if(oldUserReaction != null)
+            if (oldUserReaction != null && (oldUserReaction.Reaction == userReactedToRecipe.Reaction))
             {
                 _context.Remove(oldUserReaction);
             }
-                
-            _context.Add(userReactedToRecipe);
+            else if(oldUserReaction != null)
+            {
+                _context.Remove(oldUserReaction);
+                _context.Add(userReactedToRecipe);
+            }
+            else
+            {
+                _context.Add(userReactedToRecipe);
+            }
+
             _context.SaveChanges();   
             
             return RedirectToAction("Index", "Rate", new { id });
