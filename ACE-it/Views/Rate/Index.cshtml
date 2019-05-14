@@ -21,6 +21,12 @@
     });
 }
 
+<script>
+    function myFunction(string) {
+        alert(string);
+    }
+</script>
+
 <div class="map-clean">
     <div class="container recipe-header mt-5">
         <div class="intro" style="margin-bottom: 0;">
@@ -94,9 +100,14 @@
           method="post">
         <p>
             <textarea name="Commentary" cols="40" rows="5"></textarea>
-            <input type="submit" value="Send">
-            <input type="reset" value="Clear" onclick="javascript:eraseText();"> 
+            <input type="submit" value="Send" >
+            <input type="reset" value="Clear" > 
         </p>
     </form>
+    
+    @if(@Model.CommentSent)
+    {
+        <body onload="myFunction('Comment Submitted!')";></body>
+    }
     
 </div>
