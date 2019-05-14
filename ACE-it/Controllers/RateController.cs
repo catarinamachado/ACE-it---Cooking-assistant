@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -88,7 +89,7 @@ namespace ACE_it.Controllers
         //MISSING ID COMPLETED RECIPE
         public async Task<IActionResult> Comment(int id, String userId, String commentary)
         {
-            var idCompleted = 1;
+            var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
 
             var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
             
@@ -97,9 +98,11 @@ namespace ACE_it.Controllers
                 UserCompletedRecipe = userCompletedRecipe, Text = commentary
             };
             
-           // _context.UserCompletedRecipes.Find(idCompleted).Comments.Add(comment);
-            
-            
+            if(_context.UserCompletedRecipes.Find(idCompleted).Comments == null){
+                _context.UserCompletedRecipes.Find(idCompleted).Comments = new List<Comment>();
+            }
+                
+            _context.UserCompletedRecipes.Find(idCompleted).Comments.Add(comment);
             
             //falta aparecer algum pop up a dizer que o comentário foi adicionado
             //caixa com o comentário ficar vazia depois de aparecer o pop up
