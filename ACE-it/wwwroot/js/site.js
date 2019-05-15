@@ -2,17 +2,3 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-function eraseText() {
-    document.getElementById("output").value = "";
-}
-
-
-function genericPopup(){
-    Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success'
-    )
-}
-
