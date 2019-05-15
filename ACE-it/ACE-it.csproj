@@ -27,8 +27,4 @@
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Remove="wwwroot\css\PopupWindow.css" />
-    </ItemGroup>
-
 </Project>
