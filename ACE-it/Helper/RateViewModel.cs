@@ -7,16 +7,16 @@ namespace ACE_it.Helper
     {
         public User User { get; set; }
         public Recipe Recipe { get; set; }
-        public bool CommentSent { get; set; }
-
+        public bool ReviewSent { get; set; }
+        
         public RateViewModel(
             User user,
             Recipe recipe,
-            bool commentSent)
+            bool reviewSent)
         {
             User = user;
             Recipe = recipe;
-            CommentSent = commentSent;
+            ReviewSent = reviewSent;
         }
     }
 }

@@ -20,10 +20,10 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, bool? commentSent)
+        public async Task<IActionResult> Index(int? id, bool? reviewSent)
         {
             if (id == null) return NotFound();
-            if (commentSent == null) commentSent = false;
+            if (reviewSent == null) reviewSent = false;
 
             var recipe = await _context.Recipes
                 .Include(r => r.UserCompletedRecipes)
@@ -35,7 +35,7 @@ namespace ACE_it.Controllers
                 .First(r => r.Email == User.Identity.Name);
             
             return View(new RateViewModel(
-                user, recipe, (bool) commentSent));
+                user, recipe, (bool) reviewSent));
         }
 
         public async Task<IActionResult> React(int id, String userId, String reaction)
@@ -104,10 +104,19 @@ namespace ACE_it.Controllers
                 
             _context.UserCompletedRecipes.Find(idCompleted).Comments.Add(comment);
             
-            //falta aparecer algum pop up a dizer que o comentário foi adicionado
-            //caixa com o comentário ficar vazia depois de aparecer o pop up
+            return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
+        }
+        
+        //MISSING ID COMPLETED RECIPE
+        public async Task<IActionResult> Difficulties(int id, String userId, String difficulties)
+        {
+            var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
+
+            var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
+
+            _context.UserCompletedRecipes.Find(idCompleted).Difficulties = difficulties;
             
-            return RedirectToAction("Index", "Rate", new { Id = id, CommentSent = true });
+            return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
         }
     }
 }

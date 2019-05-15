@@ -35,16 +35,26 @@
         </div>
     </div>
     
-    <h4 style="margin-bottom: 20px;">Private Section</h4>
+    <br><br><br><br>
     
-    
-    Missing difficulties box
-
-    <br><br><br><br><br><br>
-
-    <h4 style="margin-bottom: 20px;">Public Section</h4>
-
     <div class="container">
+        <h4 style="margin-bottom: 20px;">Private Section</h4>
+        
+        Difficulties
+        <form asp-controller="Rate" asp-action="Difficulties" 
+              asp-route-id="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+              method="post">
+            <p>
+                <textarea name="Difficulties" cols="40" rows="5"></textarea>
+                <input type="submit" value="Send" >
+                <input type="reset" value="Clear" > 
+            </p>
+        </form>
+        
+        <br><br><br><br>
+    
+        <h4 style="margin-bottom: 20px;">Public Section</h4>
+    
         <thead>
             <tr>
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
@@ -92,9 +102,10 @@
                 </th>
             </tr>
          </thead>
-    </div>
     
-    <br><br><br><br>
+    <br><br><br>
+    
+    Comments
     <form asp-controller="Rate" asp-action="Comment" 
           asp-route-id="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
           method="post">
@@ -105,9 +116,11 @@
         </p>
     </form>
     
-    @if(@Model.CommentSent)
+    </div>
+    
+    @if(@Model.ReviewSent)
     {
-        <body onload="myFunction('Comment Submitted!')";></body>
+        <body onload="myFunction('Review Submitted!')";></body>
     }
     
 </div>
