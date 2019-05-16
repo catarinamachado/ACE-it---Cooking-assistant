@@ -42,7 +42,7 @@
         
         Difficulties
         <form asp-controller="Rate" asp-action="Difficulties" 
-              asp-route-id="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+              asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
               method="post">
             <p>
                 <textarea name="Difficulties" cols="60" rows="5"></textarea>
@@ -59,7 +59,7 @@
             <tr>
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
                 <th style="font-weight: normal;">
-                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
                        asp-route-userId="@Model.User.Id" asp-route-reaction="love">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Love)) == null)
                         {
@@ -73,7 +73,7 @@
                     &nbsp;@loves&nbsp;&nbsp;
                 </th>
                 <th style="font-weight: normal;">
-                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
                        asp-route-userId="@Model.User.Id" asp-route-reaction="like">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Like)) == null)
                         {
@@ -87,7 +87,7 @@
                     &nbsp;@likes&nbsp;&nbsp;
                 </th>
                 <th style="font-weight: normal;">
-                    <a asp-controller="Rate" asp-action="React" asp-route-id="@Model.Recipe.Id"
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
                        asp-route-userId="@Model.User.Id" asp-route-reaction="dislike">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Dislike)) == null)
                         {
@@ -107,7 +107,7 @@
     
     Comments
     <form asp-controller="Rate" asp-action="Comment" 
-          asp-route-id="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+          asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
           method="post">
         <p>
             <textarea name="Commentary" cols="60" rows="5"></textarea>

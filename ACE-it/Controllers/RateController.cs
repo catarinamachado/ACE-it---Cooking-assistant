@@ -19,15 +19,15 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, bool? reviewSent)
+        public async Task<IActionResult> Index(int? recipeId, bool? reviewSent)
         {
-            if (id == null) return NotFound();
+            if (recipeId == null) return NotFound();
             if (reviewSent == null) reviewSent = false;
 
             var recipe = await _context.Recipes
                 .Include(r => r.UserCompletedRecipes)
                 .Include(r => r.UserReactedToRecipes)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == recipeId);
             if (recipe == null) return NotFound();
             
             var user = _context.AppUsers
@@ -37,7 +37,7 @@ namespace ACE_it.Controllers
                 user, recipe, (bool) reviewSent));
         }
 
-        public async Task<IActionResult> React(int id, String userId, String reaction)
+        public async Task<IActionResult> React(int recipeId, String userId, String reaction)
         {
             var react = Reaction.Like;
             
@@ -57,10 +57,10 @@ namespace ACE_it.Controllers
 
             var userReactedToRecipe = new UserReactedToRecipe
             {
-                UserId = userId, RecipeId = id, Reaction = react
+                UserId = userId, RecipeId = recipeId, Reaction = react
             };
             
-            var oldUserReaction = _context.UserReactedToRecipes.Find(userId, id);
+            var oldUserReaction = _context.UserReactedToRecipes.Find(userId, recipeId);
             
             //if user wants to remove the reaction
             if (oldUserReaction != null && (oldUserReaction.Reaction == userReactedToRecipe.Reaction))
@@ -81,12 +81,12 @@ namespace ACE_it.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Rate", new { id });
+            return RedirectToAction("Index", "Rate", new { recipeId });
         }
 
         
         //MISSING ID COMPLETED RECIPE
-        public async Task<IActionResult> Comment(int id, String userId, String commentary)
+        public async Task<IActionResult> Comment(int recipeId, String userId, String commentary)
         {
             var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
 
@@ -106,11 +106,11 @@ namespace ACE_it.Controllers
             _context.Update(userCompletedRecipe);
             _context.SaveChanges();
             
-            return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
+            return RedirectToAction("Index", "Rate", new { RecipeId = recipeId, ReviewSent = true });
         }
         
         //MISSING ID COMPLETED RECIPE
-        public async Task<IActionResult> Difficulties(int id, String userId, String difficulties)
+        public async Task<IActionResult> Difficulties(int recipeId, String userId, String difficulties)
         {
             var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
 
@@ -121,7 +121,7 @@ namespace ACE_it.Controllers
             _context.Update(userCompletedRecipe);
             _context.SaveChanges();
             
-            return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
+            return RedirectToAction("Index", "Rate", new { RecipeId = recipeId, ReviewSent = true });
         }
     }
 }
