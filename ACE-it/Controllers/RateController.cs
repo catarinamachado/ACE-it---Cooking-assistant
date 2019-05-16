@@ -92,16 +92,19 @@ namespace ACE_it.Controllers
 
             var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
             
+            if(userCompletedRecipe.Comments == null){
+                userCompletedRecipe.Comments = new List<Comment>();
+            }
+            
             var comment = new Comment
             {
                 UserCompletedRecipe = userCompletedRecipe, Text = commentary
             };
             
-            if(_context.UserCompletedRecipes.Find(idCompleted).Comments == null){
-                _context.UserCompletedRecipes.Find(idCompleted).Comments = new List<Comment>();
-            }
-                
-            _context.UserCompletedRecipes.Find(idCompleted).Comments.Add(comment);
+            userCompletedRecipe.Comments.Add(comment);
+
+            _context.Update(userCompletedRecipe);
+            _context.SaveChanges();
             
             return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
         }
@@ -113,7 +116,10 @@ namespace ACE_it.Controllers
 
             var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
 
-            _context.UserCompletedRecipes.Find(idCompleted).Difficulties = difficulties;
+            userCompletedRecipe.Difficulties = difficulties;
+            
+            _context.Update(userCompletedRecipe);
+            _context.SaveChanges();
             
             return RedirectToAction("Index", "Rate", new { Id = id, ReviewSent = true });
         }
