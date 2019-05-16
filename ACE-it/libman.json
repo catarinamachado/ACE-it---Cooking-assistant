@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.1.0",
+      "destination": "wwwroot/",
+      "files": [
+        "js/bootstrap.bundle.min.js",
+        "css/bootstrap.min.css"
+      ]
+    },
+    {
+      "library": "jquery@3.2.1",
+      "destination": "wwwroot/js/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "limonte-sweetalert2@7.33.1",
+      "destination": "wwwroot/js/",
+      "files": [
+        "sweetalert2.all.min.js"
+      ]
+    }
+  ]
+}
