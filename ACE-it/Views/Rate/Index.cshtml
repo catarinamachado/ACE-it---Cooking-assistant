@@ -21,11 +21,10 @@
     });
 }
 
-<script>
-    function alertFunction(string) {
-        alert(string);
-    }
-</script>
+@section Scripts {
+    <script type="text/javascript" src="/js/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="/js/alerts.js"></script>
+}
 
 <div class="map-clean">
     <div class="container recipe-header mt-5">
@@ -115,12 +114,12 @@
             <input type="reset" value="Clear" > 
         </p>
     </form>
-    
+
     </div>
     
     @if(@Model.ReviewSent)
     {
-        <body onload="alertFunction('Review Submitted!')";></body>
+        <body onload="success('Review Submitted.')";></body>
     }
     
 </div>
