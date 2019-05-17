@@ -23,13 +23,13 @@
 
 @section Scripts {
     <script type="text/javascript" src="/js/sweetalert2.all.min.js"></script>
-    <script type="text/javascript" src="/js/alerts.js"></script>
+    <script type="text/javascript" src="/js/rate/index.js"></script>
 }
 
 <div class="map-clean">
     <div class="container recipe-header mt-5">
         <div class="intro" style="margin-bottom: 0;">
-            <h1 class="text-center" style="margin-bottom: 20px;">Rate</h1>
+            <h1 class="text-center" style="margin-bottom: 20px;" id="reviews" data-review-sent="@Model.ReviewSent">Rate</h1>
             <h2 class="text-center" style="margin-bottom: 20px;">Recipe: @Model.Recipe.Name</h2>
         </div>
     </div>
@@ -116,10 +116,6 @@
     </form>
 
     </div>
-    
-    @if(@Model.ReviewSent)
-    {
-        <body onload="success('Review Submitted.')";></body>
-    }
-    
 </div>
+
+
