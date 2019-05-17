@@ -22,7 +22,6 @@ namespace ACE_it.Controllers
         public async Task<IActionResult> Index(int? recipeId, bool? reviewSent)
         {
             if (recipeId == null) return NotFound();
-            if (reviewSent == null) reviewSent = false;
 
             var recipe = await _context.Recipes
                 .Include(r => r.UserCompletedRecipes)
@@ -34,7 +33,7 @@ namespace ACE_it.Controllers
                 .First(r => r.Email == User.Identity.Name);
             
             return View(new RateViewModel(
-                user, recipe, (bool) reviewSent));
+                user, recipe, reviewSent != null));
         }
 
         public async Task<IActionResult> React(int recipeId, String userId, String reaction)
@@ -98,7 +97,7 @@ namespace ACE_it.Controllers
             
             var comment = new Comment
             {
-                UserCompletedRecipe = userCompletedRecipe, Text = commentary
+                UserCompletedRecipe = userCompletedRecipe, Text = commentary == null ? "" : commentary
             };
             
             userCompletedRecipe.Comments.Add(comment);
@@ -116,7 +115,7 @@ namespace ACE_it.Controllers
 
             var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
 
-            userCompletedRecipe.Difficulties = difficulties;
+            userCompletedRecipe.Difficulties = difficulties == null ? "" : difficulties;
             
             _context.Update(userCompletedRecipe);
             _context.SaveChanges();
