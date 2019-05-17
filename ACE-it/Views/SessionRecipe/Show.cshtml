@@ -1,9 +1,8 @@
-@model SessionRecipe
+@model ACE_it.Helper.RecipeSessionViewModel
 
 @{
     ViewBag.Title = "Recipe Session";
     Layout = "_Layout";
-    var recipe = Model.Recipe.RecipeInstructions[Model.Index].Instruction.RecipeInstructions[Model.Order];
 }
 
 <div class="highlight-clean" style="padding-bottom: 0;">
@@ -11,20 +10,38 @@
         <div class="intro">
             <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;"></h2>
         </div>
-        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">In a frying pan, <a href="#">sauté</a> the remaining olive oil, a <a href="#">chopped</a> onion and the <a href="#">chopped</a> garlic.</p>
+        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(Model.RecipeInstruction.Instruction.Text)</p>
         <div class="buttons">
-            <button class="btn btn-light" type="button">SAVE STATE</button><button class="btn btn-light" type="button">Previous STEP</button><a class="btn btn-primary" role="button" href="#" style="background-color: rgb(40, 167, 69);">Next STEP</a>
+            <button class="btn btn-light" type="button">Previous STEP</button>
+            @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
+            {
+                <a class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish</a>
+            }
+            else
+            {
+                <a asp-action="Update" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Next STEP</a>
+            }
         </div>
     </div>
     <p class="text-center" style="font-size: 80%; width: 50%; margin-top: 40px; margin-bottom: 40px; margin-left: 25%;">If at any moment you need help you can consult more tips by clicking or saying the highlighted words and select the type of help you need (how, where, when, ...)<br></p>
 </div>
 <div class="steps-progressbar" style="margin-bottom: 50px;">
     <ul>
-        <li class="previous">1</li>
-        <li class="active">2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
+        @for (var i = 0; i < Model.RecipeInstructionsCount; i++)
+        {
+            if (i < Model.InstructionIndex)
+            {
+                <li class="previous">@i</li>
+            }
+            else if (i == Model.InstructionIndex)
+            {
+                <li class="active">@i</li>
+            }
+            else
+            {
+                <li>@i</li>
+            }
+        }
     </ul>
 </div>
 <div class="row" style="margin: 0; margin-bottom: 40px;">

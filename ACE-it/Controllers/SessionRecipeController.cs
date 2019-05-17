@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ACE_it.Data;
+using ACE_it.Helper;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,13 +49,34 @@ namespace ACE_it.Controllers
                 new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
         }
 
-        public async Task<IActionResult> Show(int sessionId, int recipeSessionId)
+        public async Task<IActionResult> Show(int sessionId)
         {
             var sessionRecipe = (await _context.Sessions
-                    .Include(s => s.SessionRecipes.Select(x => x.Recipe))
-                    .FirstAsync(s => s.Id == sessionId))
-                .SessionRecipes.First(a => a.Id == recipeSessionId);
-            return View(sessionRecipe);
+                .Include(s => s.SessionRecipes)
+                .ThenInclude(x => x.Recipe)
+                .ThenInclude(x => x.RecipeInstructions)
+                .ThenInclude(x => x.Instruction)
+                .FirstAsync(s => s.Id == sessionId));
+
+            sessionRecipe.SessionRecipes.Sort((a, b) => a.Order - b.Order);
+            var instruction = sessionRecipe.SessionRecipes[sessionRecipe.SessionRecipes.Count - 1];
+            var recipe = instruction.Recipe;
+            var ri = recipe.RecipeInstructions[instruction.Index];
+            var last = (recipe.RecipeInstructions.Count - 1) == instruction.Index;
+            return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count));
+        }
+
+        public async Task<IActionResult> Update(int sessionId)
+        {
+            var sessionRecipe = (await _context.Sessions
+                .Include(s => s.SessionRecipes)
+                .FirstAsync(s => s.Id == sessionId));
+            sessionRecipe.SessionRecipes.Sort((a, b) => a.Order - b.Order);
+            sessionRecipe
+                .SessionRecipes[sessionRecipe.SessionRecipes.Count - 1]
+                .Index++;
+            _context.SaveChanges();
+            return RedirectToAction("Show", "SessionRecipe", new {sessionId});
         }
 
         private async Task<List<Recipe>> GetCurrentRecipes(
