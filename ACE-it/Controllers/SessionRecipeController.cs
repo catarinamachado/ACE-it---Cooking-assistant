@@ -5,6 +5,7 @@ using ACE_it.Data;
 using ACE_it.Helper;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ACE_it.Controllers
@@ -67,20 +68,31 @@ namespace ACE_it.Controllers
             var recipe = instruction.Recipe;
             var index = viewIndex.GetValueOrDefault(instruction.Index);
             var ri = recipe.RecipeInstructions[index];
-            return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count, index));
+            return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count,
+                index));
         }
 
         public async Task<IActionResult> Update(int sessionId)
         {
-            var sessionRecipe = (await _context.Sessions
+            var session = (await _context.Sessions
                 .Include(s => s.SessionRecipes)
                 .FirstAsync(s => s.Id == sessionId));
-            sessionRecipe.SessionRecipes.Sort((a, b) => a.Order - b.Order);
-            sessionRecipe
-                .SessionRecipes[sessionRecipe.SessionRecipes.Count - 1]
+            session.SessionRecipes.Sort((a, b) => a.Order - b.Order);
+            session
+                .SessionRecipes[session.SessionRecipes.Count - 1]
                 .Index++;
             _context.SaveChanges();
             return RedirectToAction("Show", "SessionRecipe", new {sessionId});
+        }
+
+        public void Delete(int sessionId)
+        {
+            var session = (_context.Sessions
+                .Include(s => s.SessionRecipes)
+                .FirstOrDefault(s => s.Id == sessionId));
+            if (session == null) return;
+            session.SessionRecipes.Clear();
+            _context.Sessions.Update(session);
         }
     }
 }
