@@ -18,12 +18,6 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var user = await _context.AppUsers.FirstAsync(u => u.Id == User.Identity.Name);
-            return View(GetCurrentRecipes(user));
-        }
-
         public async Task<IActionResult> Create(int recipeId)
         {
             var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
