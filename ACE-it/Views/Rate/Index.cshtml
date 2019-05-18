@@ -1,0 +1,131 @@
+@model ACE_it.Helper.RateViewModel;
+
+@{
+    ViewData["Title"] = "Rate";
+
+    int likes = 0, loves = 0, dislikes = 0;
+    Model.Recipe.UserReactedToRecipes.ForEach(ucr =>
+    {
+        switch (ucr.Reaction)
+        {
+            case Reaction.Like:
+                likes++;
+                break;
+            case Reaction.Love:
+                loves++;
+                break;
+            case Reaction.Dislike:
+                dislikes++;
+                break;
+        }
+    });
+}
+
+@section Scripts {
+    <script type="text/javascript" src="/js/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="/js/rate/index.js"></script>
+}
+
+<div class="map-clean">
+    <div class="container recipe-header mt-5">
+        <div class="intro" style="margin-bottom: 0;">
+            <h1 class="text-center" style="margin-bottom: 20px;" id="reviews" data-review-sent="@Model.ReviewSent">Rate</h1>
+            <h2 class="text-center" style="margin-bottom: 20px;">Recipe: @Model.Recipe.Name</h2>
+        </div>
+    </div>
+    
+    <br><br><br><br>
+    
+    <div class="container">
+        <h4 style="margin-bottom: 20px;">Private Section</h4>
+        
+        Difficulties
+        <form asp-controller="Rate" asp-action="Difficulties" 
+              asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+              method="post">
+            <p>
+                <textarea name="Difficulties" cols="60" rows="5"></textarea>
+                <input type="submit" value="Send" >
+                <input type="reset" value="Clear" > 
+            </p>
+        </form>
+        
+        <br><br><br><br>
+    
+        <h4 style="margin-bottom: 20px;">Public Section</h4>
+    
+        <thead>
+            <tr>
+                <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
+                       asp-route-userId="@Model.User.Id" asp-route-reaction="love">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Love)) == null)
+                        {
+                            <i class="fa fa-heart"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@loves&nbsp;&nbsp;
+                </th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
+                       asp-route-userId="@Model.User.Id" asp-route-reaction="like">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Like)) == null)
+                        {
+                            <i class="fa fa-thumbs-up"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-thumbs-up" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@likes&nbsp;&nbsp;
+                </th>
+                <th style="font-weight: normal;">
+                    <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
+                       asp-route-userId="@Model.User.Id" asp-route-reaction="dislike">
+                        @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Dislike)) == null)
+                        {
+                            <i class="fa fa-thumbs-down"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-thumbs-down" style="color:#000000"></i>
+                        }
+                    </a>
+                    &nbsp;@dislikes
+                </th>
+            </tr>
+         </thead>
+    
+        <br><br><br>
+    
+        Comments
+        <form asp-controller="Rate" asp-action="Comment" 
+              asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+              method="post">
+            <p>
+                <textarea name="Commentary" cols="60" rows="5"></textarea>
+                <input type="submit" value="Send">
+                <input type="reset" value="Clear"> 
+            </p>
+        </form>
+
+    </div>
+    
+    <br><br><br><br>
+    
+    <div align="center">
+        <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
+        <h4 style="margin-bottom: 20px;">Get it 
+            <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
+            here</a>.
+        </h4>
+    </div>
+</div>
+
+
