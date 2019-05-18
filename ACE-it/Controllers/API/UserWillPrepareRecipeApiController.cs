@@ -52,18 +52,18 @@ namespace ACE_it.Controllers.API
             {
                 return Json("Error: Date must be a present or future date");
             }
-            
+
             var u = await user;
             var re = await recipe;
             var userWillPrepareRecipe = new UserWillPrepareRecipe { User = u, Recipe = re,  Date = date};
-            
+
             u.UserWillPrepareRecipes.Add(userWillPrepareRecipe);
             _context.AppUsers.Update(u);
             _context.SaveChanges();
-            
+
             return Json(re.Id + "," + re.Name + "," + date.ToString("yyyy-MM-ddTHH:mm") + "," + re.DefaultDuration);
         }
-        
+
         [Route("API/UserWillPrepareRecipe/Delete/{recipeId}/{rawDate}")]
         public async Task<IActionResult> Delete(int recipeId, string rawDate)
         {
@@ -72,7 +72,7 @@ namespace ACE_it.Controllers.API
                 .Include(us => us.UserWillPrepareRecipes)
                     .ThenInclude(us => us.Recipe)
                 .FirstAsync();
-            
+
             var date = DateTime.Parse(rawDate);
 
             var toRemove = user.UserWillPrepareRecipes.FindAll(wpr => wpr.Date == date && wpr.Recipe.Id == recipeId);
@@ -83,7 +83,7 @@ namespace ACE_it.Controllers.API
 
             _context.AppUsers.Update(user);
             _context.SaveChanges();
-            
+
             return Ok();
         }
     }

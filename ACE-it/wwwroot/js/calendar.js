@@ -3,7 +3,7 @@ $( document ).ready(function() {
     xhttp.open("GET", "API/UserWillPrepareRecipe/Index", false);
     xhttp.send();
     var result = JSON.parse(xhttp.responseText);
-    
+
     var events = [];
     result.forEach(function (element) {
         var array = element.split(',');
@@ -14,7 +14,7 @@ $( document ).ready(function() {
         i['end'] = moment(array[2]).add(array[3], "seconds");
         events.push(i);
     });
-    
+
     $('#calendar').fullCalendar({
         header: {
             center: 'My Meal Calendar'
@@ -46,18 +46,18 @@ function chooseRecipe(date) {
     xhttp.open("GET", "API/Recipes", false);
     xhttp.send();
     var result = JSON.parse(xhttp.responseText);
-    
+
     var select = "<div class='form-group'><select id='recipe' class='form-control'>";
     result.forEach(function(element) {
         select += "<option value='" + element.id + "'>" + element.name + "</option>"
     });
     select += "</select></div>";
-    
+
     Swal.fire({
         title: 'Schedule recipe',
         html: "<form><div class='form-group'>" +
             "<input id='date' class='form-control' type='datetime-local' min='" + moment().format('YYYY-MM-DD[T]HH:MM') + "' value='" + date.format('YYYY-MM-DD[T]HH:MM') + "'>" +
-            "</div>" + select + "</form>", 
+            "</div>" + select + "</form>",
         type: 'info',
         showCancelButton: true,
         confirmButtonText: 'Schedule',

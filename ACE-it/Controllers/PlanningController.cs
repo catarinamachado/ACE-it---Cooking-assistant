@@ -13,18 +13,18 @@ namespace ACE_it.Controllers
     public class PlanningController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
+
         public PlanningController(ApplicationDbContext context)
         {
             _context = context;
         }
-        
+
         // GET
         public IActionResult Index()
         {
             return View();
         }
-        
+
         public async Task<IActionResult> Show(string rawStart, string rawEnd)
         {
             var start = DateTime.Parse(rawStart);
@@ -42,7 +42,7 @@ namespace ACE_it.Controllers
                 .ToListAsync();
 
             var map = new Dictionary<int, ShoppingItem>();
-            
+
             foreach (var userUserWillPrepareRecipe in ucr)
             {
                 foreach (var recipeRecipeIngredient in userUserWillPrepareRecipe.Recipe.RecipeIngredients)
@@ -60,7 +60,7 @@ namespace ACE_it.Controllers
                     }
                 }
             }
-            
+
             return View(new ShoppingItems(map, start, end));
         }
     }
