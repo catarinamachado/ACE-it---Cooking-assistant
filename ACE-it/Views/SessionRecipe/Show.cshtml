@@ -25,7 +25,8 @@
             }
             @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
             {
-                <a class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish</a>
+                <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId"
+                    class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish and Rate</a>
             }
             else if (Model.ViewIndex == Model.InstructionIndex)
             {
