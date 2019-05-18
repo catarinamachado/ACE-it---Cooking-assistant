@@ -19,7 +19,7 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? recipeId, bool? reviewSent)
+        public async Task<IActionResult> Index(int? recipeId, bool? reviewSent, int userCompletedRecipeId)
         {
             if (recipeId == null) return NotFound();
 
@@ -33,10 +33,10 @@ namespace ACE_it.Controllers
                 .First(r => r.Email == User.Identity.Name);
             
             return View(new RateViewModel(
-                user, recipe, reviewSent != null));
+                user, recipe, reviewSent != null, userCompletedRecipeId));
         }
 
-        public async Task<IActionResult> React(int recipeId, String userId, String reaction)
+        public async Task<IActionResult> React(int recipeId, String userId, String reaction, int userCompletedRecipeId)
         {
             var react = Reaction.Like;
             
@@ -80,16 +80,12 @@ namespace ACE_it.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Rate", new { recipeId });
+            return RedirectToAction("Index", "Rate", new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipeId });
         }
-
         
-        //MISSING ID COMPLETED RECIPE
-        public async Task<IActionResult> Comment(int recipeId, String userId, String commentary)
+        public async Task<IActionResult> Comment(int recipeId, String userId, String commentary, int userCompletedRecipeId)
         {
-            var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
-
-            var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
+            var userCompletedRecipe = _context.UserCompletedRecipes.Find(userCompletedRecipeId);
             
             if(userCompletedRecipe.Comments == null){
                 userCompletedRecipe.Comments = new List<Comment>();
@@ -105,22 +101,22 @@ namespace ACE_it.Controllers
             _context.Update(userCompletedRecipe);
             _context.SaveChanges();
             
-            return RedirectToAction("Index", "Rate", new { RecipeId = recipeId, ReviewSent = true });
+            return RedirectToAction("Index", "Rate", 
+                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipeId, ReviewSent = true });
         }
         
-        //MISSING ID COMPLETED RECIPE
-        public async Task<IActionResult> Difficulties(int recipeId, String userId, String difficulties)
+        public async Task<IActionResult> Difficulties(int recipeId, String userId, String difficulties, int userCompletedRecipeId)
         {
-            var idCompleted = 1; //é suposto a função receber esta variável como parâmetro
 
-            var userCompletedRecipe = _context.UserCompletedRecipes.Find(idCompleted);
+            var userCompletedRecipe = _context.UserCompletedRecipes.Find(userCompletedRecipeId);
 
             userCompletedRecipe.Difficulties = difficulties == null ? "" : difficulties;
             
             _context.Update(userCompletedRecipe);
             _context.SaveChanges();
             
-            return RedirectToAction("Index", "Rate", new { RecipeId = recipeId, ReviewSent = true });
+            return RedirectToAction("Index", "Rate", 
+                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipeId, ReviewSent = true });
         }
     }
 }

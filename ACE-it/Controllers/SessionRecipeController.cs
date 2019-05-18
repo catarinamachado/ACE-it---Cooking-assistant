@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace ACE_it.Controllers
             var index = viewIndex.GetValueOrDefault(instruction.Index);
             var ri = recipe.RecipeInstructions[index];
             return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count,
-                index));
+                index, recipe.Id));
         }
 
         public async Task<IActionResult> Update(int sessionId)
@@ -93,6 +94,32 @@ namespace ACE_it.Controllers
             if (session == null) return;
             session.SessionRecipes.Clear();
             _context.Sessions.Update(session);
+        }
+
+        public async Task<IActionResult> Finish(int recipeId)
+        {
+            var user = _context.AppUsers
+                .First(r => r.Email == User.Identity.Name);
+
+            var recipe = await _context.Recipes
+                .Include(r => r.Category)
+                .Include(r => r.RecipeInstructions)
+                .ThenInclude(ri => ri.Instruction)
+                .Include(r => r.RecipeIngredients)
+                .ThenInclude(ri => ri.Ingredient)
+                .Include(r => r.UserCompletedRecipes)
+                .Include(r => r.UserReactedToRecipes)
+                .FirstOrDefaultAsync(m => m.Id == recipeId);
+
+            var userCompletedRecipe = new UserCompletedRecipe{
+                RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null
+            };
+
+            _context.Add(userCompletedRecipe);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Rate", 
+                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id });
         }
     }
 }

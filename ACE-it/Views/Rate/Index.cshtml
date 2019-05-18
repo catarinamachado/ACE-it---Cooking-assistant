@@ -40,8 +40,8 @@
         <h4 style="margin-bottom: 20px;">Private Section</h4>
         
         Difficulties
-        <form asp-controller="Rate" asp-action="Difficulties" 
-              asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+        <form asp-controller="Rate" asp-action="Difficulties" asp-route-recipeId="@Model.Recipe.Id" 
+              asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
               method="post">
             <p>
                 <textarea name="Difficulties" cols="60" rows="5"></textarea>
@@ -59,7 +59,8 @@
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
                 <th style="font-weight: normal;">
                     <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
-                       asp-route-userId="@Model.User.Id" asp-route-reaction="love">
+                       asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId" 
+                       asp-route-reaction="love">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Love)) == null)
                         {
                             <i class="fa fa-heart"></i>
@@ -73,7 +74,8 @@
                 </th>
                 <th style="font-weight: normal;">
                     <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
-                       asp-route-userId="@Model.User.Id" asp-route-reaction="like">
+                       asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
+                       asp-route-reaction="like">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Like)) == null)
                         {
                             <i class="fa fa-thumbs-up"></i>
@@ -87,7 +89,8 @@
                 </th>
                 <th style="font-weight: normal;">
                     <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
-                       asp-route-userId="@Model.User.Id" asp-route-reaction="dislike">
+                       asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
+                       asp-route-reaction="dislike">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Dislike)) == null)
                         {
                             <i class="fa fa-thumbs-down"></i>
@@ -105,8 +108,8 @@
     <br><br><br>
     
     Comments
-    <form asp-controller="Rate" asp-action="Comment" 
-          asp-route-recipeId="@Model.Recipe.Id" asp-route-userId="@Model.User.Id"
+        <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id" 
+              asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
           method="post">
         <p>
             <textarea name="Commentary" cols="60" rows="5"></textarea>
