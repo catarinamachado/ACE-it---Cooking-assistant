@@ -25,6 +25,41 @@
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewImports.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\background-events.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\daygrid-views.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\default.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\external-dragging-2cals.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\external-dragging-builtin.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\full-height.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\google-calendar.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\js\theme-chooser.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\json.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\json\events.json" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\list-views.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\locales.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\php\get-events.php" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\php\get-time-zones.php" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\php\utils.php" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\rrule.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\selectable.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\themes.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\time-zones.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\timegrid-views.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\demos\week-numbers.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\moment-timezone\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\moment-timezone\main.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\bootstrap\main.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\bootstrap\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\bootstrap\main.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\bootstrap\main.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\interaction\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\interaction\main.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\luxon\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\fullcalendar-4.1.0\packages\luxon\main.min.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Meals Planner";
+}
+
+@section Stylesheets
+{
+    <link rel="stylesheet" type="text/css" href="lib/fullcalendar/fullcalendar.css" />
+}
+
+<div class="map-clean">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center" >@Html.ViewData["Title"]</h2>
+        </div>
+    </div>
+</div>
+<div id="calendar" class="pb-lg-5 px-lg-5"></div>
+
+@section Scripts
+{
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="lib/fullcalendar/fullcalendar.js"></script>
+    <script src="js/calendar.js"></script>
+}

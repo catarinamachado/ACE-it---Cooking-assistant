@@ -23,6 +23,21 @@
       "files": [
         "sweetalert2.all.min.js"
       ]
+    },
+    {
+      "library": "moment.js@2.24.0",
+      "destination": "wwwroot/js",
+      "files": [
+        "moment.min.js"
+      ]
+    },
+    {
+      "library": "fullcalendar@3.10.0",
+      "destination": "wwwroot/lib/fullcalendar",
+      "files": [
+        "fullcalendar.js",
+        "fullcalendar.css"
+      ]
     }
   ]
 }
