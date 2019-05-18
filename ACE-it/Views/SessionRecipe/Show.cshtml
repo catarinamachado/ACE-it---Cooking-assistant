@@ -1,5 +1,9 @@
 @model ACE_it.Helper.RecipeSessionViewModel
 
+@functions {
+    private int _i;
+}
+
 @{
     ViewBag.Title = "Recipe Session";
     Layout = "_Layout";
@@ -8,7 +12,10 @@
 <div class="highlight-clean" style="padding-bottom: 0;">
     <div class="container">
         <div class="intro">
-            <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;"></h2>
+            @{
+                var index = Model.InstructionIndex + 1;
+                <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;">Step @index</h2>
+            }
         </div>
         <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(Model.RecipeInstruction.Instruction.Text)</p>
         <div class="buttons">
@@ -29,17 +36,18 @@
     <ul>
         @for (var i = 0; i < Model.RecipeInstructionsCount; i++)
         {
+            var viewI = i + 1;
             if (i < Model.InstructionIndex)
             {
-                <li class="previous">@i</li>
+                <li class="previous">@viewI</li>
             }
             else if (i == Model.InstructionIndex)
             {
-                <li class="active">@i</li>
+                <li class="active">@viewI</li>
             }
             else
             {
-                <li>@i</li>
+                <li>@viewI</li>
             }
         }
     </ul>

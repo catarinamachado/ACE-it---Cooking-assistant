@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using ACE_it.Data;
 using ACE_it.Helper;
@@ -25,23 +26,35 @@ namespace ACE_it.Controllers
             return View(GetCurrentRecipes(user));
         }
 
-        public async Task<IActionResult> Create(int recipe)
+        public async Task<IActionResult> Create(int recipeId)
         {
-            var user = _context.AppUsers.First(r => r.Email == User.Identity.Name);
-            var recipeObj = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipe);
+            var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
+            if (user == null)
+            {
+                //TODO: Redirect to logged out screen
+                return null;
+            }
+
             var session = await _context.Sessions.Include(r => r.SessionRecipes)
+                .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(r => r.User == user);
+            SessionRecipe sessionRecipe;
             if (session == null)
             {
                 session = new Session {User = user, SessionRecipes = new List<SessionRecipe>(1)};
+                var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+                sessionRecipe = new SessionRecipe() {Recipe = await recipe};
+                session.SessionRecipes.Add(sessionRecipe);
                 _context.Sessions.Add(session);
             }
-
-            var sessionRecipe = session.SessionRecipes.FirstOrDefault(r => r.Recipe == recipeObj);
-            if (sessionRecipe == null)
+            else if ((sessionRecipe = session.SessionRecipes.FirstOrDefault(r => r.Id == recipeId)) == null)
             {
-                sessionRecipe = new SessionRecipe {Recipe = recipeObj};
+                session.SessionRecipes.Clear();
+                _context.SaveChanges();
+                var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+                sessionRecipe = new SessionRecipe() {Recipe = await recipe};
                 session.SessionRecipes.Add(sessionRecipe);
+                _context.Sessions.Add(session);
             }
 
             _context.SaveChanges();
@@ -62,7 +75,6 @@ namespace ACE_it.Controllers
             var instruction = sessionRecipe.SessionRecipes[sessionRecipe.SessionRecipes.Count - 1];
             var recipe = instruction.Recipe;
             var ri = recipe.RecipeInstructions[instruction.Index];
-            var last = (recipe.RecipeInstructions.Count - 1) == instruction.Index;
             return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count));
         }
 
