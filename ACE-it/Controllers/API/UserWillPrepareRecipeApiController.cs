@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ACE_it.Controllers.API
 {
-    public class UserWillPrepareRecipeAPIController : Controller
+    public class UserWillPrepareRecipeApiController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UserWillPrepareRecipeAPIController(ApplicationDbContext context)
+        public UserWillPrepareRecipeApiController(ApplicationDbContext context)
         {
             _context = context;
         }

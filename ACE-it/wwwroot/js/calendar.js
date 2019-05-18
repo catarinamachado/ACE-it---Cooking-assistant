@@ -109,7 +109,7 @@ function eventClick(info) {
         cancelButtonText: 'Delete Schedule'
     }).then(function(result) {
         if (result.value) {
-            window.location.replace("Recipes/Details/" + info.id);
+            window.location.replace("Recipes/Details/" + info.id.replace("\"", ""));
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", "API/UserWillPrepareRecipe/Delete/" + info.id.replace("\"", "") + "/" + info.start.format('YYYY-MM-DD[T]HH:MM'), false);

@@ -827,7 +827,7 @@ namespace ACE_it.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "27fc3db2-9105-49ce-8270-7b8f2ff4bb76",
+                            ConcurrencyStamp = "cb611e9c-d0eb-4490-aed7-b68d6a3c2ab8",
                             Difficulty = 0,
                             Email = "user@aceit.com",
                             EmailConfirmed = true,
@@ -836,7 +836,7 @@ namespace ACE_it.Migrations
                             NormalizedUserName = "user@aceit.com",
                             NumberOfCoupons = 0,
                             NumberOfVisits = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAipQfaFuREHdeg3oTTrObsKodzfuT3pzboVfSNeiXeteZFf+ZYFg06cE8FQ6L0/Ng==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF/MhunZmqaMXEgxPTOs3PDG99esPpKJX8paYtHNs1QmSEQ2+R/PcDJIQjgHDbPrAg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -983,7 +983,7 @@ namespace ACE_it.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserWillPrepareRecipe");
+                    b.ToTable("UserWillPrepareRecipes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

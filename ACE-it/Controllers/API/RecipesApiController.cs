@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ACE_it.Controllers.API
 {
-    public class RecipesAPIController : Controller
+    public class RecipesApiController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RecipesAPIController(ApplicationDbContext context)
+        public RecipesApiController(ApplicationDbContext context)
         {
             _context = context;
         }
