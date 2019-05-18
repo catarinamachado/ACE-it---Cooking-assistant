@@ -9,9 +9,21 @@
     <link rel="stylesheet" href="/css/Promotion-Code.css">
 }
 
-<div class="coupon">
-    <div class="container" align="center">
-        <img src="img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" style="width: 10%;">
+    <div class="coupon">
+        <div class="container" align="center">
+            <img src="img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" style="width: 10%;">
+        </div>
+        <div align="center">
+            <img src="img/milaneza_natura.jpg" alt="Avatar" style="width: 70%;">
+        </div>
+        <div class="container" style="background-color: white">
+            <h2><b>1&euro; OFF IN MILANEZA PRODUCTS</b></h2>
+            <p>Adventure you to discover new flavors with the best pasta!<br>With this discount coupon you can buy any Milaneza product and get a discount of 1&euro;.</p>
+        </div>
+        <div class="container">
+            <p>Use Promo Code: <span class="promo">@Model.Code</span></p>
+            <p class="expire">Expires: @Model.ExpireDate.ToShortDateString()</p>
+        </div>
     </div>
     <div align="center">
         <img src="img/milaneza_natura.jpg" alt="Avatar" style="width: 70%;">
