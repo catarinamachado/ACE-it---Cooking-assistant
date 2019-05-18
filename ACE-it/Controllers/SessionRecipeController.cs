@@ -62,7 +62,7 @@ namespace ACE_it.Controllers
                 new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
         }
 
-        public async Task<IActionResult> Show(int sessionId)
+        public async Task<IActionResult> Show(int sessionId, int? viewIndex)
         {
             var sessionRecipe = (await _context.Sessions
                 .Include(s => s.SessionRecipes)
@@ -74,8 +74,9 @@ namespace ACE_it.Controllers
             sessionRecipe.SessionRecipes.Sort((a, b) => a.Order - b.Order);
             var instruction = sessionRecipe.SessionRecipes[sessionRecipe.SessionRecipes.Count - 1];
             var recipe = instruction.Recipe;
-            var ri = recipe.RecipeInstructions[instruction.Index];
-            return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count));
+            var index = viewIndex.GetValueOrDefault(instruction.Index);
+            var ri = recipe.RecipeInstructions[index];
+            return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count, index));
         }
 
         public async Task<IActionResult> Update(int sessionId)
