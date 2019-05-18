@@ -82,12 +82,5 @@ namespace ACE_it.Controllers
             _context.SaveChanges();
             return RedirectToAction("Show", "SessionRecipe", new {sessionId});
         }
-
-        private async Task<List<Recipe>> GetCurrentRecipes(
-            User user)
-        {
-            return (await _context.Sessions.FindAsync(new {user}))
-                .SessionRecipes.ConvertAll(s => s.Recipe);
-        }
     }
 }
