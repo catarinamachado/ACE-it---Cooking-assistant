@@ -472,17 +472,6 @@ namespace ACE_it.Data
                 .WithMany(ri => ri.UserFavouriteRecipes)
                 .HasForeignKey(ri => ri.RecipeId);
 
-            modelBuilder.Entity<UserWillPrepareRecipe>()
-                .HasKey(ri => new { ri.UserId, ri.RecipeId});
-            modelBuilder.Entity<UserWillPrepareRecipe>()
-                .HasOne(ri => ri.User)
-                .WithMany(r => r.UserWillPrepareRecipes)
-                .HasForeignKey(ri => ri.UserId);
-            modelBuilder.Entity<UserWillPrepareRecipe>()
-                .HasOne(ri => ri.Recipe)
-                .WithMany(ri => ri.UserWillPrepareRecipes)
-                .HasForeignKey(ri => ri.RecipeId);
-
             modelBuilder.Entity<UserReactedToRecipe>()
                 .HasKey(ri => new { ri.UserId, ri.RecipeId});
             modelBuilder.Entity<UserReactedToRecipe>()
