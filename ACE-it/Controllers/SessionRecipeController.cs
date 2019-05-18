@@ -47,14 +47,13 @@ namespace ACE_it.Controllers
                 session.SessionRecipes.Add(sessionRecipe);
                 _context.Sessions.Add(session);
             }
-            else if ((sessionRecipe = session.SessionRecipes.FirstOrDefault(r => r.Id == recipeId)) == null)
+            else if ((sessionRecipe = session.SessionRecipes.FirstOrDefault(r => r.Recipe.Id == recipeId)) == null)
             {
                 session.SessionRecipes.Clear();
-                _context.SaveChanges();
                 var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
                 sessionRecipe = new SessionRecipe() {Recipe = await recipe};
                 session.SessionRecipes.Add(sessionRecipe);
-                _context.Sessions.Add(session);
+                _context.Sessions.Update(session);
             }
 
             _context.SaveChanges();
