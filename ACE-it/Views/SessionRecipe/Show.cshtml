@@ -1,0 +1,79 @@
+@model ACE_it.Helper.RecipeSessionViewModel
+
+@{
+    ViewBag.Title = "Recipe Session";
+    Layout = "_Layout";
+}
+
+<div class="highlight-clean" style="padding-bottom: 0;">
+    <div class="container">
+        <div class="intro">
+            @{
+                var index = Model.ViewIndex + 1;
+                <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;">Step @index</h2>
+            }
+        </div>
+        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(Model.RecipeInstruction.Instruction.Text)</p>
+        <div class="buttons">
+            @if(Model.ViewIndex > 0){
+                var viewIndex = Model.ViewIndex - 1;
+                <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Previous STEP</a>
+            }
+            else
+            {
+                <button class="btn btn-light" role="button">Previous STEP</button>
+            }
+            @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
+            {
+                <a class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish</a>
+            }
+            else if (Model.ViewIndex == Model.InstructionIndex)
+            {
+                <a asp-action="Update" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Next STEP</a>
+            }
+            else
+            {
+                var viewIndex = Model.ViewIndex + 1;
+                <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Next STEP</a>
+            }
+        </div>
+    </div>
+    <p class="text-center" style="font-size: 80%; width: 50%; margin-top: 40px; margin-bottom: 40px; margin-left: 25%;">If at any moment you need help you can consult more tips by clicking or saying the highlighted words and select the type of help you need (how, where, when, ...)<br></p>
+</div>
+<div class="steps-progressbar" style="margin-bottom: 50px;">
+    <ul>
+        @for (var i = 0; i < Model.RecipeInstructionsCount; i++)
+        {
+            var viewI = i + 1;
+            if (i < Model.InstructionIndex)
+            {
+                <li class="previous">@viewI</li>
+            }
+            else if (i == Model.InstructionIndex)
+            {
+                <li class="active">@viewI</li>
+            }
+            else
+            {
+                <li>@viewI</li>
+            }
+        }
+    </ul>
+</div>
+<div class="row" style="margin: 0; margin-bottom: 40px;">
+    <div class="col">
+        <div class="video-container">
+            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/CTyV3JExDT8?loop=1&amp;playlist=CTyV3JExDT8"></iframe>
+        </div>
+    </div>
+    <div class="col">
+        <div class="video-container">
+            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/dCGS067s0zo?loop=1&amp;playlist=dCGS067s0zo"></iframe>
+        </div>
+    </div>
+    <div class="col">
+        <div class="video-container">
+            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/v-bhA0GcoLM?loop=1&amp;playlist=v-bhA0GcoLM"></iframe>
+        </div>
+    </div>
+</div>
