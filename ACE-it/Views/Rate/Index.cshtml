@@ -105,34 +105,28 @@
             </tr>
          </thead>
 
-    <br/><br/>
+         <br/><br/>
 
-        Comments
-        <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id"
-              asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
-              method="post">
-        <p>
-            <textarea name="Commentary" cols="60" rows="5"></textarea>
-            <input type="submit" value="Send" >
-            <input type="reset" value="Clear" >
-        </p>
-    </form>
+             Comments
+             <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id"
+                   asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
+                   method="post">
+                 <p>
+                     <textarea name="Commentary" cols="60" rows="5"></textarea>
+                     <input type="submit" value="Send" >
+                     <input type="reset" value="Clear" >
+                 </p>
+             </form>
 
-    <div align="center">
-        <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
-        <h4 style="margin-bottom: 20px;">Get it
-            <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
-            here</a>.
-        </h4>
-    </div>
+         </div>
 
-    <br/><br/><br/><br/>
+         <br/><br/><br/><br/>
 
-    <div align="center">
-        <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
-        <h4 style="margin-bottom: 20px;">Get it
-            <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
-            here</a>.
-        </h4>
-    </div>
-</div>
+         <div align="center">
+             <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
+             <h4 style="margin-bottom: 20px;">Get it
+                 <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
+                 here</a>.
+             </h4>
+         </div>
+     </div>
