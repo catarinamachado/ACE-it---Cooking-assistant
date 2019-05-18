@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ACE_it.Models
@@ -15,5 +16,7 @@ namespace ACE_it.Models
         public int Duration { get; set; }
 
         [Required, MaxLength(45)] public string Difficulties { get; set; }
+
+        [Required] public List<Comment> Comments { get; set; }
     }
 }
