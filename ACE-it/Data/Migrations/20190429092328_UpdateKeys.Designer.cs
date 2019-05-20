@@ -283,7 +283,7 @@ namespace ACE_it.Migrations
                         {
                             Id = 2,
                             InstructionTypeId = 2,
-                            Text = "<li>In a frying pan, <span data-video='https://youtu.be/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://youtu.be/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>"
+                            Text = "<li>In a frying pan, <span data-video='https://www.youtube.com/embed/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://www.youtube.com/embed/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>"
                         },
                         new
                         {

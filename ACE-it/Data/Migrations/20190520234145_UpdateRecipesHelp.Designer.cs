@@ -4,14 +4,16 @@ using ACE_it.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACE_it.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190520234145_UpdateRecipesHelp")]
+    partial class UpdateRecipesHelp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -827,11 +829,7 @@ namespace ACE_it.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            ConcurrencyStamp = "cb611e9c-d0eb-4490-aed7-b68d6a3c2ab8",
-=======
                             ConcurrencyStamp = "6905d37f-a4cf-4392-b9b3-aaf1cd20d103",
->>>>>>> Parse instructions help
                             Difficulty = 0,
                             Email = "user@aceit.com",
                             EmailConfirmed = true,
@@ -970,24 +968,17 @@ namespace ACE_it.Migrations
 
             modelBuilder.Entity("ACE_it.Models.UserWillPrepareRecipe", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date");
+                    b.Property<string>("UserId");
 
                     b.Property<int>("RecipeId");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<DateTime>("Date");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "RecipeId");
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserWillPrepareRecipes");
+                    b.ToTable("UserWillPrepareRecipe");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -8,7 +8,7 @@
     var html = text.Substring(4,text.Length-9);
 }
 
-<div class="highlight-clean" style="padding-bottom: 0;">
+<div class="highlight-clean">
     <div class="container">
         <div class="intro">
             @{
@@ -16,9 +16,9 @@
                 <h2 class="text-center" style="margin-bottom:50px;font-size:250%;">Step @index</h2>
             }
         </div>
-        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(html)</p>
+        <p class="instruction text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(html)</p>
         <div class="buttons">
-@if (Model.ViewIndex > 0)
+            @if (Model.ViewIndex > 0)
             {
                 var viewIndex = Model.ViewIndex - 1;
                 <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Previous STEP</a>
@@ -42,14 +42,17 @@
     </div>
     <p class="text-center" style="font-size: 80%; width: 50%; margin-top: 40px; margin-bottom: 40px; margin-left: 25%;">If at any moment you need help you can consult more tips by clicking or saying the highlighted words and select the type of help you need (how, where, when, ...)<br></p>
 </div>
-<div class="steps-progressbar" style="margin-bottom: 50px;">
+<div class="steps-progressbar my-2">
     <ul>
         @for (var i = 0; i < Model.RecipeInstructionsCount; i++)
         {
             var viewI = i + 1;
             if (i < Model.InstructionIndex)
             {
-                <li class="previous">@viewI</li>
+                <li class="previous">
+                    <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId"
+                       asp-route-viewIndex="@i">@viewI</a>
+                </li>
             }
             else if (i == Model.InstructionIndex)
             {
@@ -57,27 +60,25 @@
             }
             else
             {
-                <li>@viewI</li>
+                <li>
+                    <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId"
+                       asp-route-viewIndex="@i">@viewI</a>
+                </li>
             }
         }
     </ul>
 </div>
-<div class="row" style="margin: 0; margin-bottom: 40px;">
-    <div class="col">
-        <div class="video-container">
-            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/CTyV3JExDT8?loop=1&amp;playlist=CTyV3JExDT8"></iframe>
-        </div>
+<div id="videos" class="row" style="margin: 0 0 40px 0;">
+</div>
+
+<div id="help" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Actions available</h5></div>
+      <div class="modal-body" style="font-size: larger;" id="body"></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
     </div>
-    <div class="col">
-        <div class="video-container">
-            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/dCGS067s0zo?loop=1&amp;playlist=dCGS067s0zo"></iframe>
-        </div>
-    </div>
-    <div class="col">
-        <div class="video-container">
-            <iframe width="853" height="480" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/v-bhA0GcoLM?loop=1&amp;playlist=v-bhA0GcoLM"></iframe>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!-- REMOVE IF YOU WANT TO ALWAYS LISTEN ON JS, change on speech.js too -->
@@ -87,6 +88,7 @@
 
 @section Scripts
 {
-<script src="/lib/SpeechSDK-JavaScript-1.5.0/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
-<script src="/js/speech.js"></script>
+    <script src="/js/sessionRecipe/show.js"></script>
+    <script src="/lib/SpeechSDK-JavaScript-1.5.0/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+    <script src="/js/speech.js"></script>
 }

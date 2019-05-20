@@ -150,7 +150,7 @@ namespace ACE_it.Data
             {
                 Id = 5, Name = "Tomato paste", Quantity = 100, Unit = "grams",
                 Calories = 31, TotalFat = 0.2, SaturatedFat = 0.1, Fiber = 1.4,
-                Sodium = 1.75, Sugar = 5.7, Protein = 0.9, TotalCarbohydrate = 5.7            
+                Sodium = 1.75, Sugar = 5.7, Protein = 0.9, TotalCarbohydrate = 5.7
             });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient
             {
@@ -309,7 +309,7 @@ namespace ACE_it.Data
             {
                 Id = 1,
                 Text =
-                    "<li><span data-how='<a href=\"/recipes/2\"/>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
+                    "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
                 InstructionTypeId = 1
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
@@ -325,7 +325,7 @@ namespace ACE_it.Data
             {
                 Id = 2,
                 Text =
-                    "<li>In a frying pan, <span data-video='https://youtu.be/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://youtu.be/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>",
+                    "<li>In a frying pan, <span data-video='https://www.youtube.com/embed/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://www.youtube.com/embed/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>",
                 InstructionTypeId = 2
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
