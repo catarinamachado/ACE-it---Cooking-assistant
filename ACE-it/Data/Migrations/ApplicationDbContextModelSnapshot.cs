@@ -827,11 +827,7 @@ namespace ACE_it.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            ConcurrencyStamp = "cb611e9c-d0eb-4490-aed7-b68d6a3c2ab8",
-=======
                             ConcurrencyStamp = "6905d37f-a4cf-4392-b9b3-aaf1cd20d103",
->>>>>>> Parse instructions help
                             Difficulty = 0,
                             Email = "user@aceit.com",
                             EmailConfirmed = true,
