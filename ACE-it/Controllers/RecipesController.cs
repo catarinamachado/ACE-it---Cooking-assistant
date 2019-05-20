@@ -55,6 +55,7 @@ namespace ACE_it.Controllers
             if (recipe == null) return NotFound();
 
             var user = await _context.AppUsers.FirstOrDefaultAsync(r => r.Email == User.Identity.Name);
+
             var session = await _context.Sessions.Include(r => r.SessionRecipes)
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(s => s.User == user && s.SessionRecipes.Any(r => r.Recipe == recipe));
@@ -104,7 +105,7 @@ namespace ACE_it.Controllers
                 .Include(r => r.UserReactedToRecipes)
                 .ToListAsync();
         }
-    
+
         private static bool NameContains(string name, string searchString)
         {
             return searchString == null || name.ToLower().Contains(searchString.Trim().ToLower());
