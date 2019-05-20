@@ -22,7 +22,7 @@
 }
 
 @section Scripts {
-    <script type="text/javascript" src="/js/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="/lib/sweetalert2/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="/js/rate/index.js"></script>
 }
 
@@ -34,32 +34,32 @@
         </div>
     </div>
     
-    <br><br><br><br>
+    <br/><br/><br/><br/>
     
     <div class="container">
         <h4 style="margin-bottom: 20px;">Private Section</h4>
-        
+
         Difficulties
-        <form asp-controller="Rate" asp-action="Difficulties" asp-route-recipeId="@Model.Recipe.Id" 
+        <form asp-controller="Rate" asp-action="Difficulties" asp-route-recipeId="@Model.Recipe.Id"
               asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
               method="post">
             <p>
                 <textarea name="Difficulties" cols="60" rows="5"></textarea>
                 <input type="submit" value="Send" >
-                <input type="reset" value="Clear" > 
+                <input type="reset" value="Clear" >
             </p>
         </form>
         
-        <br><br><br><br>
+        <br/><br/><br/><br/>
     
         <h4 style="margin-bottom: 20px;">Public Section</h4>
     
-        <thead>
+        <thead class="pb-5">
             <tr>
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
                 <th style="font-weight: normal;">
                     <a asp-controller="Rate" asp-action="React" asp-route-recipeId="@Model.Recipe.Id"
-                       asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId" 
+                       asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
                        asp-route-reaction="love">
                         @if (Model.Recipe.UserReactedToRecipes.Find(r => (r.UserId == @Model.User.Id && r.Reaction == Reaction.Love)) == null)
                         {
@@ -104,19 +104,29 @@
                 </th>
             </tr>
          </thead>
-    
-    <br><br><br>
-    
-    Comments
+
+        <br/><br/>
+
+        Comments
         <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id" 
               asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
-          method="post">
-        <p>
-            <textarea name="Commentary" cols="60" rows="5"></textarea>
-            <input type="submit" value="Send" >
-            <input type="reset" value="Clear" > 
-        </p>
-    </form>
+              method="post">
+            <p>
+                <textarea name="Commentary" cols="60" rows="5"></textarea>
+                <input type="submit" value="Send" >
+                <input type="reset" value="Clear" > 
+            </p>
+        </form>
 
+    </div>
+    
+    <br/><br/><br/><br/>
+    
+    <div align="center">
+        <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
+        <h4 style="margin-bottom: 20px;">Get it 
+            <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
+            here</a>.
+        </h4>
     </div>
 </div>

@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 
     <title>@ViewData["Title"] - ACE it: Cooking Assistant</title>
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="/css/Steps-Progressbar.css">
     <link rel="stylesheet" href="/css/Testimonials.css">
     <link rel="stylesheet" href="/css/site.css">
+    @RenderSection("Stylesheets", false)
 </head>
 
 <body>
@@ -86,8 +87,10 @@
         <p class="copyright">CGJP - Software House © 2019</p>
     </footer>
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/moment/moment.min.js"></script>
 @RenderSection("Scripts", false)
 </body>
 

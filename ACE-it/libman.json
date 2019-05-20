@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "twitter-bootstrap@4.1.0",
-      "destination": "wwwroot/",
+      "destination": "wwwroot/lib/bootstrap/",
       "files": [
         "js/bootstrap.bundle.min.js",
         "css/bootstrap.min.css"
@@ -12,16 +12,31 @@
     },
     {
       "library": "jquery@3.2.1",
-      "destination": "wwwroot/js/",
+      "destination": "wwwroot/lib/jquery/",
       "files": [
         "jquery.min.js"
       ]
     },
     {
       "library": "limonte-sweetalert2@7.33.1",
-      "destination": "wwwroot/js/",
+      "destination": "wwwroot/lib/sweetalert2/",
       "files": [
         "sweetalert2.all.min.js"
+      ]
+    },
+    {
+      "library": "moment.js@2.24.0",
+      "destination": "wwwroot/lib/moment/",
+      "files": [
+        "moment.min.js"
+      ]
+    },
+    {
+      "library": "fullcalendar@3.10.0",
+      "destination": "wwwroot/lib/fullcalendar/",
+      "files": [
+        "fullcalendar.js",
+        "fullcalendar.css"
       ]
     }
   ]

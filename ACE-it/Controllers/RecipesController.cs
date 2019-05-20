@@ -31,7 +31,8 @@ namespace ACE_it.Controllers
             ViewData["CurrentCategory"] = category.GetValueOrDefault(-1);
             ViewData["CurrentTime"] = time == null ? "none" : time;
             ViewData["CurrentDifficulty"] = difficulty.HasValue
-                ? difficulty.ToString() : "";
+                ? difficulty.ToString()
+                : "";
             ViewData["CurrentLikes"] = likes == null ? "none" : likes;
 
             return View(new RecipeViewModel(await recipes, await categories));
@@ -53,7 +54,13 @@ namespace ACE_it.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null) return NotFound();
 
-            return View(recipe);
+            var user = await _context.AppUsers.FirstOrDefaultAsync(r => r.Email == User.Identity.Name);
+            var session = await _context.Sessions.Include(r => r.SessionRecipes)
+                .ThenInclude(s => s.Recipe)
+                .FirstOrDefaultAsync(s => s.User == user && s.SessionRecipes.Any(r => r.Recipe == recipe));
+            return View(session != null
+                ? new RecipeDetailsViewModel(recipe, session.Id)
+                : new RecipeDetailsViewModel(recipe, null));
         }
 
         // PRIVATE
@@ -69,7 +76,7 @@ namespace ACE_it.Controllers
                 join ingredient in _context.Ingredients
                     on recipeIngredients.IngredientId equals ingredient.Id
                 where (NameContains(recipe.Name, searchString)
-                      || NameContains(ingredient.Name, searchString)) &&
+                       || NameContains(ingredient.Name, searchString)) &&
                       RecipeTimeBetween(recipe.DefaultDuration, time) &&
                       RecipeDifficultyIs(recipe.Difficulty, difficulty) &&
                       CategoryIsCategory(recipe.Category, category) &&
@@ -91,7 +98,7 @@ namespace ACE_it.Controllers
                 .Include(r => r.UserReactedToRecipes)
                 .ToListAsync();
         }
-
+    
         private static bool NameContains(string name, string searchString)
         {
             return searchString == null || name.ToLower().Contains(searchString.Trim().ToLower());
