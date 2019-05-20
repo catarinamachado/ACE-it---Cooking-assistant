@@ -33,9 +33,9 @@
             <h2 class="text-center" style="margin-bottom: 20px;">Recipe: @Model.Recipe.Name</h2>
         </div>
     </div>
-
-    <br><br><br><br>
-
+    
+    <br/><br/><br/><br/>
+    
     <div class="container">
         <h4 style="margin-bottom: 20px;">Private Section</h4>
 
@@ -49,12 +49,12 @@
                 <input type="reset" value="Clear" >
             </p>
         </form>
-
-        <br><br><br><br>
-
+        
+        <br/><br/><br/><br/>
+    
         <h4 style="margin-bottom: 20px;">Public Section</h4>
-
-        <thead>
+    
+        <thead class="pb-5">
             <tr>
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
                 <th style="font-weight: normal;">
@@ -105,18 +105,28 @@
             </tr>
          </thead>
 
-    <br><br><br>
+        <br/><br/>
 
-    Comments
-        <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id"
+        Comments
+        <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id" 
               asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
-          method="post">
-        <p>
-            <textarea name="Commentary" cols="60" rows="5"></textarea>
-            <input type="submit" value="Send" >
-            <input type="reset" value="Clear" >
-        </p>
-    </form>
+              method="post">
+            <p>
+                <textarea name="Commentary" cols="60" rows="5"></textarea>
+                <input type="submit" value="Send" >
+                <input type="reset" value="Clear" > 
+            </p>
+        </form>
 
+    </div>
+    
+    <br/><br/><br/><br/>
+    
+    <div align="center">
+        <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
+        <h4 style="margin-bottom: 20px;">Get it 
+            <a asp-controller="PromoCode" asp-action="Store" asp-route-userId="@Model.User.Id">
+            here</a>.
+        </h4>
     </div>
 </div>
