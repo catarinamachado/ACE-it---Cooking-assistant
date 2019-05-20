@@ -8,7 +8,7 @@ $( document ).ready(function() {
     result.forEach(function (element) {
         var array = element.split(',');
         var i = {};
-        i['id'] = array[0];
+        i['recipeId'] = array[0];
         i['title'] = array[1];
         i['start'] = moment(array[2]);
         i['end'] = moment(array[2]).add(array[3], "seconds");
@@ -93,7 +93,7 @@ function chooseRecipe(date) {
 function addEvent(r) {
     var array = r.split(',');
     $('#calendar').fullCalendar('renderEvent', {
-        id: array[0],
+        recipeId: array[0],
         title: array[1],
         start: moment(array[2]),
         end: moment(array[2]).add(array[3], "seconds")
@@ -101,6 +101,7 @@ function addEvent(r) {
 }
 
 function eventClick(info) {
+    console.log(info);
     Swal.fire({
         title: info.title + " - " + info.start.format('YYYY-MM-DD HH:MM'),
         type: 'warning',
@@ -109,10 +110,10 @@ function eventClick(info) {
         cancelButtonText: 'Delete Schedule'
     }).then(function(result) {
         if (result.value) {
-            window.location.replace("Recipes/Details/" + info.id.replace("\"", ""));
+            window.location.replace("Recipes/Details/" + info.recipeId.replace("\"", ""));
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "API/UserWillPrepareRecipe/Delete/" + info.id.replace("\"", "") + "/" + info.start.format('YYYY-MM-DD[T]HH:MM'), false);
+            xhttp.open("GET", "API/UserWillPrepareRecipe/Delete/" + info.recipeId.replace("\"", "") + "/" + info.start.format('YYYY-MM-DD[T]HH:MM'), false);
             xhttp.send();
             $('#calendar').fullCalendar("removeEvents", info._id);
             Swal.fire({
