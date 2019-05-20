@@ -4,14 +4,16 @@ using ACE_it.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACE_it.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190518214916_UpdateUserWillPrepareRecipes")]
+    partial class UpdateUserWillPrepareRecipes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,25 +76,6 @@ namespace ACE_it.Migrations
                             Id = 8,
                             Name = "General"
                         });
-                });
-
-            modelBuilder.Entity("ACE_it.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(120);
-
-                    b.Property<int>("UserCompletedRecipeId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserCompletedRecipeId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ACE_it.Models.Ingredient", b =>
@@ -1098,14 +1081,6 @@ namespace ACE_it.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("ACE_it.Models.Comment", b =>
-                {
-                    b.HasOne("ACE_it.Models.UserCompletedRecipe", "UserCompletedRecipe")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserCompletedRecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ACE_it.Models.Instruction", b =>
