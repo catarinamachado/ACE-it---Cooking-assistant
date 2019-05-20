@@ -1,0 +1,24 @@
+@model ACE_it.Helper.ShoppingItems
+
+@{
+    ViewData["Title"] = "Shopping List";
+}
+
+<div class="map-clean">
+    <div class="container recipe-header">
+        <div class="intro">
+            <h2 class="text-center">Shopping List</h2>
+            <span>(@Model.Start.ToString("yyyy-M-d HH:mm") to @Model.End.ToString("yyyy-M-d HH:mm"))</span>
+        </div>
+    </div>
+</div>
+
+<ul class="list-group mb-5" style="padding-left: 20%; padding-right: 20%">
+    @foreach(var (_,v) in Model.ShoppingItemsMap)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @v.Ingredient.Name
+            <span class="badge badge-primary badge-pill">@v.Quantity @v.Ingredient.Unit</span>
+        </li>
+    }
+</ul>
