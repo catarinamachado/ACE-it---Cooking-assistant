@@ -34,7 +34,7 @@
         </div>
     </div>
     
-    <br><br><br><br>
+    <br/><br/><br/><br/>
     
     <div class="container">
         <h4 style="margin-bottom: 20px;">Private Section</h4>
@@ -50,11 +50,11 @@
             </p>
         </form>
         
-        <br><br><br><br>
+        <br/><br/><br/><br/>
     
         <h4 style="margin-bottom: 20px;">Public Section</h4>
     
-        <thead>
+        <thead class="pb-5">
             <tr>
                 <th style="font-weight: normal;">How much did you like this recipe?&nbsp;&nbsp;</th>
                 <th style="font-weight: normal;">
@@ -104,9 +104,9 @@
                 </th>
             </tr>
          </thead>
-      
-        <br><br><br>
-    
+
+        <br/><br/>
+
         Comments
         <form asp-controller="Rate" asp-action="Comment" asp-route-recipeId="@Model.Recipe.Id" 
               asp-route-userId="@Model.User.Id" asp-route-userCompletedRecipeId="@Model.UserCompletedRecipeId"
@@ -120,7 +120,7 @@
 
     </div>
     
-    <br><br><br><br>
+    <br/><br/><br/><br/>
     
     <div align="center">
         <h4 style="margin-bottom: 20px;">Congrats! You won a promotion code!</h4>
