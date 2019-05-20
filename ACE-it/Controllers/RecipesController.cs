@@ -91,7 +91,7 @@ namespace ACE_it.Controllers
                 .Include(r => r.UserReactedToRecipes)
                 .ToListAsync();
         }
-
+    
         private static bool NameContains(string name, string searchString)
         {
             return searchString == null || name.ToLower().Contains(searchString.Trim().ToLower());

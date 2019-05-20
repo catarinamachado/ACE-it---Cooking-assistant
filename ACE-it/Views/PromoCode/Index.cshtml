@@ -1,53 +1,27 @@
 @model ACE_it.Helper.PromoCodeViewModel;
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Promotion Ticket</title>
-    <style>
-        body {
-            font-family: Arial;
-        }
+@{
+    ViewData["Title"] = "Promotion Ticket";
+}
 
-        .coupon {
-            border: 5px dotted #bbb;
-            width: 80%;
-            border-radius: 15px;
-            margin: 0 auto;
-            max-width: 550px;
-        }
+@section Stylesheets
+{
+    <link rel="stylesheet" href="/css/Promotion-Code.css">
+}
 
-        .container {
-            padding: 2px 16px;
-            background-color: #f1f1f1;
-        }
-
-        .promo {
-            background: #ccc;
-            padding: 3px;
-        }
-
-        .expire {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="coupon">
-        <div class="container" align="center">
-            <img src="img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" style="width: 10%;">
-        </div>
-        <div align="center">
-            <img src="img/milaneza_natura.jpg" alt="Avatar" style="width: 70%;">
-        </div>
-        <div class="container" style="background-color: white">
-            <h2><b>1&euro; OFF IN MILANEZA PRODUCTS</b></h2>
-            <p>Adventure you to discover new flavors with the best pasta!<br>With this discount coupon you can buy any Milaneza product and get a discount of 1&euro;.</p>
-        </div>
-        <div class="container">
-            <p>Use Promo Code: <span class="promo">@Model.Code</span></p>
-            <p class="expire">Expires: @Model.ExpireDate.ToShortDateString()</p>
-        </div>
+<div class="coupon">
+    <div class="container" align="center">
+        <img src="img/83af32b2-78fa-4f23-b847-0394b765bbb1.png" style="width: 10%;">
     </div>
-
-</body>
+    <div align="center">
+        <img src="img/milaneza_natura.jpg" alt="Avatar" style="width: 70%;">
+    </div>
+    <div class="container" style="background-color: white">
+        <h2><b>1&euro; OFF IN MILANEZA PRODUCTS</b></h2>
+        <p>Adventure you to discover new flavors with the best pasta!<br>With this discount coupon you can buy any Milaneza product and get a discount of 1&euro;.</p>
+    </div>
+    <div class="container">
+        <p>Use Promo Code: <span class="promo">@Model.Code</span></p>
+        <p class="expire">Expires: @Model.ExpireDate.ToShortDateString()</p>
+    </div>
+</div>
