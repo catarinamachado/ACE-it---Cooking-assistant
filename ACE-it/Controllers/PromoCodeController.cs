@@ -27,7 +27,7 @@ namespace ACE_it.Controllers
         
         public async Task<IActionResult> Store(String userId)
         {
-            var user = _context.Users.Find(userId);
+            var user = await _context.Users.FindAsync(userId);
 
             user.NumberOfCoupons++;
             
