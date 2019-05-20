@@ -31,20 +31,17 @@ namespace ACE_it.Controllers
             var session = await _context.Sessions.Include(r => r.SessionRecipes)
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(r => r.User == user);
-            SessionRecipe sessionRecipe;
+            var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+            var sessionRecipe = new SessionRecipe() {Recipe = await recipe};
             if (session == null)
             {
                 session = new Session {User = user, SessionRecipes = new List<SessionRecipe>(1)};
-                var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-                sessionRecipe = new SessionRecipe() {Recipe = await recipe};
                 session.SessionRecipes.Add(sessionRecipe);
                 _context.Sessions.Add(session);
             }
-            else if ((sessionRecipe = session.SessionRecipes.FirstOrDefault(r => r.Recipe.Id == recipeId)) == null)
+            else
             {
                 session.SessionRecipes.Clear();
-                var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-                sessionRecipe = new SessionRecipe() {Recipe = await recipe};
                 session.SessionRecipes.Add(sessionRecipe);
                 _context.Sessions.Update(session);
             }
@@ -110,15 +107,16 @@ namespace ACE_it.Controllers
                 .Include(r => r.UserReactedToRecipes)
                 .FirstOrDefaultAsync(m => m.Id == recipeId);
 
-            var userCompletedRecipe = new UserCompletedRecipe{
+            var userCompletedRecipe = new UserCompletedRecipe
+            {
                 RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null
             };
 
             _context.Add(userCompletedRecipe);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Rate", 
-                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id });
+            return RedirectToAction("Index", "Rate",
+                new {RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id});
         }
     }
 }
