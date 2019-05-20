@@ -9,3 +9,15 @@
 
 * `dotnet ef database update`
 
+## Setup frontend dependencies
+
+### JS packages from libman
+
+* `dotnet tool install -g Microsoft.Web.LibraryManager.Cli`
+* `libman restore`
+
+
+### Microsoft SpeechSDK-JavaScript
+
+* `wget https://csspeechstorage.blob.core.windows.net/drop/1.5.0/SpeechSDK-JavaScript-1.5.0.zip`
+* `unzip SpeechSDK-JavaScript-1.5.0.zip`
