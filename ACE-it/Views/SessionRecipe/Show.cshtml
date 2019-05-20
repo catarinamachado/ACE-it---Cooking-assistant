@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Recipe Session";
     Layout = "_Layout";
+
+    var text = Model.RecipeInstruction.Instruction.Text.Trim();
+    var html = text.Substring(4,text.Length-9);
 }
 
 <div class="highlight-clean" style="padding-bottom: 0;">
@@ -10,29 +13,33 @@
         <div class="intro">
             @{
                 var index = Model.ViewIndex + 1;
-                <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;">Step @index</h2>
+                <h2 class="text-center" style="margin-bottom:50px;font-size:250%;">Instruction @index</h2>
             }
         </div>
-        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(Model.RecipeInstruction.Instruction.Text)</p>
+        <p class="text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(html)</p>
         <div class="buttons">
-            @if(Model.ViewIndex > 0){
+            @if (Model.ViewIndex > 0)
+            {
                 var viewIndex = Model.ViewIndex - 1;
                 <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Previous STEP</a>
             }
-            else
+            @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex && Model.ViewIndex < Model.RecipeInstructionsCount - 1)
             {
-                <button class="btn btn-light" role="button">Previous STEP</button>
+                var viewIndex = Model.ViewIndex + 1;
+                <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Next STEP</a>
+                <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId"
+                   class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish and Rate</a>
             }
-            @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
+            else if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
             {
                 <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId"
-                    class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish and Rate</a>
+                   class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish and Rate</a>
             }
             else if (Model.ViewIndex == Model.InstructionIndex)
             {
                 <a asp-action="Update" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Next STEP</a>
             }
-            else
+            else if (Model.ViewIndex < Model.RecipeInstructionsCount - 1)
             {
                 var viewIndex = Model.ViewIndex + 1;
                 <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId" asp-route-viewIndex="@viewIndex" class="btn btn-light" role="button">Next STEP</a>
