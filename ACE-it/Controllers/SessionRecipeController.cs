@@ -64,7 +64,10 @@ namespace ACE_it.Controllers
             var instruction = sessionRecipe.SessionRecipes[sessionRecipe.SessionRecipes.Count - 1];
             var recipe = instruction.Recipe;
             var index = viewIndex.GetValueOrDefault(instruction.Index);
+
+            index = index < recipe.RecipeInstructions.Count ? index : recipe.RecipeInstructions.Count - 1;
             var ri = recipe.RecipeInstructions[index];
+
             return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count,
                 index, recipe.Id));
         }
@@ -116,7 +119,7 @@ namespace ACE_it.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Rate",
-                new {RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id});
+                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id });
         }
     }
 }
