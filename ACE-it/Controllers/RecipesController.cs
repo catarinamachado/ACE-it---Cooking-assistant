@@ -53,13 +53,14 @@ namespace ACE_it.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null) return NotFound();
 
-            var userCompletedRecipes = await _context.UserCompletedRecipes
-                .Include(u => u.Comments)
-                .FirstOrDefaultAsync(m => m.Id == 1);
+            var comments = await _context.Comments
+                .Include(c => c.UserCompletedRecipe)
+                .ThenInclude(ci => ci.User)
+                .ToListAsync();
             
-            return View(new RecipeDetailsViewModel(recipe, userCompletedRecipes.Comments));
+            return View(new RecipeDetailsViewModel(recipe, comments));
         }
-        
+
         // PRIVATE
 
         private async Task<List<Recipe>> GetRecipes(

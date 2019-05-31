@@ -20,6 +20,7 @@ namespace ACE_it.Data
         public DbSet<UserFavouriteIngredient> UserFavouriteIngredients { get; set; }
         public DbSet<UserUnwantedIngredient> UserUnwantedIngredients { get; set; }
         public DbSet<UserFavouriteRecipe> UserFavouriteRecipes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

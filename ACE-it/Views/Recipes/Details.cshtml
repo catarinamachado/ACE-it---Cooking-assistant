@@ -96,15 +96,32 @@
     </div>
 </div>
 
-<div class="text">
-    <p>COMMENTS</p>
-    <ul class="recipe-instructions">
-        @foreach (var item in Model.Comments)
-        {
-            @item.Text
-        }
-    </ul>
+<br/><br/>
+
+<div class="map-clean">
+    <div class="container recipe-header mt-5">
+        <h5 align="left" style="margin-bottom: 20px;">@Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id).Count comments:</h5>
+    </div>
+    <div class="container recipe-header mt-5">
+        <div class="col-md-10 col-lg-7 offset-md-1 offset-lg-0">
+            <div class="text">
+                <ul class="recipe-instructions">
+                    @foreach (var item in Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id))
+                        {
+                            <b> @item.UserCompletedRecipe.User.UserName says:</b>
+                            <br/>
+                            @item.Text
+
+                            <hr/>
+                            <br/><br/>
+                        }
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <div class="social-icons">
     <a href="https://twitter.com/intent/tweet?text=I loved the recipe: @Model.Recipe.Name. Try it now at @Context.Request.Host@Context.Request.Path">

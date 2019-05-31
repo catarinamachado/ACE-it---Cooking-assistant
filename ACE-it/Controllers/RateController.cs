@@ -107,7 +107,6 @@ namespace ACE_it.Controllers
         
         public async Task<IActionResult> Difficulties(int recipeId, String userId, String difficulties, int userCompletedRecipeId)
         {
-
             var userCompletedRecipe = _context.UserCompletedRecipes.Find(userCompletedRecipeId);
 
             userCompletedRecipe.Difficulties = difficulties == null ? "" : difficulties;
