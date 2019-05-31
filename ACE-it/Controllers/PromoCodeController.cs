@@ -17,7 +17,7 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public ViewResult Index()
         {
             var randCode = RandomString(8);
             var expireDate = DateTime.Today.AddMonths(1);

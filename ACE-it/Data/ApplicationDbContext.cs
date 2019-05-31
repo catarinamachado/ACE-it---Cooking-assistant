@@ -310,7 +310,7 @@ namespace ACE_it.Data
             {
                 Id = 1,
                 Text =
-                    "<li><span data-how='<a href=\"/recipes/2\"/>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
+                    "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='now' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
                 InstructionTypeId = 1
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool
@@ -326,7 +326,7 @@ namespace ACE_it.Data
             {
                 Id = 2,
                 Text =
-                    "<li>In a frying pan, <span data-video='https://youtu.be/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://youtu.be/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>",
+                    "<li>In a frying pan, <span data-video='https://www.youtube.com/embed/CTyV3JExDT8'>sauté</span> the remaining olive oil, a <span data-video='https://www.youtube.com/embed/dCGS067s0zo'>chopped</span> onion and the chopped garlic.</li>",
                 InstructionTypeId = 2
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool

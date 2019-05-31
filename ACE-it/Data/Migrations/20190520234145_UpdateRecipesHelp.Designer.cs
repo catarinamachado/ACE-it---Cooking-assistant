@@ -4,14 +4,16 @@ using ACE_it.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACE_it.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190520234145_UpdateRecipesHelp")]
+    partial class UpdateRecipesHelp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +94,7 @@ namespace ACE_it.Migrations
 
                     b.HasIndex("UserCompletedRecipeId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("ACE_it.Models.Ingredient", b =>
@@ -294,7 +296,7 @@ namespace ACE_it.Migrations
                         {
                             Id = 1,
                             InstructionTypeId = 1,
-                            Text = "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='now' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>"
+                            Text = "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>"
                         },
                         new
                         {
@@ -827,7 +829,7 @@ namespace ACE_it.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "89c732b6-5055-47e4-a9dd-5ac3d1a63801",
+                            ConcurrencyStamp = "6905d37f-a4cf-4392-b9b3-aaf1cd20d103",
                             Difficulty = 0,
                             Email = "user@aceit.com",
                             EmailConfirmed = true,
@@ -836,7 +838,7 @@ namespace ACE_it.Migrations
                             NormalizedUserName = "user@aceit.com",
                             NumberOfCoupons = 0,
                             NumberOfVisits = 0,
-                            PasswordHash = "AQAAAAEAACcQAAAAEBAKXGEkNR0dRVN2NMZjf3jy6SRrOTuXjjZvtxucXweZ45vu+pbkhnF1t55nV8Spkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIha7kad+3FfDBpUMo7WnhoXl72euUvPgHSfFz9dGO7ennEe4stW3XynR3OKV3vc1A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -966,24 +968,17 @@ namespace ACE_it.Migrations
 
             modelBuilder.Entity("ACE_it.Models.UserWillPrepareRecipe", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date");
+                    b.Property<string>("UserId");
 
                     b.Property<int>("RecipeId");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<DateTime>("Date");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "RecipeId");
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserWillPrepareRecipes");
+                    b.ToTable("UserWillPrepareRecipe");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
