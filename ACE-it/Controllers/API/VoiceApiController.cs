@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using ACE_it.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ACE_it.Controllers.API

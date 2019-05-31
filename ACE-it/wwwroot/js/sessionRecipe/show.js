@@ -30,7 +30,7 @@ $(function() {
         );
     });
 
-    listen(map, body, $_modal);
+    listen(map, body, $_modal, $_instruction);
 });
 
 function buildModal($_this, body, $_modal) {
@@ -52,7 +52,7 @@ function buildModal($_this, body, $_modal) {
     return options;
 }
 
-function listen(map, body, $_modal) {
+function listen(map, body, $_modal, $_instruction) {
     var startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton"); // USE WHEN YOU ONLY WANT TO LISTEN SINCE BUTTON IS CLICKED
     startRecognizeOnceAsyncButton.addEventListener("click", function () { // USE WHEN YOU ONLY WANT TO LISTEN SINCE BUTTON IS CLICKED
 
@@ -71,7 +71,12 @@ function listen(map, body, $_modal) {
             var string = e.result.text.toLowerCase().replace("?", "").replace(".", "");
             console.log(string);
             if(options == null) {
-                if(map.has(string)) {
+                if(string === "read") {
+                    var m = new SpeechSynthesisUtterance($_instruction[0].innerText);
+                    m.volume = 1;
+                    window.speechSynthesis.speak(m);
+                }
+                else if(map.has(string)) {
                     options = buildModal(map.get(string), body, $_modal);
                 } else if (string.length > 0) {
                     sendToApi(string);
