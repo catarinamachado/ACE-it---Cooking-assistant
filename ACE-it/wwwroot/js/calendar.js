@@ -101,7 +101,6 @@ function addEvent(r) {
 }
 
 function eventClick(info) {
-    console.log(info);
     Swal.fire({
         title: info.title + " - " + info.start.format('YYYY-MM-DD HH:MM'),
         type: 'warning',
