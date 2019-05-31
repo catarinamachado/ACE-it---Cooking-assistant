@@ -21,7 +21,7 @@ namespace ACE_it.Data
         public DbSet<UserUnwantedIngredient> UserUnwantedIngredients { get; set; }
         public DbSet<UserFavouriteRecipe> UserFavouriteRecipes { get; set; }
         public DbSet<UserWillPrepareRecipe> UserWillPrepareRecipes { get; set; }
-        
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -309,7 +309,7 @@ namespace ACE_it.Data
             {
                 Id = 1,
                 Text =
-                    "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='<span>now</span>' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
+                    "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='now' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
                 InstructionTypeId = 1
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool

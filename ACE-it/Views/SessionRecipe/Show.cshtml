@@ -13,7 +13,7 @@
         <div class="intro">
             @{
                 var index = Model.ViewIndex + 1;
-                <h2 class="text-center" style="margin-bottom:50px;font-size:250%;">Step @index</h2>
+                <h2 class="text-center" style="margin-bottom:50px;font-size:250%;">Step <span id="step">@index</span></h2>
             }
         </div>
         <p class="instruction text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(html)</p>
@@ -88,7 +88,6 @@
 
 @section Scripts
 {
-    <script src="/js/sessionRecipe/show.js"></script>
     <script src="/lib/SpeechSDK-JavaScript-1.5.0/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
-    <script src="/js/speech.js"></script>
+    <script src="/js/sessionRecipe/show.js"></script>
 }
