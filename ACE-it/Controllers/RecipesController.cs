@@ -67,8 +67,8 @@ namespace ACE_it.Controllers
                 .ToListAsync();
 
             return View(session != null
-                ? new RecipeDetailsViewModel(recipe, session.Id, comments)
-                : new RecipeDetailsViewModel(recipe, null, comments));
+                ? new RecipeDetailsViewModel(recipe, session.Id, comments, user.Id)
+                : new RecipeDetailsViewModel(recipe, null, comments, user.Id));
         }
 
         // PRIVATE
