@@ -29,11 +29,11 @@ namespace ACE_it.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             ViewData["CurrentCategory"] = category.GetValueOrDefault(-1);
-            ViewData["CurrentTime"] = time == null ? "none" : time;
+            ViewData["CurrentTime"] = time ?? "none";
             ViewData["CurrentDifficulty"] = difficulty.HasValue
                 ? difficulty.ToString()
                 : "";
-            ViewData["CurrentLikes"] = likes == null ? "none" : likes;
+            ViewData["CurrentLikes"] = likes ?? "none";
 
             return View(new RecipeViewModel(await recipes, await categories));
         }
@@ -100,16 +100,79 @@ namespace ACE_it.Controllers
                 listRecipeIds.Add(item.RecipeId);
             }
 
-            return await _context.Recipes
+            var user = _context.AppUsers.Where(r => r.Email == User.Identity.Name)
+                .Include(u => u.UserFavouriteRecipes)
+                .Include(u => u.UserCompletedRecipes)
+                .Include(u => u.UserFavouriteIngredients)
+                .ThenInclude(u => u.Ingredient)
+                .Include(u => u.UserUnwantedIngredients)
+                .ThenInclude(u => u.Ingredient)
+                .FirstAsync();
+
+            var recipes = await _context.Recipes
                 .Where(r => listRecipeIds.Contains(r.Id))
                 .Include(r => r.UserCompletedRecipes)
                 .Include(r => r.UserReactedToRecipes)
+                .Include(r => r.RecipeIngredients)
+                .ThenInclude(r => r.Ingredient)
                 .ToListAsync();
+
+            recipes.Sort(new RecipeScorer(await user));
+            return recipes;
         }
-    
+
+        private class RecipeScorer : IComparer<Recipe>
+        {
+            private readonly User _user;
+
+            public RecipeScorer(User user)
+            {
+                _user = user;
+            }
+
+            public int Compare(Recipe x, Recipe y)
+            {
+                return ScoreRecipe(y) - ScoreRecipe(x);
+            }
+
+            private int ScoreRecipe(Recipe r)
+            {
+                var score = 0;
+                var rIngredients = r.RecipeIngredients.ConvertAll(ri => ri.Ingredient);
+                foreach (var i in _user.UserFavouriteIngredients)
+                {
+                    if (rIngredients.Contains(i.Ingredient))
+                    {
+                        score++;
+                    }
+                }
+
+                foreach (var i in _user.UserUnwantedIngredients)
+                {
+                    if (rIngredients.Contains(i.Ingredient))
+                    {
+                        score--;
+                    }
+                }
+
+                if (_user.UserFavouriteRecipes.Any(ur => ur.Recipe.Equals(r)))
+                {
+                    score += 2;
+                }
+
+                if (_user.UserCompletedRecipes.Any(ur => ur.Recipe.Equals(r)))
+                {
+                    score += 2;
+                }
+
+                return score;
+            }
+        }
+
         private static bool NameContains(string name, string searchString)
         {
-            return searchString == null || name.ToLower().Contains(searchString.Trim().ToLower());
+            return searchString == null || searchString.ToLower().Contains(name.Trim().ToLower()) ||
+                   name.ToLower().Contains(searchString.Trim().ToLower());
         }
 
         private static bool RecipeTimeBetween(int duration, string time)
