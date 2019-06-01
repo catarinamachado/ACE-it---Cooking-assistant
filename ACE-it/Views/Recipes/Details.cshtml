@@ -108,10 +108,9 @@
     </div>
 </div>
 
-@{var allDifficulties = @Model.Recipe.UserCompletedRecipes.FindAll(r => r.UserId == @Model.UserId);}
 @{var counter = 1;}
 
-@if(allDifficulties.Count > 0)
+@if(@Model.Difficulties.Count > 0)
 {
     <br/><br/><br/>
     
@@ -119,12 +118,13 @@
         <h4 align="left" style="margin-bottom: 20px;">Your difficulties:</h4><br/>
         <div class="row">
             <div class="col-8">
-                    @foreach (var item in allDifficulties)
+                    @foreach (var item in @Model.Difficulties)
                     {
-                        if(@item.Difficulties != ""){
+                        if (@item != "")
+                        {
                             <div class="card card-white post">
                                 <div class="post-description">
-                                    <p><b>@counter. </b>@item.Difficulties</p>
+                                    <p><b>@counter. </b>@item</p>
                                 </div>
                             </div>
                             counter = counter + 1;

@@ -56,7 +56,8 @@ namespace ACE_it.Controllers
 
             var user = await _context.AppUsers.FirstOrDefaultAsync(r => r.Email == User.Identity.Name);
 
-            var session = await _context.Sessions.Include(r => r.SessionRecipes)
+            var session = await _context.Sessions
+                .Include(r => r.SessionRecipes)
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(s => s.User == user && s.SessionRecipes.Any(r => r.Recipe == recipe));
 
@@ -66,9 +67,13 @@ namespace ACE_it.Controllers
                 .ThenInclude(ci => ci.User)
                 .ToListAsync();
 
+            var difficulties = recipe.UserCompletedRecipes
+                .Where(u => u.UserId == user.Id)
+                .Select(i => i.Difficulties).ToList();
+
             return View(session != null
-                ? new RecipeDetailsViewModel(recipe, session.Id, comments, user.Id)
-                : new RecipeDetailsViewModel(recipe, null, comments, user.Id));
+                ? new RecipeDetailsViewModel(recipe, session.Id, comments, user.Id, difficulties)
+                : new RecipeDetailsViewModel(recipe, null, comments, user.Id, difficulties));
         }
 
         // PRIVATE
