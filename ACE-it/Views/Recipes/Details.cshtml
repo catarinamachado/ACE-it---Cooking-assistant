@@ -23,6 +23,12 @@
     });
 }
 
+
+@section Stylesheets
+{
+    <link rel="stylesheet" href="/css/Comments.css">
+}
+
 <div class="map-clean">
     <div class="container recipe-header mt-5">
         <div class="intro" style="margin-bottom: 0;">
@@ -102,27 +108,29 @@
     </div>
 </div>
 
-<br/><br/>
+<br/><br/><br/>
 
-<div class="map-clean">
-    <div class="container recipe-header mt-5">
-        <h5 align="left" style="margin-bottom: 20px;">@Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id).Count comments:</h5>
-    </div>
-    <div class="container recipe-header mt-5">
-        <div class="col-md-10 col-lg-7 offset-md-1 offset-lg-0">
-            <div class="text">
-                <ul class="recipe-instructions">
-                    @foreach (var item in Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id))
-                    {
-                        <b> @item.UserCompletedRecipe.User.UserName says:</b>
-                        <br/>
-                        @item.Text
 
-                        <hr/>
-                        <br/><br/>
-                    }
-                </ul>
-            </div>
+@{var allComments = @Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id);}
+
+<div class="container">
+    <h4 align="left" style="margin-bottom: 20px;">@allComments.Count comments:</h4><br/>
+    <div class="row">
+        <div class="col-8">
+            @foreach (var item in allComments)
+            {
+                <div class="card card-white post">
+                    <div class="post-heading">
+                        <div class="title h5">
+                            <b>@item.UserCompletedRecipe.User.UserName</b> says:
+                        </div>
+                    </div>
+                    <div class="post-description"> 
+                        <p>@item.Text</p>
+                    </div>
+                </div>
+                <br/>
+            }
         </div>
     </div>
 </div>
