@@ -55,12 +55,19 @@ namespace ACE_it.Controllers
             if (recipe == null) return NotFound();
 
             var user = await _context.AppUsers.FirstOrDefaultAsync(r => r.Email == User.Identity.Name);
+
             var session = await _context.Sessions.Include(r => r.SessionRecipes)
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(s => s.User == user && s.SessionRecipes.Any(r => r.Recipe == recipe));
+
+            var comments = await _context.Comments
+                .Include(c => c.UserCompletedRecipe)
+                .ThenInclude(ci => ci.User)
+                .ToListAsync();
+
             return View(session != null
-                ? new RecipeDetailsViewModel(recipe, session.Id)
-                : new RecipeDetailsViewModel(recipe, null));
+                ? new RecipeDetailsViewModel(recipe, session.Id, comments)
+                : new RecipeDetailsViewModel(recipe, null, comments));
         }
 
         // PRIVATE
