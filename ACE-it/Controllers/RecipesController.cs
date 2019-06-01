@@ -100,6 +100,7 @@ namespace ACE_it.Controllers
                 .Include(u => u.UserUnwantedIngredients)
                 .ThenInclude(u => u.Ingredient)
                 .FirstAsync();
+
             var recipes = await _context.Recipes
                 .Where(r => listRecipeIds.Contains(r.Id))
                 .Include(r => r.UserCompletedRecipes)
@@ -107,6 +108,7 @@ namespace ACE_it.Controllers
                 .Include(r => r.RecipeIngredients)
                 .ThenInclude(r => r.Ingredient)
                 .ToListAsync();
+
             recipes.Sort(new RecipeScorer(await user));
             return recipes;
         }
