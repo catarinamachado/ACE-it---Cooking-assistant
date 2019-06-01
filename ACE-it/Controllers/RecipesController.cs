@@ -61,6 +61,7 @@ namespace ACE_it.Controllers
                 .FirstOrDefaultAsync(s => s.User == user && s.SessionRecipes.Any(r => r.Recipe == recipe));
 
             var comments = await _context.Comments
+                .Where(c => c.UserCompletedRecipe.Recipe.Id == id)
                 .Include(c => c.UserCompletedRecipe)
                 .ThenInclude(ci => ci.User)
                 .ToListAsync();

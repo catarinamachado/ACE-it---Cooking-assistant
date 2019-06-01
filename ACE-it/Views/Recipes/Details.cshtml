@@ -110,14 +110,11 @@
 
 <br/><br/><br/>
 
-
-@{var allComments = @Model.Comments.FindAll(comment => comment.UserCompletedRecipe.RecipeId == @Model.Recipe.Id);}
-
 <div class="container">
-    <h4 align="left" style="margin-bottom: 20px;">@allComments.Count comments:</h4><br/>
+    <h4 align="left" style="margin-bottom: 20px;">@Model.Comments.Count comments:</h4><br/>
     <div class="row">
         <div class="col-8">
-            @foreach (var item in allComments)
+            @foreach (var item in @Model.Comments)
             {
                 <div class="card card-white post">
                     <div class="post-heading">
