@@ -23,6 +23,12 @@
     });
 }
 
+
+@section Stylesheets
+{
+    <link rel="stylesheet" href="/css/Comments.css">
+}
+
 <div class="map-clean">
     <div class="container recipe-header mt-5">
         <div class="intro" style="margin-bottom: 0;">
@@ -101,6 +107,31 @@
         </div>
     </div>
 </div>
+
+<br/><br/><br/>
+
+<div class="container">
+    <h4 align="left" style="margin-bottom: 20px;">@Model.Comments.Count comments:</h4><br/>
+    <div class="row">
+        <div class="col-8">
+            @foreach (var item in @Model.Comments)
+            {
+                <div class="card card-white post">
+                    <div class="post-heading">
+                        <div class="title h5">
+                            <b>@item.UserCompletedRecipe.User.UserName</b> says:
+                        </div>
+                    </div>
+                    <div class="post-description"> 
+                        <p>@item.Text</p>
+                    </div>
+                </div>
+                <br/>
+            }
+        </div>
+    </div>
+</div>
+
 <div class="social-icons">
     <a href="https://twitter.com/intent/tweet?text=I loved the recipe: @Model.Recipe.Name. Try it now at @Context.Request.Host@Context.Request.Path">
         <i class="icon ion-social-twitter"></i>
