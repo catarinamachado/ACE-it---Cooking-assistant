@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,7 +6,6 @@ using ACE_it.Data;
 using ACE_it.Helper;
 using ACE_it.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ACE_it.Controllers
@@ -32,7 +32,7 @@ namespace ACE_it.Controllers
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(r => r.User == user);
             var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-            var sessionRecipe = new SessionRecipe() {Recipe = await recipe};
+            var sessionRecipe = new SessionRecipe() {Recipe = await recipe, StartTime = DateTime.Now};
             if (session == null)
             {
                 session = new Session {User = user, SessionRecipes = new List<SessionRecipe>(1)};
@@ -95,11 +95,16 @@ namespace ACE_it.Controllers
             _context.Sessions.Update(session);
         }
 
-        public async Task<IActionResult> Finish(int recipeId)
+        public async Task<IActionResult> Finish(int recipeId, int sessionId)
         {
             var user = _context.AppUsers
                 .First(r => r.Email == User.Identity.Name);
 
+            var session = await _context.Sessions.Where(s => s.Id == sessionId).Include(s => s.SessionRecipes)
+                .FirstAsync();
+            session.SessionRecipes.Sort((a, b) => a.Order - b.Order);
+            var startTime = session.SessionRecipes[session.SessionRecipes.Count - 1].StartTime;
+            session.SessionRecipes.RemoveAt(session.SessionRecipes.Count - 1);
             var recipe = await _context.Recipes
                 .Include(r => r.Category)
                 .Include(r => r.RecipeInstructions)
@@ -112,14 +117,16 @@ namespace ACE_it.Controllers
 
             var userCompletedRecipe = new UserCompletedRecipe
             {
-                RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null
+                RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null,
+                Duration = (DateTime.Now - startTime).Minutes
             };
-
+            Console.WriteLine("MERDA+++++++++++++++++++++{0}", DateTime.Now - startTime);
             _context.Add(userCompletedRecipe);
+            _context.Update(session);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Rate",
-                new { RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id });
+                new {RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id});
         }
     }
 }
