@@ -118,19 +118,18 @@
         <h4 align="left" style="margin-bottom: 20px;">Your difficulties:</h4><br/>
         <div class="row">
             <div class="col-8">
-                    @foreach (var item in @Model.Difficulties)
+                @foreach (var item in @Model.Difficulties)
+                {
+                    if (@item != "")
                     {
-                        if (@item != "")
-                        {
-                            <div class="card card-white post">
-                                <div class="post-description">
-                                    <p><b>@counter. </b>@item</p>
-                                </div>
+                        <div class="card card-white post">
+                            <div class="post-description">
+                                <p><b>@counter. </b>@item</p>
                             </div>
-                            counter = counter + 1;
-                        }
+                        </div>
+                        counter = counter + 1;
                     }
-                <br/>
+                }
             </div>
         </div>
     </div>
