@@ -120,7 +120,7 @@ namespace ACE_it.Controllers
                 RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null,
                 Duration = (DateTime.Now - startTime).Minutes
             };
-            Console.WriteLine("MERDA+++++++++++++++++++++{0}", DateTime.Now - startTime);
+            
             _context.Add(userCompletedRecipe);
             _context.Update(session);
             _context.SaveChanges();
