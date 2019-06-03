@@ -135,7 +135,7 @@ namespace ACE_it.Controllers
             var userCompletedRecipe = new UserCompletedRecipe
             {
                 RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null,
-                Duration = (DateTime.Now - startTime).Minutes
+                Duration = (DateTime.Now - startTime).Seconds
             };
 
             _context.Add(userCompletedRecipe);

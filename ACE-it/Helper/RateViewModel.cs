@@ -7,18 +7,18 @@ namespace ACE_it.Helper
         public User User { get; set; }
         public Recipe Recipe { get; set; }
         public bool ReviewSent { get; set; }
-        public int UserCompletedRecipeId { get; set; }
-        
+        public UserCompletedRecipe UserCompletedRecipe { get; set; }
+
         public RateViewModel(
             User user,
             Recipe recipe,
-            bool reviewSent, 
-            int userCompletedRecipeId)
+            bool reviewSent,
+            UserCompletedRecipe userCompletedRecipe)
         {
             User = user;
             Recipe = recipe;
             ReviewSent = reviewSent;
-            UserCompletedRecipeId = userCompletedRecipeId;
+            UserCompletedRecipe = userCompletedRecipe;
         }
     }
 }
