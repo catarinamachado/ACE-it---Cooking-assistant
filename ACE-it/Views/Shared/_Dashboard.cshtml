@@ -39,7 +39,24 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center" style="margin-bottom: 30px; margin-top: 10px;">User Level: <span class="text-info" style="color: rgb(40, 167, 69);">@Model.User.Difficulty</span></h2>
+                <h2 class="text-center" style="margin-bottom: 30px; margin-top: 10px;">
+                    User Level:
+                    @switch (Model.User.Difficulty)
+                    {
+                        case Difficulty.Easy:
+                            <span class="text-info" style="color: rgb(40, 167, 69);">Begginer</span>
+                            break;
+                        case Difficulty.Medium:
+                            <span class="text-info" style="color: rgb(40, 167, 69);">Intermediate</span>
+                            break;
+                        case Difficulty.Hard:
+                            <span class="text-info" style="color: rgb(40, 167, 69);">Advanced</span>
+                            break;
+                        default:
+                            <span>Undefined</span>
+                            break;
+                    }
+                </h2>
             </div>
         </div>
         <div class="row">
