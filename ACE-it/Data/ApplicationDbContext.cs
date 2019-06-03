@@ -310,7 +310,7 @@ namespace ACE_it.Data
             {
                 Id = 1,
                 Text =
-                    "<li><span data-how='<a href=\"/Recipes/Details/2\">Boil Pasta</a>' data-when='now' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
+                    "<li><span data-how='<a href=\"/Recipes/Details/2?redirect=true\">Boil Pasta</a>' data-when='now' data-amount='400g'>Boil the pasta</span> al dente in 1.5 liters of water</li>",
                 InstructionTypeId = 1
             });
             modelBuilder.Entity<InstructionTool>().HasData(new InstructionTool

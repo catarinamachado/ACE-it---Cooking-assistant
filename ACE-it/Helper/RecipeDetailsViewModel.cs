@@ -10,14 +10,18 @@ namespace ACE_it.Helper
         public List<Comment> Comments { get; }
         public string UserId { get; }
         public List<string> Difficulties { get; }
+        public bool? Redirect { get; }
 
-        public RecipeDetailsViewModel(Recipe recipe, int? sessionId, List<Comment> comments, string userId, List<string> difficulties)
+        public RecipeDetailsViewModel(
+            Recipe recipe, int? sessionId, List<Comment> comments,
+            string userId, List<string> difficulties, bool? redirect)
         {
             Recipe = recipe;
             SessionId = sessionId;
             Comments = comments;
             UserId = userId;
             Difficulties = difficulties;
+            Redirect = redirect;
         }
     }
 }

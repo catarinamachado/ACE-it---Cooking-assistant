@@ -19,7 +19,7 @@ namespace ACE_it.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Create(int recipeId)
+        public async Task<IActionResult> Create(int recipeId, bool? redirect)
         {
             var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
             if (user == null)
@@ -27,16 +27,21 @@ namespace ACE_it.Controllers
                 return null;
             }
 
-            var session = await _context.Sessions.Include(r => r.SessionRecipes)
+            var session = await _context.Sessions
+                .Include(r => r.SessionRecipes)
                 .ThenInclude(s => s.Recipe)
                 .FirstOrDefaultAsync(r => r.User == user);
             var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-            var sessionRecipe = new SessionRecipe() {Recipe = await recipe, StartTime = DateTime.Now};
+            var sessionRecipe = new SessionRecipe { Recipe = await recipe, StartTime = DateTime.Now };
             if (session == null)
             {
-                session = new Session {User = user, SessionRecipes = new List<SessionRecipe>(1)};
+                session = new Session { User = user, SessionRecipes = new List<SessionRecipe>(1) };
                 session.SessionRecipes.Add(sessionRecipe);
                 _context.Sessions.Add(session);
+            }
+            else if (redirect.HasValue && redirect.Value)
+            {
+                return await Push(await recipe, session);
             }
             else
             {
@@ -50,19 +55,9 @@ namespace ACE_it.Controllers
                 new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
         }
 
-        public async Task<IActionResult> Push(int recipeId, int sessionId)
+        public async Task<IActionResult> Push(Recipe recipe, Session session)
         {
-            var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
-            if (user == null)
-            {
-                return null;
-            }
-
-            var session = await _context.Sessions.Include(r => r.SessionRecipes)
-                .ThenInclude(s => s.Recipe)
-                .FirstAsync(r => r.Id == sessionId);
-            var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
-            var sessionRecipe = new SessionRecipe() {Recipe = await recipe, StartTime = DateTime.Now};
+            var sessionRecipe = new SessionRecipe {Recipe = recipe, StartTime = DateTime.Now};
             session.SessionRecipes.Add(sessionRecipe);
             _context.Sessions.Update(session);
 
@@ -73,12 +68,12 @@ namespace ACE_it.Controllers
 
         public async Task<IActionResult> Show(int sessionId, int? viewIndex)
         {
-            var sessionRecipe = (await _context.Sessions
+            var sessionRecipe = await _context.Sessions
                 .Include(s => s.SessionRecipes)
                 .ThenInclude(x => x.Recipe)
                 .ThenInclude(x => x.RecipeInstructions)
                 .ThenInclude(x => x.Instruction)
-                .FirstAsync(s => s.Id == sessionId));
+                .FirstAsync(s => s.Id == sessionId);
 
             sessionRecipe.SessionRecipes.Sort((a, b) => a.Order - b.Order);
             var instruction = sessionRecipe.SessionRecipes[sessionRecipe.SessionRecipes.Count - 1];
