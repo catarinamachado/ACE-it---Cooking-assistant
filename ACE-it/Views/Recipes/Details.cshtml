@@ -95,7 +95,14 @@
         </div>
         <div class="row">
             <div class="col">
-                @if (Model.SessionId.HasValue)
+                @if (Model.Redirect.HasValue)
+                {
+                    <a asp-action="Create" asp-controller="SessionRecipe" asp-route-recipeId="@Model.Recipe.Id" asp-route-redirect="true"
+                       class="btn btn-primary btn-block btn-lg" style="background-color: rgb(60, 175, 87); margin-top: 20px;" type="submit">
+                        Start
+                    </a>
+                }
+                else if (Model.SessionId.HasValue)
                 {
                     <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId.Value" class="btn btn-primary btn-block btn-lg" style="background-color: rgb(60, 175, 87); margin-top: 20px;" type="submit">Resume</a>
                 }
@@ -113,21 +120,21 @@
 @if(@Model.Difficulties.Count > 0)
 {
     <br/><br/><br/>
-    
+
     <div class="container">
         <h4 align="left" style="margin-bottom: 20px;">Your difficulties:</h4><br/>
         <div class="row">
             <div class="col-8">
                 @foreach (var item in @Model.Difficulties)
                 {
-                    if (@item != "")
+                    if (item != "")
                     {
                         <div class="card card-white post">
                             <div class="post-description">
                                 <p><b>@counter. </b>@item</p>
                             </div>
                         </div>
-                        counter = counter + 1;
+                        counter ++;
                     }
                 }
             </div>
@@ -141,7 +148,7 @@
     <h4 align="left" style="margin-bottom: 20px;">@Model.Comments.Count comments:</h4><br/>
     <div class="row">
         <div class="col-8">
-            @foreach (var item in @Model.Comments)
+            @foreach (var item in Model.Comments)
             {
                 <div class="card card-white post">
                     <div class="post-heading">
@@ -149,7 +156,7 @@
                             <b>@item.UserCompletedRecipe.User.UserName</b> says:
                         </div>
                     </div>
-                    <div class="post-description"> 
+                    <div class="post-description">
                         <p>@item.Text</p>
                     </div>
                 </div>

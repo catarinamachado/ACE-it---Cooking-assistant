@@ -39,7 +39,7 @@ namespace ACE_it.Controllers
         }
 
         // GET: Recipes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, bool? redirect)
         {
             if (id == null) return NotFound();
 
@@ -72,8 +72,9 @@ namespace ACE_it.Controllers
                 .Select(i => i.Difficulties).ToList();
 
             return View(session != null
-                ? new RecipeDetailsViewModel(recipe, session.Id, comments, user.Id, difficulties)
-                : new RecipeDetailsViewModel(recipe, null, comments, user.Id, difficulties));
+                ? new RecipeDetailsViewModel(recipe, session.Id, comments, user.Id, difficulties, redirect)
+                : new RecipeDetailsViewModel(recipe, null, comments, user.Id, difficulties, redirect)
+            );
         }
 
         // PRIVATE

@@ -10,9 +10,10 @@ namespace ACE_it.Helper
         public int RecipeInstructionsCount { get; }
         public int ViewIndex { get; }
         public int RecipeId { get; }
+        public bool GoBack { get; }
 
-        public RecipeSessionViewModel(RecipeInstruction recipeInstruction, int sessionId, 
-            int instructionIndex, int recipeInstructionsCount, int viewIndex, int recipeId)
+        public RecipeSessionViewModel(RecipeInstruction recipeInstruction, int sessionId,
+            int instructionIndex, int recipeInstructionsCount, int viewIndex, int recipeId, bool goBack)
         {
             RecipeInstruction = recipeInstruction;
             SessionId = sessionId;
@@ -20,6 +21,7 @@ namespace ACE_it.Helper
             RecipeInstructionsCount = recipeInstructionsCount;
             ViewIndex = viewIndex;
             RecipeId = recipeId;
+            GoBack = goBack;
         }
     }
 }
