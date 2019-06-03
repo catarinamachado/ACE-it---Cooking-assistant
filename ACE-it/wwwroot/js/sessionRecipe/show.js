@@ -53,55 +53,50 @@ function buildModal($_this, body, $_modal) {
 }
 
 function listen(map, body, $_modal, $_instruction) {
-    var startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton"); // USE WHEN YOU ONLY WANT TO LISTEN SINCE BUTTON IS CLICKED
-    startRecognizeOnceAsyncButton.addEventListener("click", function () { // USE WHEN YOU ONLY WANT TO LISTEN SINCE BUTTON IS CLICKED
+    var subscriptionKey = "000a6341694b42f5898d226f5e96c9ca";
+    var serviceRegion = "westus";
 
-        var subscriptionKey = "000a6341694b42f5898d226f5e96c9ca";
-        var serviceRegion = "westus";
+    var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
 
-        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+    speechConfig.speechRecognitionLanguage = "en-US";
+    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    var recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
-        speechConfig.speechRecognitionLanguage = "en-US";
-        var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        var recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-
-        var options = null;
-        recognizer.startContinuousRecognitionAsync();
-        recognizer.recognized = function (s, e) {
-            var string = e.result.text.toLowerCase().replace("?", "").replace(".", "");
-            console.log(string);
-            if(options == null) {
-                if(string === "read") {
-                    var m = new SpeechSynthesisUtterance($_instruction[0].innerText);
-                    m.volume = 1;
-                    window.speechSynthesis.speak(m);
-                }
-                else if(map.has(string)) {
-                    options = buildModal(map.get(string), body, $_modal);
-                } else if (string.length > 0) {
-                    sendToApi(string);
-                }
-            } else {
-                if(string === "close") {
-                    options = null;
-                    $_modal.modal('hide');
-                } else if(options.has(string)) {
-                    var value = options.get(string);
-                    if(string.includes("video")) {
-                        window.location.replace(value);
-                    } else if (value.includes("href")) {
-                        var href = value.match(/href="([^"]*)/)[1];
-                        window.location.replace(href);
-                    } else {
-                        var msg = new SpeechSynthesisUtterance(value);
-                        msg.volume = 1;
-                        window.speechSynthesis.speak(msg);
-                    }
+    var options = null;
+    recognizer.startContinuousRecognitionAsync();
+    recognizer.recognized = function (s, e) {
+        var string = e.result.text.toLowerCase().replace("?", "").replace(".", "");
+        console.log(string);
+        if(options == null) {
+            if(string === "read") {
+                var m = new SpeechSynthesisUtterance($_instruction[0].innerText);
+                m.volume = 1;
+                window.speechSynthesis.speak(m);
+            }
+            else if(map.has(string)) {
+                options = buildModal(map.get(string), body, $_modal);
+            } else if (string.length > 0) {
+                sendToApi(string);
+            }
+        } else {
+            if(string === "close") {
+                options = null;
+                $_modal.modal('hide');
+            } else if(options.has(string)) {
+                var value = options.get(string);
+                if(string.includes("video")) {
+                    window.location.replace(value);
+                } else if (value.includes("href")) {
+                    var href = value.match(/href="([^"]*)/)[1];
+                    window.location.replace(href);
+                } else {
+                    var msg = new SpeechSynthesisUtterance(value);
+                    msg.volume = 1;
+                    window.speechSynthesis.speak(msg);
                 }
             }
         }
-
-    });// USE WHEN YOU ONLY WANT TO LISTEN SINCE BUTTON IS CLICKED
+    }
 }
 
 function sendToApi(string) {

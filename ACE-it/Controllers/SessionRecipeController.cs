@@ -61,7 +61,7 @@ namespace ACE_it.Controllers
             session.SessionRecipes.Add(sessionRecipe);
             _context.Sessions.Update(session);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Show", "SessionRecipe",
                 new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
         }
