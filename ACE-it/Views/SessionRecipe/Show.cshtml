@@ -31,7 +31,7 @@
                 {
                     label = "Return";
                 }
-                <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">@label</a>
+                <a asp-action="Pop" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">@label</a>
             }
 
             @if (Model.ViewIndex == Model.InstructionIndex && Model.ViewIndex < Model.RecipeInstructionsCount - 1)

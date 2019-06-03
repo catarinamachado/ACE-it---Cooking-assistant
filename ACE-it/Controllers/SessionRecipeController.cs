@@ -115,7 +115,7 @@ namespace ACE_it.Controllers
             _context.Sessions.Update(session);
         }
 
-        public async Task<IActionResult> Finish(int recipeId, int sessionId)
+        public async Task<IActionResult> Pop(int recipeId, int sessionId)
         {
             var user = _context.AppUsers
                 .First(r => r.Email == User.Identity.Name);
