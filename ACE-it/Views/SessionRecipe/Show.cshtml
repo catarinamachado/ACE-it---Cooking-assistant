@@ -5,7 +5,7 @@
     Layout = "_Layout";
 
     var text = Model.RecipeInstruction.Instruction.Text.Trim();
-    var html = text.Substring(4,text.Length-9);
+    var html = text.Substring(4, text.Length - 9);
 }
 
 <div class="highlight-clean">
@@ -13,7 +13,7 @@
         <div class="intro">
             @{
                 var index = Model.ViewIndex + 1;
-                <h2 class="text-center" style="margin-bottom:50px;font-size:250%;">Step <span id="step">@index</span></h2>
+                <h2 class="text-center" style="margin-bottom: 50px; font-size: 250%;">Step <span id="step">@index</span></h2>
             }
         </div>
         <p class="instruction text-center" style="margin-bottom: 100px; font-size: 175%;">@Html.Raw(html)</p>
@@ -26,7 +26,12 @@
 
             @if (Model.RecipeInstructionsCount - 1 == Model.InstructionIndex)
             {
-                <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">Finish and Rate</a>
+                var label = "Finish and Rate";
+                if (Model.GoBack)
+                {
+                    label = "Return";
+                }
+                <a asp-action="Finish" asp-controller="SessionRecipe" asp-route-recipeId="@Model.RecipeId" asp-route-sessionId="@Model.SessionId" class="btn btn-primary" role="button" style="background-color: rgb(40, 167, 69);">@label</a>
             }
 
             @if (Model.ViewIndex == Model.InstructionIndex && Model.ViewIndex < Model.RecipeInstructionsCount - 1)
@@ -51,7 +56,8 @@
             {
                 <li class="previous">
                     <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId"
-                       asp-route-viewIndex="@i">@viewI</a>
+                       asp-route-viewIndex="@i">
+                        @viewI</a>
                 </li>
             }
             else if (i == Model.InstructionIndex)
@@ -62,7 +68,8 @@
             {
                 <li>
                     <a asp-action="Show" asp-controller="SessionRecipe" asp-route-sessionId="@Model.SessionId"
-                       asp-route-viewIndex="@i">@viewI</a>
+                       asp-route-viewIndex="@i">
+                        @viewI</a>
                 </li>
             }
         }
@@ -74,9 +81,13 @@
 <div id="help" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title">Actions available</h5></div>
+            <div class="modal-header">
+                <h5 class="modal-title">Actions available</h5>
+            </div>
             <div class="modal-body" style="font-size: larger;" id="body"></div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

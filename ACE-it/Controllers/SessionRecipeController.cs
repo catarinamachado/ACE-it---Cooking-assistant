@@ -24,7 +24,6 @@ namespace ACE_it.Controllers
             var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
             if (user == null)
             {
-                //TODO: Redirect to logged out screen
                 return null;
             }
 
@@ -51,6 +50,27 @@ namespace ACE_it.Controllers
                 new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
         }
 
+        public async Task<IActionResult> Push(int recipeId, int sessionId)
+        {
+            var user = await _context.AppUsers.FirstAsync(r => r.Email == User.Identity.Name);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var session = await _context.Sessions.Include(r => r.SessionRecipes)
+                .ThenInclude(s => s.Recipe)
+                .FirstAsync(r => r.Id == sessionId);
+            var recipe = _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+            var sessionRecipe = new SessionRecipe() {Recipe = await recipe, StartTime = DateTime.Now};
+            session.SessionRecipes.Add(sessionRecipe);
+            _context.Sessions.Update(session);
+
+            _context.SaveChanges();
+            return RedirectToAction("Show", "SessionRecipe",
+                new {sessionId = session.Id, recipeSessionId = sessionRecipe.Id});
+        }
+
         public async Task<IActionResult> Show(int sessionId, int? viewIndex)
         {
             var sessionRecipe = (await _context.Sessions
@@ -69,7 +89,7 @@ namespace ACE_it.Controllers
             var ri = recipe.RecipeInstructions[index];
 
             return View(new RecipeSessionViewModel(ri, sessionId, instruction.Index, recipe.RecipeInstructions.Count,
-                index, recipe.Id));
+                index, recipe.Id, sessionRecipe.SessionRecipes.Count > 1));
         }
 
         public async Task<IActionResult> Update(int sessionId)
@@ -100,7 +120,9 @@ namespace ACE_it.Controllers
             var user = _context.AppUsers
                 .First(r => r.Email == User.Identity.Name);
 
-            var session = await _context.Sessions.Where(s => s.Id == sessionId).Include(s => s.SessionRecipes)
+            var session = await _context.Sessions
+                .Where(s => s.Id == sessionId)
+                .Include(s => s.SessionRecipes)
                 .FirstAsync();
             session.SessionRecipes.Sort((a, b) => a.Order - b.Order);
             var startTime = session.SessionRecipes[session.SessionRecipes.Count - 1].StartTime;
@@ -120,13 +142,25 @@ namespace ACE_it.Controllers
                 RecipeId = recipeId, UserId = user.Id, User = user, Recipe = recipe, Difficulties = "", Comments = null,
                 Duration = (DateTime.Now - startTime).Minutes
             };
-            
+
             _context.Add(userCompletedRecipe);
             _context.Update(session);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Rate",
-                new {RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id});
+            if (session.SessionRecipes.Count > 0)
+            {
+                return RedirectToAction("Show", "SessionRecipe",
+                    new
+                    {
+                        sessionId = session.Id,
+                        recipeSessionId = session.SessionRecipes[session.SessionRecipes.Count - 1].Id
+                    });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Rate",
+                    new {RecipeId = recipeId, UserCompletedRecipeId = userCompletedRecipe.Id});
+            }
         }
     }
 }

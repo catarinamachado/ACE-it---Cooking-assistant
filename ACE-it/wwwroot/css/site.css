@@ -36,14 +36,3 @@
 .rounded {
   border-radius: 1rem;
 }
-
-.instruction span {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.instruction span:hover {
-  color: #0056b3;
-  text-decoration: underline;
-  cursor: pointer;
-}
